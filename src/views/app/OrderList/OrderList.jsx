@@ -62,7 +62,7 @@ const OrderList = (props) => {
         params: {
           start: '2021-05-22',
           end: '2021-07-22',
-          restaurantId: `6587f789-8c76-4a2e-9924-c14fc30629ef`,
+          restaurantId, // `6587f789-8c76-4a2e-9924-c14fc30629ef`
           query: 'ALL',
           pageNumber: 1,
         },
@@ -159,7 +159,7 @@ const OrderList = (props) => {
   if (tableData.data.length === 0) {
     return (
       <div>
-        <p>Nhà hàng chưa có đơn hàng nào!</p>
+        <p>Hiện tại chưa có đơn hàng nào!</p>
         {/* <Button
           color='primary'
           size='lg'
@@ -185,8 +185,8 @@ const OrderList = (props) => {
             <DataList
               history={history}
               data={tableData}
-              onDeleteItems={onDeleteItems}
-              onSelect={onSelect}
+              // onDeleteItems={onDeleteItems}
+              // onSelect={onSelect}
             />
           )}
         </Colxx>

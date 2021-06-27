@@ -246,7 +246,11 @@ class DataListPages extends Component {
     const { data = {}, isTopping = false } = this.props
 
     let items = data.data
-    items = items.filter((item) => item.id.toLowerCase().includes(search))
+    items = items.filter(
+      (item) =>
+        item.delivery &&
+        item.delivery.customerName.toLowerCase().includes(search)
+    )
     this.setState({
       totalPage: data.totalPage,
       items,

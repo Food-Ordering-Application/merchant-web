@@ -26,11 +26,12 @@ const DataListView = ({
 
   const linkToTopping = `/app/toppings/item/${product.id}`
   const getColor = (status) => {
-    if (status === 'ORDERED') return '#38d043'
+    if (status === 'COMPLETED') return '#38d043'
+    if (status === 'ORDERED') return '#b22ee9'
     if (status === 'DRAFT') return '#787878'
     if (status === 'CONFIRMED') return '#00ccb8'
     if (status === 'CANCELLED') return '#e92e37'
-    return '#b22ee9'
+    return 'orange'
   }
 
   if (!product) {
