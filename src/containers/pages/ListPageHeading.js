@@ -70,6 +70,7 @@ class ListPageHeading extends Component {
       onDeactiveItems,
       onActiveItems,
       isStaffList,
+      isOrderList,
     } = this.props
 
     const { displayOptionsIsOpen, dropdownSplitOpen } = this.state
@@ -83,7 +84,7 @@ class ListPageHeading extends Component {
               </h1>
 
               <div className='text-zero top-right-button-container'>
-                {displayCreate ? (
+                {isOrderList ? null : displayCreate ? (
                   <Button
                     color='primary'
                     size='lg'
@@ -104,52 +105,54 @@ class ListPageHeading extends Component {
                   </Button>
                 )}
 
-                <ButtonDropdown
-                  isOpen={dropdownSplitOpen}
-                  toggle={this.toggleSplit}
-                >
-                  <div className='btn btn-primary btn-lg pl-4 pr-0 check-button check-all'>
-                    <CustomInput
-                      className='custom-checkbox mb-0 d-inline-block'
-                      type='checkbox'
-                      id='checkAll'
-                      checked={selectedItemsLength >= itemsLength}
-                      onChange={() => handleChangeSelectAll(true)}
-                      label={
-                        <span
-                          className={`custom-control-label ${
-                            selectedItemsLength > 0 &&
-                            selectedItemsLength < itemsLength
-                              ? 'indeterminate'
-                              : ''
-                          }`}
-                        />
-                      }
+                {!isOrderList && (
+                  <ButtonDropdown
+                    isOpen={dropdownSplitOpen}
+                    toggle={this.toggleSplit}
+                  >
+                    <div className='btn btn-primary btn-lg pl-4 pr-0 check-button check-all'>
+                      <CustomInput
+                        className='custom-checkbox mb-0 d-inline-block'
+                        type='checkbox'
+                        id='checkAll'
+                        checked={selectedItemsLength >= itemsLength}
+                        onChange={() => handleChangeSelectAll(true)}
+                        label={
+                          <span
+                            className={`custom-control-label ${
+                              selectedItemsLength > 0 &&
+                              selectedItemsLength < itemsLength
+                                ? 'indeterminate'
+                                : ''
+                            }`}
+                          />
+                        }
+                      />
+                    </div>
+                    <DropdownToggle
+                      caret
+                      color='primary'
+                      className='dropdown-toggle-split btn-lg'
                     />
-                  </div>
-                  <DropdownToggle
-                    caret
-                    color='primary'
-                    className='dropdown-toggle-split btn-lg'
-                  />
-                  <DropdownMenu right>
-                    {!isStaffList && (
-                      <>
-                        <DropdownItem onClick={(e) => onDeactiveItems()}>
-                          Ẩn
-                        </DropdownItem>
-                        <DropdownItem onClick={(e) => onActiveItems()}>
-                          Kích hoạt
-                        </DropdownItem>
-                      </>
-                    )}
+                    <DropdownMenu right>
+                      {!isStaffList && (
+                        <>
+                          <DropdownItem onClick={(e) => onDeactiveItems()}>
+                            Ẩn
+                          </DropdownItem>
+                          <DropdownItem onClick={(e) => onActiveItems()}>
+                            Kích hoạt
+                          </DropdownItem>
+                        </>
+                      )}
 
-                    <DropdownItem onClick={(e) => onDeleteItems()}>
-                      {/* <IntlMessages id='pages.delete' /> */}
-                      Xóa
-                    </DropdownItem>
-                  </DropdownMenu>
-                </ButtonDropdown>
+                      <DropdownItem onClick={(e) => onDeleteItems()}>
+                        {/* <IntlMessages id='pages.delete' /> */}
+                        Xóa
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                )}
               </div>
               {/* <Breadcrumb match={match} /> */}
             </div>

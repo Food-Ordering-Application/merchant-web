@@ -34,6 +34,10 @@ const Paypal = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './paypal')
 )
 
+const Orders = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './orders')
+)
+
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
 )
@@ -92,7 +96,7 @@ class App extends Component {
               />
               <Route
                 path={`${match.url}/orders`}
-                render={(props) => <Toppings {...props} />}
+                render={(props) => <Orders {...props} />}
               />
               <Route
                 path={`${match.url}/payment`}

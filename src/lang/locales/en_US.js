@@ -170,6 +170,7 @@ module.exports = {
   'menu.edit-topping-item': 'Chỉnh sửa topping',
   'menu.item-max-quantity': 'Số lượng tối đa',
   'menu.staff-list': 'Danh sách nhân viên',
+  'menu.order-list': 'Danh sách đơn hàng',
 
   'menu.toppings': 'Toppings',
   'menu.topping-data-list': 'Danh sách topping',
