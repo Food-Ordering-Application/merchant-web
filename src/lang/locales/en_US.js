@@ -168,6 +168,7 @@ module.exports = {
   'menu.item-active-status': 'Trạng thái kích hoạt',
   'menu.item-in-stock-status': 'Trạng thái món',
   'menu.edit-topping-item': 'Chỉnh sửa topping',
+  'menu.item-max-quantity': 'Số lượng tối đa',
 
   'menu.toppings': 'Toppings',
   'menu.topping-data-list': 'Danh sách topping',

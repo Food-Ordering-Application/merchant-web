@@ -54,6 +54,7 @@ const ToppingItemEdit = (props) => {
     name: '',
     phone: '',
     isActive: false,
+    maxQuantity: 0,
     state: 'IN_STOCK',
     pictures: [],
     image: null,
@@ -129,8 +130,17 @@ const ToppingItemEdit = (props) => {
   }
 
   const onSubmit = async () => {
-    const { id, name, description, price, image, imageUrl, isActive, state } =
-      toppingItem
+    const {
+      id,
+      name,
+      description,
+      price,
+      image,
+      imageUrl,
+      isActive,
+      state,
+      maxQuantity,
+    } = toppingItem
 
     setLoading(true)
     let updatedMenuItem
@@ -149,6 +159,7 @@ const ToppingItemEdit = (props) => {
         name,
         description,
         price: parseFloat(price),
+        maxQuantity: parseInt(maxQuantity),
         imageUrl: newImageUrl,
         isActive,
         state,
@@ -165,6 +176,7 @@ const ToppingItemEdit = (props) => {
         imageUrl,
         isActive,
         state,
+        maxQuantity: parseInt(maxQuantity),
       }
     }
 
@@ -260,6 +272,15 @@ const ToppingItemEdit = (props) => {
                       defaultValue={toppingItem.price}
                     />
                     <IntlMessages id='menu.item-price' />
+                  </Label>
+
+                  <Label className='form-group has-float-label mb-4'>
+                    <Input
+                      type='number'
+                      name='maxQuantity'
+                      defaultValue={toppingItem.maxQuantity}
+                    />
+                    <IntlMessages id='menu.item-max-quantity' />
                   </Label>
 
                   <Label className='form-group has-float-label mb-4'>
