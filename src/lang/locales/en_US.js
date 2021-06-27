@@ -167,6 +167,7 @@ module.exports = {
   'menu.item-price': 'Giá',
   'menu.item-active-status': 'Trạng thái kích hoạt',
   'menu.item-in-stock-status': 'Trạng thái món',
+  'menu.edit-topping-item': 'Chỉnh sửa topping',
 
   'menu.toppings': 'Toppings',
   'menu.topping-data-list': 'Danh sách topping',

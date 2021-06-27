@@ -13,6 +13,10 @@ const ToppingItemDetail = React.lazy(() =>
   import(/* webpackChunkName: "second" */ '../ToppingItemDetail')
 )
 
+const ToppingItemEdit = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ '../ToppingItemEdit')
+)
+
 const ToppingsRoute = ({ match }) => (
   <Suspense fallback={<div className='loading' />}>
     <Switch>
@@ -26,6 +30,11 @@ const ToppingsRoute = ({ match }) => (
         exact
         path={`${match.url}/item/:toppingId`}
         render={(props) => <ToppingItemDetail />}
+      />
+      <Route
+        exact
+        path={`${match.url}/:menuId/edit/:toppingId`}
+        render={(props) => <ToppingItemEdit />}
       />
       <Route
         exact

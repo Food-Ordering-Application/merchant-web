@@ -50,8 +50,11 @@ const ToppingItemDetail = (props) => {
   }, [toppingItems])
 
   const redirecToEditTopping = () => {
-    const path = window.location.href
-    const editPath = path.replace('item', 'edit')
+    const path = window.location.pathname
+    const toppingItemId = toppingItem.id
+    const menuId = menus[0].id
+    let editPath = path.split('/toppings/')
+    editPath = `${editPath[0]}/toppings/${menuId}/edit/${toppingItemId}`
     window.location.replace(editPath)
   }
 
