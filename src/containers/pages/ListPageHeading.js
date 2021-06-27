@@ -69,6 +69,7 @@ class ListPageHeading extends Component {
       onDeleteItems,
       onDeactiveItems,
       onActiveItems,
+      isStaffList,
     } = this.props
 
     const { displayOptionsIsOpen, dropdownSplitOpen } = this.state
@@ -132,12 +133,17 @@ class ListPageHeading extends Component {
                     className='dropdown-toggle-split btn-lg'
                   />
                   <DropdownMenu right>
-                    <DropdownItem onClick={(e) => onDeactiveItems()}>
-                      Ẩn
-                    </DropdownItem>
-                    <DropdownItem onClick={(e) => onActiveItems()}>
-                      Kích hoạt
-                    </DropdownItem>
+                    {!isStaffList && (
+                      <>
+                        <DropdownItem onClick={(e) => onDeactiveItems()}>
+                          Ẩn
+                        </DropdownItem>
+                        <DropdownItem onClick={(e) => onActiveItems()}>
+                          Kích hoạt
+                        </DropdownItem>
+                      </>
+                    )}
+
                     <DropdownItem onClick={(e) => onDeleteItems()}>
                       {/* <IntlMessages id='pages.delete' /> */}
                       Xóa

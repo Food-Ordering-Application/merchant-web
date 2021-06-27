@@ -68,12 +68,13 @@ const MenuItemEdit = (props) => {
   const restaurantId = localStorage.getItem('restaurant_id')
 
   useEffect(() => {
+    console.log(menuItems)
     if (menuItems.length > 0) {
       console.log(menuItems)
     } else {
-      const path = window.location.href.split('/')
-      const menuId = path[path.length - 3]
-      getMenuItems({ merchantId, restaurantId, menuId })
+      // const path = window.location.href.split('/')
+      // const menuId = path[path.length - 3]
+      // getMenuItems({ merchantId, restaurantId, menuId })
     }
     const accessToken = localStorage.getItem('access_token')
   }, [])

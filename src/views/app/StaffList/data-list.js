@@ -5,39 +5,40 @@ import axios from 'axios'
 
 import { servicePath } from '../../../constants/defaultValues'
 
-import DataListView from '../../../containers/pages/DataListView'
 import Pagination from '../../../containers/pages/Pagination'
 import ContextMenuContainer from '../../../containers/pages/ContextMenuContainer'
 import ListPageHeading from '../../../containers/pages/ListPageHeading'
-import ImageListView from '../../../containers/pages/ImageListView'
-import ThumbListView from '../../../containers/pages/ThumbListView'
+import DataListView from './DataListView'
+import ImageListView from './ImageListView'
+import ThumbListView from './ThumbListView'
 import AddNewModal from '../../../containers/pages/AddNewModal'
-import { isObject } from 'formik'
 
 function collect(props) {
   return { data: props.data }
 }
 const apiUrl = servicePath + '/cakes/paging'
 
-const temp = {
-  status: true,
-  totalItem: 20,
-  totalPage: 2,
-  pageSize: '10',
-  currentPage: '1',
-  data: [
-    {
-      id: 18,
-      title: 'Cơm chiên',
-      img: '/assets/img/bebinca-thumb.jpg',
-      category: 'Món chính',
-      status: 'Đang chuẩn bị',
-      statusColor: 'secondary',
-      description: 'Homemade cheesecake with fresh berries and mint',
-      date: '01.04.2021',
-    },
-  ],
-}
+// const temp = {
+//   status: true,
+//   totalItem: 20,
+//   totalPage: 2,
+//   pageSize: '10',
+//   currentPage: '1',
+//   data: [
+//     {
+//       id: 18,
+//       title: 'Cơm chiên',
+//       img: '/assets/img/bebinca-thumb.jpg',
+//       category: 'Món chính',
+//       status: 'Đang chuẩn bị',
+//       statusColor: 'secondary',
+//       description: 'Homemade cheesecake with fresh berries and mint',
+//       sales: 574,
+//       stock: 16,
+//       date: '01.04.2021',
+//     },
+//   ],
+// }
 
 class DataListPages extends Component {
   constructor(props) {
@@ -49,9 +50,9 @@ class DataListPages extends Component {
 
       selectedPageSize: 10,
       orderOptions: [
-        { column: 'title', label: 'Tên món' },
-        { column: 'category', label: 'Nhóm món' },
-        { column: 'status', label: 'Trạng thái' },
+        { column: 'title', label: 'Product Name' },
+        { column: 'category', label: 'Category' },
+        { column: 'status', label: 'Status' },
       ],
       pageSizes: [10, 20, 30, 50, 100],
 
@@ -62,7 +63,7 @@ class DataListPages extends Component {
         { label: 'Món tráng miệng', value: 'Món tráng miệng', key: 3 },
       ],
 
-      selectedOrderOption: { column: 'title', label: 'Tên món' },
+      selectedOrderOption: { column: 'title', label: 'Product Name' },
       dropdownSplitOpen: false,
       modalOpen: false,
       currentPage: 1,
@@ -109,7 +110,7 @@ class DataListPages extends Component {
 
   toggleModal = () => {
     const { history } = this.props
-    history.push(`/app/dishes/create`)
+    history.push(`/app/staffs/create`)
     // this.setState({
     //   modalOpen: !this.state.modalOpen,
     // })
@@ -151,7 +152,6 @@ class DataListPages extends Component {
 
   onSearchKey = (e) => {
     if (e.key === 'Enter') {
-      console.log(e.target.value.toLowerCase())
       this.setState(
         {
           search: e.target.value.toLowerCase(),
@@ -246,16 +246,7 @@ class DataListPages extends Component {
     const { data = {}, isTopping = false } = this.props
 
     let items = data.data
-    // if (isTopping) {
-    //   items = items.filter((item) =>
-    //     item.category.toLowerCase().includes(search)
-    //   )
-    //   console.log(search)
-    //   console.log(items)
-    // } else {
-    //   items = items.filter((item) => item.title.toLowerCase().includes(search))
-    // }
-    items = items.filter((item) => item.title.toLowerCase().includes(search))
+    items = items.filter((item) => item.fullName.toLowerCase().includes(search))
     this.setState({
       totalPage: data.totalPage,
       items,
@@ -281,11 +272,6 @@ class DataListPages extends Component {
     return true
   }
 
-  onItemClick = (e) => {
-    console.log('Click')
-    console.log(e)
-  }
-
   render() {
     const {
       currentPage,
@@ -300,14 +286,7 @@ class DataListPages extends Component {
       modalOpen,
       categories,
     } = this.state
-    const {
-      match,
-      toggleDisplayByCategory,
-      onDeactiveItems,
-      onDeleteItems,
-      onActiveItems,
-      history,
-    } = this.props
+    const { match, onDeleteItems } = this.props
     const startIndex = (currentPage - 1) * selectedPageSize
     const endIndex = currentPage * selectedPageSize
 
@@ -317,8 +296,7 @@ class DataListPages extends Component {
       <Fragment>
         <div className='disable-text-selection'>
           <ListPageHeading
-            heading='menu.data-list'
-            displayCreate={false}
+            heading='menu.staff-list'
             displayMode={displayMode}
             changeDisplayMode={this.changeDisplayMode}
             handleChangeSelectAll={this.handleChangeSelectAll}
@@ -336,10 +314,8 @@ class DataListPages extends Component {
             orderOptions={orderOptions}
             pageSizes={pageSizes}
             toggleModal={this.toggleModal}
-            toggleDisplayByCategory={toggleDisplayByCategory}
             onDeleteItems={onDeleteItems}
-            onDeactiveItems={onDeactiveItems}
-            onActiveItems={onActiveItems}
+            isStaffList={true}
           />
           <AddNewModal
             modalOpen={modalOpen}
@@ -350,26 +326,36 @@ class DataListPages extends Component {
             {this.state.items.map((product) => {
               if (this.state.displayMode === 'imagelist') {
                 return (
-                  <ImageListView
+                  // <ImageListView
+                  //   key={product.id}
+                  //   product={product}
+                  //   isSelect={this.state.selectedItems.includes(product.id)}
+                  //   collect={collect}
+                  //   onCheckItem={this.onCheckItem}
+                  // />
+                  <DataListView
                     key={product.id}
                     product={product}
                     isSelect={this.state.selectedItems.includes(product.id)}
-                    collect={collect}
                     onCheckItem={this.onCheckItem}
-                    onItemClick={this.onItemClick}
-                    history={history}
+                    collect={collect}
                   />
                 )
               } else if (this.state.displayMode === 'thumblist') {
                 return (
-                  <ThumbListView
+                  // <ThumbListView
+                  //   key={product.id}
+                  //   product={product}
+                  //   isSelect={this.state.selectedItems.includes(product.id)}
+                  //   collect={collect}
+                  //   onCheckItem={this.onCheckItem}
+                  // />
+                  <DataListView
                     key={product.id}
                     product={product}
                     isSelect={this.state.selectedItems.includes(product.id)}
-                    collect={collect}
                     onCheckItem={this.onCheckItem}
-                    onItemClick={this.onItemClick}
-                    history={history}
+                    collect={collect}
                   />
                 )
               } else {
@@ -380,12 +366,10 @@ class DataListPages extends Component {
                     isSelect={this.state.selectedItems.includes(product.id)}
                     onCheckItem={this.onCheckItem}
                     collect={collect}
-                    onItemClick={this.onItemClick}
-                    history={history}
                   />
                 )
               }
-            })}{' '}
+            })}
             <Pagination
               currentPage={this.state.currentPage}
               totalPage={this.state.totalPage}
@@ -401,5 +385,4 @@ class DataListPages extends Component {
     )
   }
 }
-
 export default DataListPages

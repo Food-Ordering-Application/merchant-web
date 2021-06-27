@@ -107,6 +107,12 @@ export const UPDATE_TOPPING_WITH_MENU_ITEMS_ERROR =
   'UPDATE_TOPPING_WITH_MENU_ITEMS_ERROR'
 // export const SET_MENU_ITEMS_BY_TOPPING = 'SET_MENU_ITEMS_BY_TOPPING'
 
+// GET STAFF LIST
+export const SET_STAFF_LIST = 'SET_STAFF_LIST'
+export const GET_STAFF_LIST = 'GET_STAFF_LIST'
+export const GET_STAFF_LIST_SUCCESS = 'GET_STAFF_LIST_SUCCESS'
+export const GET_STAFF_LIST_ERROR = 'GET_STAFF_LIST_ERROR'
+
 export * from './menu2/actions'
 export * from './settings/actions'
 export * from './auth/actions'

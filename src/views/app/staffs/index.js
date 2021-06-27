@@ -1,12 +1,12 @@
 import React, { Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-const StaffUi = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './staff')
+const StaffList = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ '../StaffList')
 )
 
 const StaffCreate = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './create')
+  import(/* webpackChunkName: "second" */ './createStaff')
 )
 
 const StaffMenu = ({ match }) => (
@@ -16,7 +16,7 @@ const StaffMenu = ({ match }) => (
       <Route
         exact
         path={`${match.url}/`}
-        render={(props) => <StaffUi {...props} />}
+        render={(props) => <StaffList {...props} />}
       />
       <Route
         path={`${match.url}/create`}

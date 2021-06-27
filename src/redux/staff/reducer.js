@@ -2,6 +2,7 @@ import {
   REGISTER_STAFF,
   REGISTER_STAFF_SUCCESS,
   REGISTER_STAFF_ERROR,
+  SET_STAFF_LIST,
 } from '../actions'
 
 const INIT_STATE = {
@@ -10,6 +11,7 @@ const INIT_STATE = {
   //   forgotUserMail: '',
   //   newPassword: '',
   //   resetPasswordCode: '',
+  staffs: [],
   staff: '',
   loading: false,
   error: '',
@@ -32,6 +34,13 @@ export default (state = INIT_STATE, action) => {
         loading: false,
         staff: '',
         error: action.payload.message,
+      }
+    case SET_STAFF_LIST:
+      return {
+        ...state,
+        loading: false,
+        staffs: action.payload.staffs,
+        error: '',
       }
     default:
       return { ...state }
