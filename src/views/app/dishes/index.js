@@ -15,6 +15,8 @@ const MenuInfo = React.lazy(() => import('../MenuInfo'))
 
 const MenuItemDetail = React.lazy(() => import('../MenuItemDetail'))
 
+const MenuItemEdit = React.lazy(() => import('../MenuItemEdit'))
+
 const DishesMenu = ({ match }) => {
   // console.log(match)
   return (
@@ -22,8 +24,13 @@ const DishesMenu = ({ match }) => {
       <Switch>
         {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/dishes`} /> */}
         <Route
-          path={`${match.url}/:id/item/:id`}
+          path={`${match.url}/:menuId/item/:id`}
           render={(props) => <MenuItemDetail />}
+        />
+
+        <Route
+          path={`${match.url}/:menuId/edit/:menuItemId`}
+          render={(props) => <MenuItemEdit />}
         />
 
         <Route

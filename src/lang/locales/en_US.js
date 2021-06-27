@@ -109,6 +109,7 @@ module.exports = {
   'restaurant.area': 'Khu vực',
   'restaurant.district': 'Quận',
   'restaurant.update-button': 'Cập nhật',
+  'restaurant.edit': 'Chỉnh sửa nhà hàng',
 
   'staff.create': 'Tạo tài khoản nhân viên',
   'staff.create-button': 'Tạo',
@@ -159,6 +160,13 @@ module.exports = {
   'menu.create-title': 'Tạo menu mới',
   'menu.menu-name': 'Tên menu',
   'menu.index': 'Chỉ số',
+  'menu.edit-menu-item': 'Chỉnh sửa món ăn',
+  'menu.item-image': 'Ảnh minh họa',
+  'menu.item-name': 'Tên món',
+  'menu.item-description': 'Mô tả',
+  'menu.item-price': 'Giá',
+  'menu.item-active-status': 'Trạng thái kích hoạt',
+  'menu.item-in-stock-status': 'Trạng thái món',
 
   'menu.toppings': 'Toppings',
   'menu.topping-data-list': 'Danh sách topping',

@@ -40,6 +40,12 @@ const MenuItemDetail = (props) => {
     setMenuItem(foundMenuItem)
   }, [menuItems])
 
+  const redirecToEditProduct = () => {
+    const path = window.location.href
+    const editPath = path.replace('item', 'edit')
+    window.location.replace(editPath)
+  }
+
   if (menuItems.length === 0 || !menuItem.id) {
     return <div className='loading'></div>
   }
@@ -101,6 +107,7 @@ const MenuItemDetail = (props) => {
               <Button
                 color='primary'
                 style={{ marginLeft: 'auto', display: 'block' }}
+                onClick={redirecToEditProduct}
               >
                 Chỉnh sửa
               </Button>

@@ -250,7 +250,7 @@ const EditProfile = (props) => {
                   <span className='logo-single' />
                 </NavLink> */}
                 <CardTitle className='mb-4'>
-                  <IntlMessages id='restaurant.create' />
+                  <IntlMessages id='restaurant.edit' />
                 </CardTitle>
 
                 <div className='img-upload-container upload-cover-img'>

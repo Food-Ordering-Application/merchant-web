@@ -105,7 +105,6 @@ class Dishes extends Component {
       }
     }
 
-    console.log(menuItems)
     if (
       menuItems.length !== 0 &&
       this.state.tableData.data.length === 0 &&
@@ -159,7 +158,7 @@ class Dishes extends Component {
       return <div className='loading' />
     }
 
-    // if (!loadingGetMenus && menus.length === 0) {
+    // if (menus.length === 0) {
     if (true) {
       // return <div>Create new menu</div>
       return <MenuCreate history={this.props.history} />

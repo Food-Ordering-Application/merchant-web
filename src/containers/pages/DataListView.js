@@ -24,15 +24,7 @@ const DataListView = ({
   const onNavLinkClick = () => {
     console.log(history)
 
-    // history.push('/hello')
     const path = window.location.href
-    // const path = window.location.href.split('/')
-    // const menuId = path[path.length - 1]
-    // console.log(window.location)
-    // history.replace({
-    //   // pathname: '/app/dishes/hello',
-    //   pathname: '/home',
-    // })
     window.location.replace(`${path}/item/${product.id}`)
   }
   // const linkTo = `?p=${product.id}` || `#`
