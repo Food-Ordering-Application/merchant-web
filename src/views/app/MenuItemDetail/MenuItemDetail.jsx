@@ -71,18 +71,9 @@ const MenuItemDetail = (props) => {
             </CardBody>
           </Card>
         </Colxx>
-        <Colxx md='4'></Colxx>
-      </Row>
-
-      <Row className='mt-4'>
-        <Colxx md='8'>
+        <Colxx md='4'>
           <Card>
             <CardBody>
-              <div className='section'>
-                <p className='section-heading'>Mô tả</p>
-                <p>{menuItem.description}</p>
-              </div>
-
               <div className='section'>
                 <p className='section-heading'>
                   Giá: <span className='text-orange'>{menuItem.price}đ</span>
@@ -111,6 +102,19 @@ const MenuItemDetail = (props) => {
               >
                 Chỉnh sửa
               </Button>
+            </CardBody>
+          </Card>
+        </Colxx>
+      </Row>
+
+      <Row className='mt-4'>
+        <Colxx md='8'>
+          <Card>
+            <CardBody>
+              <div className='section'>
+                <p className='section-heading'>Mô tả</p>
+                <p>{menuItem.description}</p>
+              </div>
             </CardBody>
           </Card>
         </Colxx>

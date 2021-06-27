@@ -70,7 +70,7 @@ const ToppingItemDetail = (props) => {
       <Separator className='mb-4 mt-3' />
 
       <Row className='mt-4'>
-        <Colxx md='8'>
+        <Colxx md='12'>
           <Card>
             <CardBody>
               <div className='section'>

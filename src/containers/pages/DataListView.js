@@ -53,54 +53,66 @@ const DataListView = ({
             >
               {isTopping ? (
                 <div
-                  className='d-flex justify-content-between align-items-lg-center'
+                  className='d-flex justify-content-between align-items-lg-center w-100'
                   style={{ minWidth: 250 }}
                 >
                   {/* <NavLink to={`?p=${product.id}`} className='w-40 w-sm-100'> */}
-                  <NavLink to={linkToTopping} className='w-40 w-sm-100'>
+                  <NavLink
+                    to={linkToTopping}
+                    className='w-sm-100'
+                    style={{ width: '35%' }}
+                  >
                     {/* <a href='/hello'> */}
-                    <p className='list-item-heading mb-1 truncate p-1'>
+                    <p className='list-item-heading mb-1 truncate p-1 hover-orange'>
                       {product.title}
                     </p>
                     {/* </a> */}
                   </NavLink>
 
-                  <p className='mb-1 text-muted text-md-small w-35 w-sm-100 p-1'>
+                  <p
+                    className='mb-1 text-muted text-md-small w-sm-100 p-1'
+                    style={{ width: '45%' }}
+                  >
                     {product.description}
                   </p>
 
-                  <p className='mb-1 text-muted text-md-small w-25 w-sm-100 p-1'>
+                  <p
+                    className='mb-1 text-muted text-md-small w- w-sm-100 p-1'
+                    style={{ width: '20%' }}
+                  >
                     {product.price}đ
                   </p>
                 </div>
               ) : (
                 <>
-                  <div onClick={onNavLinkClick}>
-                    {/* <NavLink
-                      to={'/'}
-                      className='w-40 w-sm-100'
-                      // onClick={onNavLinkClick}
-                    > */}
-                    <p className='list-item-heading mb-1 truncate'>
-                      {product.title}
-                    </p>
-                    {/* </NavLink> */}
-                  </div>
-                  <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
+                  <p
+                    className='list-item-heading mb-1 truncate hover-orange'
+                    style={{ width: '35%' }}
+                    onClick={onNavLinkClick}
+                  >
+                    {product.title}
+                  </p>
+                  <p
+                    className='mb-1 text-muted text-md-small w-sm-100'
+                    style={{ width: '25%' }}
+                  >
                     {product.category}
                   </p>
-                  <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
+                  <p
+                    className='mb-1 text-muted text-md-small w-sm-100'
+                    style={{ width: '25%' }}
+                  >
                     {product.price}đ
-                  </p>
-                  <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
-                    {product.date}
                   </p>
                 </>
               )}
 
               <div className='w-15 w-sm-100'>
-                <Badge color={product.statusColor} pill>
-                  {product.status}
+                <Badge
+                  color={product.state === 'IN_STOCK' ? 'primary' : 'danger'}
+                  pill
+                >
+                  {product.state === 'IN_STOCK' ? 'Còn hàng' : 'Hết hàng'}
                 </Badge>
               </div>
             </div>

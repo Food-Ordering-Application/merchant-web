@@ -119,3 +119,10 @@
 .font-weight-500 {
   font-weight: 500;
 }
+
+.hover-orange {
+  cursor: pointer;
+  &:hover {
+    color: #e2863b;
+  }
+}

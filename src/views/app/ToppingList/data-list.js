@@ -354,18 +354,16 @@ class DataListPages extends Component {
                 )
               } else {
                 return (
-                  <div>
-                    <DataListView
-                      key={product.id}
-                      large
-                      isTopping={true}
-                      product={product}
-                      isSelect={this.state.selectedItems.includes(product.id)}
-                      onCheckItem={this.onCheckItem}
-                      collect={collect}
-                      subItems={[{ name: 'ASdasda' }, { name: 'LOLOL' }]}
-                    />
-                  </div>
+                  <DataListView
+                    key={product.id}
+                    large
+                    isTopping={true}
+                    product={product}
+                    isSelect={this.state.selectedItems.includes(product.id)}
+                    onCheckItem={this.onCheckItem}
+                    collect={collect}
+                    subItems={[{ name: 'ASdasda' }, { name: 'LOLOL' }]}
+                  />
                 )
               }
             })}
