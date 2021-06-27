@@ -154,7 +154,7 @@ const MenuItemEdit = (props) => {
       }
     }
 
-    // Use existing cover image
+    // Use existing menu item image
     else {
       updatedMenuItem = {
         id,
@@ -210,17 +210,12 @@ const MenuItemEdit = (props) => {
     <div className='MenuItemEdit'>
       <Row>
         <Colxx xxs='12' className='mb-4'>
-          {/* <FormikBasicFieldLevel /> */}
-          {/* <ProfileForm /> */}
           <div className='create-restaurant-container'>
             <Card
               className='create-restaurant-card'
               style={{ padding: '30px 40px' }}
             >
               <div className='form-restaurant'>
-                {/* <NavLink to={`/`} className='white'>
-                  <span className='logo-single' />
-                </NavLink> */}
                 <CardTitle className='mb-4'>
                   <IntlMessages id='menu.edit-menu-item' />
                 </CardTitle>

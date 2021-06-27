@@ -22,14 +22,13 @@ const DataListView = ({
   }, [])
 
   const onNavLinkClick = () => {
-    console.log(history)
-
     const path = window.location.href
     window.location.replace(`${path}/item/${product.id}`)
   }
   // const linkTo = `?p=${product.id}` || `#`
   // const linkTo = `/item/${product.id}`
-  const linkTo = `/app/dishes/hello`
+
+  const linkToTopping = `/app/toppings/item/${product.id}`
 
   if (!product) {
     return <div className='loading'></div>
@@ -58,7 +57,7 @@ const DataListView = ({
                   style={{ minWidth: 250 }}
                 >
                   {/* <NavLink to={`?p=${product.id}`} className='w-40 w-sm-100'> */}
-                  <NavLink to={linkTo} className='w-40 w-sm-100'>
+                  <NavLink to={linkToTopping} className='w-40 w-sm-100'>
                     {/* <a href='/hello'> */}
                     <p className='list-item-heading mb-1 truncate p-1'>
                       {product.title}
