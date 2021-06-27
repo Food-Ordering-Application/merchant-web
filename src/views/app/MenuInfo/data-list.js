@@ -282,6 +282,11 @@ class DataListPages extends Component {
     return true
   }
 
+  onItemClick = (e) => {
+    console.log('Click')
+    console.log(e)
+  }
+
   render() {
     const {
       currentPage,
@@ -302,6 +307,7 @@ class DataListPages extends Component {
       onDeactiveItems,
       onDeleteItems,
       onActiveItems,
+      history,
     } = this.props
     const startIndex = (currentPage - 1) * selectedPageSize
     const endIndex = currentPage * selectedPageSize
@@ -351,6 +357,8 @@ class DataListPages extends Component {
                     isSelect={this.state.selectedItems.includes(product.id)}
                     collect={collect}
                     onCheckItem={this.onCheckItem}
+                    onItemClick={this.onItemClick}
+                    history={history}
                   />
                 )
               } else if (this.state.displayMode === 'thumblist') {
@@ -361,6 +369,8 @@ class DataListPages extends Component {
                     isSelect={this.state.selectedItems.includes(product.id)}
                     collect={collect}
                     onCheckItem={this.onCheckItem}
+                    onItemClick={this.onItemClick}
+                    history={history}
                   />
                 )
               } else {
@@ -371,6 +381,8 @@ class DataListPages extends Component {
                     isSelect={this.state.selectedItems.includes(product.id)}
                     onCheckItem={this.onCheckItem}
                     collect={collect}
+                    onItemClick={this.onItemClick}
+                    history={history}
                   />
                 )
               }

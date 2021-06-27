@@ -60,7 +60,7 @@ const RestaurantSelectItem = (props) => {
         <Card className='restaurant-card'>
           <CardBody>
             <Row className='d-flex align-items-center'>
-              {true && (
+              {isVerified && (
                 <span className='check-icon'>
                   <i className='bx bxs-check-circle'></i>
                 </span>

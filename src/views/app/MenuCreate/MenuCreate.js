@@ -25,7 +25,7 @@ const Menu = (props) => {
   } = props
 
   const onMenuClick = () => {
-    history.push(`/app/dishes/create/${id}`)
+    history.push(`/app/dishes/${id}`)
   }
 
   return (

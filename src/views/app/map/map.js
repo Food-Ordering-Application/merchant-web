@@ -19,33 +19,14 @@ import { listenNotification } from 'src/helpers/Utils'
 import { connect } from 'react-redux'
 import { useEffect } from 'react'
 
-// const MapWithAMarker = (props) => {
-//   console.log(props)
-//   return withScriptjs(
-//     withGoogleMap((props) => (
-//       <GoogleMap
-//         defaultZoom={8}
-//         defaultCenter={{ lat: 10.7944422, lng: 106.6671633 }}
-//       >
-//         {/* <Marker position={{ lat: -34.397, lng: 150.644 }} /> */}
-//         {/* 10.7944422,106.6671633,17z */}
-//         <Marker position={{ lat: 10.7944422, lng: 106.6671633 }} />
-//       </GoogleMap>
-//     ))
-//   )
-// }
-
 const MapWithAMarker = withScriptjs(
   withGoogleMap((props) => {
-    console.log(props)
+    const { lat, lng } = props
     return (
-      <GoogleMap
-        defaultZoom={15}
-        defaultCenter={{ lat: 10.7944422, lng: 106.6671633 }}
-      >
+      <GoogleMap defaultZoom={15} defaultCenter={{ lat, lng }}>
         {/* <Marker position={{ lat: -34.397, lng: 150.644 }} /> */}
         {/* 10.7944422,106.6671633,17z */}
-        <Marker position={{ lat: 10.7944422, lng: 106.6671633 }} />
+        <Marker position={{ lat, lng }} />
       </GoogleMap>
     )
   })
@@ -55,8 +36,6 @@ const MapsUi = (props) => {
   const { match, getRestaurant, restaurant } = props
 
   useEffect(() => {
-    console.log('DID MOUNT')
-    console.log(props)
     const restaurantId = localStorage.getItem('restaurant_id')
     const merchantId = localStorage.getItem('merchant_id')
 

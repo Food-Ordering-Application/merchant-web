@@ -93,7 +93,6 @@ class Home extends Component {
 
   render() {
     // console.log(Banner)
-    console.log(this.props)
     const {
       merchantUser: { error, loading: merchantUserLoading, merchant },
       restaurantInfo: {
@@ -160,28 +159,32 @@ class Home extends Component {
                       <h3 className='name text-orange'>{name}</h3>
 
                       <div className='d-flex'>
-                        {categories.map(({ iconUrl, name: categoryName }) => (
-                          <Badge
-                            color='primary'
-                            pill
-                            style={{
-                              padding: '5px 10px',
-                              marginLeft: 10,
-                            }}
-                          >
-                            <div
-                              className='d-flex align-items-center'
-                              style={{ margin: 0 }}
+                        {categories
+                          .sort((a, b) =>
+                            a.displayOrder > b.displayOrder ? 1 : -1
+                          )
+                          .map(({ iconUrl, name: categoryName }) => (
+                            <Badge
+                              color='primary'
+                              pill
+                              style={{
+                                padding: '5px 10px',
+                                marginLeft: 10,
+                              }}
                             >
-                              {categoryName}
-                              <img
-                                className='cate-icon'
-                                src={iconUrl}
-                                alt={categoryName}
-                              />
-                            </div>
-                          </Badge>
-                        ))}
+                              <div
+                                className='d-flex align-items-center'
+                                style={{ margin: 0 }}
+                              >
+                                {categoryName}
+                                <img
+                                  className='cate-icon'
+                                  src={iconUrl}
+                                  alt={categoryName}
+                                />
+                              </div>
+                            </Badge>
+                          ))}
 
                         {/* <Badge
                           color='primary'

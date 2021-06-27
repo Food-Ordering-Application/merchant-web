@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CustomInput, Badge } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import classnames from 'classnames'
@@ -14,10 +14,35 @@ const DataListView = ({
   subItems = [],
   large,
   isTopping,
+  onItemClick,
+  history,
 }) => {
+  useEffect(() => {
+    console.log(window.location.href)
+  }, [])
+
+  const onNavLinkClick = () => {
+    console.log(history)
+
+    // history.push('/hello')
+    const path = window.location.href
+    // const path = window.location.href.split('/')
+    // const menuId = path[path.length - 1]
+    // console.log(window.location)
+    // history.replace({
+    //   // pathname: '/app/dishes/hello',
+    //   pathname: '/home',
+    // })
+    window.location.replace(`${path}/item/${product.id}`)
+  }
+  // const linkTo = `?p=${product.id}` || `#`
+  // const linkTo = `/item/${product.id}`
+  const linkTo = `/app/dishes/hello`
+
   if (!product) {
     return <div className='loading'></div>
   }
+
   return (
     <Colxx xxs='12' className={clsx('mb-3')}>
       <ContextMenuTrigger id='menu_id' data={product.id} collect={collect}>
@@ -40,10 +65,13 @@ const DataListView = ({
                   className='d-flex justify-content-between align-items-lg-center'
                   style={{ minWidth: 250 }}
                 >
-                  <NavLink to={`?p=${product.id}`} className='w-40 w-sm-100'>
+                  {/* <NavLink to={`?p=${product.id}`} className='w-40 w-sm-100'> */}
+                  <NavLink to={linkTo} className='w-40 w-sm-100'>
+                    {/* <a href='/hello'> */}
                     <p className='list-item-heading mb-1 truncate p-1'>
                       {product.title}
                     </p>
+                    {/* </a> */}
                   </NavLink>
 
                   <p className='mb-1 text-muted text-md-small w-35 w-sm-100 p-1'>
@@ -56,11 +84,17 @@ const DataListView = ({
                 </div>
               ) : (
                 <>
-                  <NavLink to={`?p=${product.id}`} className='w-40 w-sm-100'>
+                  <div onClick={onNavLinkClick}>
+                    {/* <NavLink
+                      to={'/'}
+                      className='w-40 w-sm-100'
+                      // onClick={onNavLinkClick}
+                    > */}
                     <p className='list-item-heading mb-1 truncate'>
                       {product.title}
                     </p>
-                  </NavLink>
+                    {/* </NavLink> */}
+                  </div>
                   <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
                     {product.category}
                   </p>
