@@ -154,7 +154,16 @@ const MenuInfo = (props) => {
     ) {
       const pageSize = 10
       const newMenuItems = menuItems.map(
-        ({ id, name, imageUrl, description, menuGroupId, isActive, price }) => {
+        ({
+          id,
+          name,
+          imageUrl,
+          description,
+          menuGroupId,
+          isActive,
+          price,
+          state,
+        }) => {
           const group = findMenuGroupById(menuGroupId, menuGroup)
 
           return {
@@ -167,6 +176,7 @@ const MenuInfo = (props) => {
             isActive,
             price,
             date: '',
+            state,
           }
         }
       )
@@ -371,6 +381,8 @@ const MenuInfo = (props) => {
   // if (menuGroup.length === 0) {
   //   return <p>There's no menu group yet. Create one!</p>
   // }
+
+  console.log(tableData)
 
   return (
     <div className='MenuInfo'>
