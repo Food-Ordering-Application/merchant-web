@@ -131,7 +131,7 @@ class Home extends Component {
       <Fragment>
         <Row>
           <Colxx xxs='12'>
-            <Breadcrumb heading='menu.home' match={this.props.match} />
+            {/* <Breadcrumb heading='menu.home' match={this.props.match} /> */}
             <Separator className='mb-5' />
           </Colxx>
         </Row>

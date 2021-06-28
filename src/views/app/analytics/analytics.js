@@ -499,7 +499,7 @@ const Analytics = (props) => {
         </Colxx>
       </Row>
 
-      <Row>
+      {/* <Row>
         <Colxx xl='4' lg='6' md='12' className='mb-4'>
           <ProductCategoriesDoughnut />
         </Colxx>
@@ -509,7 +509,7 @@ const Analytics = (props) => {
         <Colxx xl='4' lg='12' md='12'>
           <SmallLineCharts itemClass='dashboard-small-chart-analytics' />
         </Colxx>
-      </Row>
+      </Row> */}
 
       {/* <SortableStaticticsRow messages={messages} /> */}
 

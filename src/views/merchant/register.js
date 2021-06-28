@@ -18,24 +18,37 @@ import { Formik, Form, Field } from 'formik'
 import { PASSWORD_REGEX } from 'src/helpers/Utils'
 
 const initialValues = {
-  // username: 'Merchant',
-  username: 'HappyFood',
-  email: 'happyfood@gmail.com',
-  password: '123456789',
-  confirmPassword: '123456789',
-  phone: '0943123456',
-  idNumber: '272699300',
-  fullName: 'Nguyễn Văn An',
+  // username: 'HappyFood',
+  // email: 'happyfood@gmail.com',
+  // password: '123456789',
+  // confirmPassword: '123456789',
+  // phone: '0943123456',
+  // idNumber: '272699300',
+  // fullName: 'Nguyễn Văn An',
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  phone: '',
+  idNumber: '',
+  fullName: '',
 }
 class Register extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      password: '',
+      loading: false,
+    }
   }
 
   onUserRegister = (values) => {
     // v.preventDefault()
-    if (Object.values(values).includes('')) return
+    // if (Object.values(values).includes('')) return
+
+    this.setState({
+      loading: true,
+    })
 
     const { registerUser } = this.props
     const {
@@ -49,21 +62,25 @@ class Register extends Component {
       confirmPassword,
     } = values
 
-    if (confirmPassword !== password) {
-      console.log('Unmatched password!')
-      return
-    }
+    // if (confirmPassword !== password) {
+    //   console.log('Unmatched password!')
+    //   return
+    // }
 
     const user = {
       username,
       password,
       email,
-      phone,
+      phone: `${phone}`,
       fullName,
-      IDNumber: idNumber,
+      IDNumber: `${idNumber}`,
     }
 
     registerUser(user, this.props.history)
+
+    this.setState({
+      loading: false,
+    })
   }
 
   validateUsername = (value) => {
@@ -88,11 +105,32 @@ class Register extends Component {
 
   validatePassword = (value) => {
     let error
+    this.setState({ password: value })
     if (!value) {
       error = 'Please enter your password'
     } else if (!new RegExp(PASSWORD_REGEX).test(value)) {
       error =
         'Password must contain at least 8 character with 1 capital letter, 1 normal letter and 1 number character'
+    }
+    return error
+  }
+
+  validateConfirmPassword = (value) => {
+    let error
+    if (!value) {
+      error = 'Please confirm your password'
+    } else if (value !== this.state.password) {
+      error = 'Password are not matched'
+    }
+    return error
+  }
+
+  validatePhone = (value) => {
+    let error
+    if (!value) {
+      error = 'Please enter your phone number'
+    } else if (`${value}`.length < 9 || `${value}`.length > 12) {
+      error = 'Phone number is not valid'
     }
     return error
   }
@@ -173,6 +211,7 @@ class Register extends Component {
                         className='form-control'
                         name='password'
                         type='password'
+                        // onChange={this.onPasswordChange}
                         validate={this.validatePassword}
                       />
                       {errors.password && touched.password && (
@@ -257,8 +296,9 @@ class Register extends Component {
                         <Button
                           color='primary'
                           className={`btn-shadow btn-multiple-state ${
-                            this.props.loading ? 'show-spinner' : ''
+                            this.state.loading ? 'show-spinner' : ''
                           }`}
+                          disabled={this.state.loading}
                           size='lg'
                         >
                           <span className='spinner d-inline-block'>
