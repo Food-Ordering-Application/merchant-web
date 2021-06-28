@@ -382,8 +382,6 @@ const MenuInfo = (props) => {
   //   return <p>There's no menu group yet. Create one!</p>
   // }
 
-  console.log(tableData)
-
   return (
     <div className='MenuInfo'>
       <div className='d-flex align-items-center justify-content-space-between mb-2'>
