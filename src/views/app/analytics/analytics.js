@@ -87,7 +87,7 @@ const Analytics = (props) => {
 
   const fetchTopDishes = async () => {
     try {
-      let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
+      // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       let time
 
       const { data } = await axios({
@@ -104,8 +104,6 @@ const Analytics = (props) => {
         },
       })
       if (!data) return
-
-      console.log(data)
 
       // const {
       //   data: { statistics = [] },
@@ -159,7 +157,7 @@ const Analytics = (props) => {
 
   const fetchOrderByTime = async () => {
     try {
-      let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
+      // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       let time
       if (statisticType === 'week') {
         time = {
@@ -239,7 +237,7 @@ const Analytics = (props) => {
 
   const fetchRevenueInsight = async () => {
     try {
-      let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
+      // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       const { data } = await axios({
         method: 'POST',
         url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/revenue-insight`,
@@ -313,7 +311,7 @@ const Analytics = (props) => {
 
   const fetchOrderByArea = async () => {
     try {
-      let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef`
+      // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef`
       const { data } = await axios({
         method: 'GET',
         url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/statistic`,
@@ -353,7 +351,7 @@ const Analytics = (props) => {
 
   const fetchAllOrder = async () => {
     try {
-      let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
+      // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       let orderArr = []
       const totalPage = new Array(3)
 
@@ -434,6 +432,7 @@ const Analytics = (props) => {
   const getDataArr = () => {
     const { completed, cancelled } = ordersStatus
     const total = completed + cancelled
+    if (total === 0) return [0, 0]
     const completedRatio = (completed / total) * 100
     const cancelledRatio = (cancelled / total) * 100
     return [completedRatio, cancelledRatio]
