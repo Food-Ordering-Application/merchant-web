@@ -195,6 +195,11 @@ module.exports = {
   'menu.date-of-birth': 'Ngày sinh',
   'menu.full-name': 'Họ tên',
   'menu.topping-group': 'Nhóm topping',
+  'menu.edit-menu-group': 'Chỉnh sửa thông tin nhóm món',
 
   'back-button': 'Trở lại',
+
+  'menu-group.name': 'Tên nhóm món',
+  'menu-group.index': 'Số thứ tự',
+  'menu.status': 'Trạng thái',
 }

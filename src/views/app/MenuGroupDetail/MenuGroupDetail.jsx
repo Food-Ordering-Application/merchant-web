@@ -36,7 +36,7 @@ const MenuGroupDetail = (props) => {
 
     setLoading(false)
     if (menuGroup.length > 0) {
-      console.log(menuGroup)
+      return
     } else {
       const menuId = menus[0].id
       getMenuGroup({ merchantId, restaurantId, menuId })
@@ -46,13 +46,12 @@ const MenuGroupDetail = (props) => {
   useEffect(() => {
     if (menuGroup.length === 0) return
     const foundMenuGroup = menuGroup.find(({ id }) => id === menuGroupId)
-    console.log(foundMenuGroup)
     setMenuGroupDetail(foundMenuGroup)
   }, [menuGroup])
 
   const redirecToEditMenuGroup = () => {
     const menuId = menus[0].id
-    history.pushState(`/app/menu-group/edit/menuGroupId`)
+    history.push(`/app/menu-group/edit/${menuGroupId}`)
   }
 
   if (Object.keys(menuGroupDetail).length === 0) {
@@ -73,7 +72,9 @@ const MenuGroupDetail = (props) => {
               <div className='section'>
                 <p className='section-heading'>
                   Chỉ số:{' '}
-                  <span className='text-orange'>{menuGroupDetail.index}</span>
+                  <span className='font-weight-500'>
+                    {menuGroupDetail.index}
+                  </span>
                 </p>
               </div>
 
