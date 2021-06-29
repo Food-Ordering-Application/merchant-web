@@ -98,9 +98,9 @@ export const getMenuItems = ({
   payload: { merchantId, restaurantId, menuId, page, size },
 })
 
-export const getMenuItemsSuccess = (menuItems) => ({
+export const getMenuItemsSuccess = (menuItems, total) => ({
   type: GET_MENU_ITEM_SUCCESS,
-  payload: { menuItems },
+  payload: { menuItems, totalMenuItems: total },
 })
 
 export const getMenuItemsError = (error) => ({

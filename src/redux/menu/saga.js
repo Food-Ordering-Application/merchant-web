@@ -186,10 +186,10 @@ function* getMenuItems({ payload }) {
     if (!response.message) {
       const {
         data: {
-          data: { results = [] },
+          data: { results = [], total },
         },
       } = response
-      yield put(getMenuItemsSuccess(results))
+      yield put(getMenuItemsSuccess(results, total))
     } else {
       console.log(response.message)
       yield put(getMenuItemsError(response.message))

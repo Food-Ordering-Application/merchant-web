@@ -17,9 +17,8 @@ const DataListView = ({
   onItemClick,
   history,
 }) => {
-  useEffect(() => {
-    console.log(window.location.href)
-  }, [])
+  // useEffect(() => {
+  // }, [])
 
   const onNavLinkClick = () => {
     const path = window.location.href

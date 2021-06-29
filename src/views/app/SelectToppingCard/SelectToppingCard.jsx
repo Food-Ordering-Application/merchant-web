@@ -15,6 +15,7 @@ const SelectToppingCard = (props) => {
 
   const [isChecked, setIsChecked] = useState(true)
   const [isAdded, setIsAdded] = useState(selected)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (isChecked) {

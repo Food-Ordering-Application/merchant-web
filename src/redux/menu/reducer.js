@@ -52,6 +52,7 @@ const INIT_STATE = {
   toppingByMenuItems: [],
   error: '',
   totalToppingItems: 0,
+  totalMenuItems: 0,
 }
 
 export default (state = INIT_STATE, action) => {
@@ -122,6 +123,7 @@ export default (state = INIT_STATE, action) => {
         loadingMenuItems: false,
         error: '',
         menuItems: payload.menuItems,
+        totalMenuItems: payload.totalMenuItems,
       }
     }
     case GET_MENU_ITEM_ERROR: {

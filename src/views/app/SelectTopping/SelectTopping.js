@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Field, Formik } from 'formik'
 import { NavLink } from 'react-router-dom'
-import { Button, Form, FormGroup, Label } from 'reactstrap'
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+} from 'reactstrap'
 import IntlMessages from 'src/helpers/IntlMessages'
 import ReactSelect from 'react-select'
 // import makeAnimated from 'react-select'
@@ -19,8 +27,8 @@ import { USER_URL } from 'src/constants'
 
 import SelectToppingCard from '../SelectToppingCard'
 
-import './SelectTopping'
 import { NotificationManager } from 'src/components/common/react-notifications'
+import './SelectTopping'
 
 const ToppingMapper = (props) => {
   const {
@@ -36,6 +44,7 @@ const ToppingMapper = (props) => {
       menuItems = [],
       toppingItems = [],
       toppingByMenuItems = [],
+      totalMenuItems,
     },
     restaurantInfo,
     updateToppingWithMenuItems,
@@ -63,6 +72,8 @@ const ToppingMapper = (props) => {
     toppingItems: [],
   })
   const [loading, setLoading] = useState(true)
+
+  let currentPage = Math.ceil(menuItems.length / totalMenuItems)
 
   useEffect(() => {
     if (menus.length === 0) {
@@ -130,121 +141,6 @@ const ToppingMapper = (props) => {
     finalOptions.sort((a, b) => (a.selected ? -1 : 1))
     setMenuItemsOption(finalOptions)
   }, [allMenuItemsOption, existMenuItemsOption])
-
-  // useEffect(() => {
-  //   if (menuItemsOption.length > 0) return
-
-  //   const newMenuItemsSelection = menuItems.map(({ name, id }) => {
-  //     return {
-  //       value: id,
-  //       label: name,
-  //     }
-  //   })
-  //   setMenuItemsOption(newMenuItemsSelection)
-  // }, [menuItems])
-
-  const handleSave = (values) => {
-    console.log(values)
-    const { createMenuGroup, loading, history } = props
-
-    if (
-      Object.keys(formInfo.menuItem).length === 0 ||
-      formInfo.toppingItems.length === 0
-    ) {
-      console.log('EMPTY')
-      return
-    }
-
-    const data = formInfo.toppingItems.map((topppingItem, i) => {
-      return {
-        toppingItem: {
-          ...formInfo.toppingItems[i],
-          menuItem: [
-            {
-              ...formInfo.menuItem,
-            },
-          ],
-        },
-      }
-    })
-
-    setToppingByMenuItems(data)
-  }
-
-  const handleComplete = () => {
-    const merchantId = localStorage.getItem('merchant_id')
-    const {
-      restaurant: { id: restaurantId },
-    } = restaurantInfo
-    const menuId = menus[0].id || ''
-    // const toppingItemId = formInfo.toppingItems
-    console.log(merchantId, restaurantId, menuId)
-    toppingByMenuItems.forEach((toppingByMenuItem) => {
-      const {
-        toppingItem: { id: toppingItemId, menuItem: menuItemArr },
-      } = toppingByMenuItem
-      const menuItems = menuItemArr.map((item) => ({
-        menuItemId: item.id,
-        customPrice: 0,
-      }))
-      const data = {
-        menuItemToppings: menuItems,
-      }
-
-      updateToppingWithMenuItems({
-        merchantId,
-        restaurantId,
-        menuId,
-        toppingItemId,
-        data,
-      })
-    })
-
-    console.log('call api')
-  }
-
-  const validateName = (value) => {
-    let error
-    if (!value) {
-      error = `Please enter menu group's name`
-    } else if (value.length < 2) {
-      error = 'Value must be longer than 2 characters'
-    }
-    return error
-  }
-
-  const validateIndex = (value) => {
-    let error
-    if (!value) {
-      error = `Please enter menu group's index`
-    } else if (isNaN(value)) {
-      error = 'Value must be a number'
-    }
-    return error
-  }
-
-  const handleMenuItemChange = ({ value, label }) => {
-    setFormInfo({
-      ...formInfo,
-      menuItem: {
-        id: value,
-        name: label,
-      },
-    })
-  }
-
-  const handleToppingChange = (e) => {
-    const newToppingItems = e.map((item) => ({
-      id: item.value,
-      name: item.label,
-    }))
-    setFormInfo((prevInfo) => {
-      return {
-        ...prevInfo,
-        toppingItems: newToppingItems,
-      }
-    })
-  }
 
   const getMenuItemName = (id) => {
     return menuItems.find((item) => item.id === id).name
@@ -371,12 +267,23 @@ const ToppingMapper = (props) => {
     })
     setMenuItemsOption(options)
   }
-  // console.log(toppingItems)
-  // console.log(menuItems)
-  // console.log(toppingItemsOption)
+
+  const onPrevPageClick = (page) => {
+    // console.log(page)
+  }
+
+  const onPageClick = (page) => {
+    if (page === currentPage) return
+    const menuId = menus[0].id
+    getMenuItems({ merchantId, restaurantId, menuId, page: page - 1 })
+  }
+
+  const onNextPageClick = (page) => {
+    // if (page === currentPage) return
+  }
 
   return (
-    <div className='mb-4'>
+    <div className='mb-4' style={{ width: 'fit-content' }}>
       {/* <SelectToppingCard onCustomPriceChange={onCustomPriceChange} /> */}
 
       {toppingItemsOption.length > 0 && (
@@ -403,6 +310,32 @@ const ToppingMapper = (props) => {
         />
       ))}
 
+      {selectedTopping.value && (
+        <Pagination
+          aria-label='Page navigation example'
+          onChange={(e) => console.log(e)}
+        >
+          <PaginationItem>
+            <PaginationLink previous onClick={onPrevPageClick} />
+          </PaginationItem>
+          {Array.from(Array(Math.ceil(totalMenuItems / 10)).keys()).map(
+            (number, index) => {
+              const page = number + 1
+              return (
+                <PaginationItem active={currentPage === page} key={page}>
+                  <PaginationLink onClick={() => onPageClick(page)}>
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            }
+          )}
+          <PaginationItem>
+            <PaginationLink next onClick={() => onNextPageClick()} />
+          </PaginationItem>
+        </Pagination>
+      )}
+
       <Button
         color='primary'
         className={`btn-shadow btn-multiple-state d-block ml-auto ${
@@ -421,95 +354,6 @@ const ToppingMapper = (props) => {
           <IntlMessages id='menu.btn-save' />
         </span>
       </Button>
-
-      {/* <Formik initialValues={initialValues}>
-        {({
-          errors,
-          touched,
-          values,
-          handleSubmit,
-          handleChange,
-          handleBlur,
-        }) => (
-          <Form
-            className='av-tooltip tooltip-label-bottom'
-            onSubmit={(e) => {
-              e.preventDefault()
-              handleSubmit()
-            }}
-          >
-            <FormGroup className='form-group has-float-label'>
-              <Label>
-                <IntlMessages id='menu.menu-item-select' />
-              </Label>
-              <ReactSelect
-                placeholder=''
-                name='menuItem'
-                options={menuItemsOption}
-                className='basic-multi-select'
-                classNamePrefix='select'
-                // noOptionsMessage='Không có món ăn nào có sẵn'
-                onChange={handleMenuItemChange}
-                // onChange={onToppingItemsChange}
-              />
-            </FormGroup>
-
-            <FormGroup className='form-group has-float-label'>
-              <Label>
-                <IntlMessages id='menu.menu-topping-select' />
-              </Label>
-              <ReactSelect
-                isMulti
-                // components={makeAnimated()}
-                closeMenuOnSelect={false}
-                placeholder=''
-                name='toppingItems'
-                options={toppingItemsOption}
-                className='basic-multi-select'
-                classNamePrefix='select'
-                noOptionsMessage={() => <p>Không có topping nào có sẵn</p>}
-                onChange={handleToppingChange}
-              />
-            </FormGroup>
-
-            <Button
-              color='primary'
-              className={`btn-shadow btn-multiple-state mr-3 ${
-                props.loading ? 'show-spinner' : ''
-              }`}
-              size='lg'
-              onClick={handleSave}
-            >
-              <span className='spinner d-inline-block'>
-                <span className='bounce1' />
-                <span className='bounce2' />
-                <span className='bounce3' />
-              </span>
-              <span className='label'>
-                <IntlMessages id='menu.save-btn' />
-              </span>
-            </Button>
-
-            <Button
-              color='primary'
-              className={`btn-shadow btn-multiple-state ${
-                props.loading ? 'show-spinner' : ''
-              }`}
-              size='lg'
-              onClick={handleComplete}
-            >
-              <span className='spinner d-inline-block'>
-                <span className='bounce1' />
-                <span className='bounce2' />
-                <span className='bounce3' />
-              </span>
-              <span className='label'>
-                <IntlMessages id='menu.complete-btn' />
-              </span>
-            </Button>
-          </Form>
-        )}
-      </Formik> */}
     </div>
   )
 }
