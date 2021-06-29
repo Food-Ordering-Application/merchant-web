@@ -64,9 +64,9 @@ export const setMenuItem = (data) => ({
   payload: { data },
 })
 
-export const getMenu = (merchantId, restaurantId) => ({
+export const getMenu = (merchantId, restaurantId, page = 0, size = 10) => ({
   type: GET_MENU,
-  payload: { merchantId, restaurantId },
+  payload: { merchantId, restaurantId, page, size },
 })
 
 export const getMenuSuccess = (menu) => ({

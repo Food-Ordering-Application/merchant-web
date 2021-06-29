@@ -40,7 +40,7 @@ import {
 } from './actions'
 import { NotificationManager } from 'src/components/common/react-notifications'
 
-const getMenuAsync = async (merchantId, restaurantId) => {
+const getMenuAsync = async (merchantId, restaurantId, page = 0, size = 10) => {
   const accessToken = localStorage.getItem('access_token')
   try {
     let response
@@ -50,6 +50,10 @@ const getMenuAsync = async (merchantId, restaurantId) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      params: {
+        page,
+        size,
+      },
     })
     return response
   } catch (error) {
@@ -58,9 +62,15 @@ const getMenuAsync = async (merchantId, restaurantId) => {
 }
 
 function* getMenus({ payload }) {
-  const { merchantId, restaurantId } = payload
+  const { merchantId, restaurantId, page, size } = payload
   try {
-    const response = yield call(getMenuAsync, merchantId, restaurantId)
+    const response = yield call(
+      getMenuAsync,
+      merchantId,
+      restaurantId,
+      page,
+      size
+    )
     if (!response.message) {
       const {
         data: {
@@ -447,7 +457,13 @@ function* createToppingItem({ payload }) {
   }
 }
 
-const getToppingsGroupAsync = async (merchantId, restaurantId, menuId) => {
+const getToppingsGroupAsync = async (
+  merchantId,
+  restaurantId,
+  menuId,
+  page,
+  size
+) => {
   const accessToken = localStorage.getItem('access_token')
   try {
     let response
@@ -456,6 +472,10 @@ const getToppingsGroupAsync = async (merchantId, restaurantId, menuId) => {
       url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/menu/${menuId}/topping-group`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        page,
+        size,
       },
     })
     return response
@@ -466,13 +486,15 @@ const getToppingsGroupAsync = async (merchantId, restaurantId, menuId) => {
 
 function* getToppingGroups({ payload }) {
   console.log(payload)
-  const { merchantId, restaurantId, menuId } = payload
+  const { merchantId, restaurantId, menuId, page = 0, size = 10 } = payload
   try {
     const response = yield call(
       getToppingsGroupAsync,
       merchantId,
       restaurantId,
-      menuId
+      menuId,
+      page,
+      size
     )
     if (!response.message) {
       const {
