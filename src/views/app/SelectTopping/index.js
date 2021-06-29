@@ -1,3 +1,3 @@
-import SelectTopping from './SelectTopping'
+import ToppingMapper from './SelectTopping'
 
-export default SelectTopping
+export default ToppingMapper

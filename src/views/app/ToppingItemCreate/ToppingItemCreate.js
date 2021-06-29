@@ -83,10 +83,11 @@ const ToppingItemCreate = (props) => {
     const {
       restaurant: { id: restaurantId = localStorage.getItem('restaurant_id') },
     } = restaurantInfo
-    const {
-      user: { id: merchantId },
-    } = authUser
+    // const {
+    //   user: { id: merchantId },
+    // } = authUser
     const toppingGroupId = values.toppingGroup || toppingGroupOption[0].value
+    const merchantId = localStorage.getItem('merchant_id')
     const menuId = menus[0].id || ''
     console.log(menuId)
     createToppingItem({
@@ -125,11 +126,11 @@ const ToppingItemCreate = (props) => {
 
   const validatePrice = (value) => {
     let error
-    if (!value) {
-      error = `Please enter topping's price`
-    } else if (value.length < 2) {
-      error = 'Value must be longer than 2 characters'
-    }
+    // if (!value) {
+    //   error = `Please enter topping's price`
+    // } else if (value.length < 2) {
+    //   error = 'Value must be longer than 2 characters'
+    // }
     return error
   }
 

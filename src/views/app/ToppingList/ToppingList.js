@@ -21,14 +21,13 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { USER_URL } from 'src/constants'
 
-const DataList = React.lazy(() =>
-  import(/* webpackChunkName: "product-data-list" */ './data-list')
-)
+import DataList from './data-list'
 
 const ToppingList = (props) => {
   const [tableData, setTableData] = useState({ data: [] })
   const [selectedItems, setSelectedItems] = useState([])
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const {
     restaurantMenu: {
@@ -41,10 +40,13 @@ const ToppingList = (props) => {
       toppingItems = [],
       toppingGroups = [],
       loadingToppingItems,
+      totalToppingItems,
     },
     location: { pathname },
     restaurantInfo,
     history,
+    getToppingItems,
+    getToppingGroup,
   } = props
 
   const merchantId = localStorage.getItem('merchant_id')
@@ -62,7 +64,6 @@ const ToppingList = (props) => {
 
   useEffect(() => {
     if (menus.length === 0) return
-    const { getToppingItems, getToppingGroup } = props
     const menuId = menus[0].id
     if (toppingItems.length === 0) {
       getToppingItems({ merchantId, restaurantId, menuId })
@@ -74,13 +75,16 @@ const ToppingList = (props) => {
 
   useEffect(() => {
     const pageSize = 10
+    console.log(toppingItems)
     if (toppingItems.length !== 0 && toppingGroups.length !== 0) {
       setLoading(false)
     }
-
+    console.log(toppingItems.length !== 0)
+    console.log(tableData.data.length === 0)
+    console.log(toppingGroups.length > 0)
     if (
       toppingItems.length !== 0 &&
-      tableData.data.length === 0 &&
+      // tableData.data.length === 0 &&
       toppingGroups.length > 0
     ) {
       const newToppingItems = toppingItems.map(
@@ -122,7 +126,7 @@ const ToppingList = (props) => {
       const newTableData = {
         status: true,
         totalItem: menuItems.length,
-        totalPage: Math.ceil(menuItems.length / pageSize),
+        totalPage: Math.ceil(totalToppingItems / pageSize),
         pageSize,
         currentPage: '1',
         data: newToppingItems,
@@ -273,6 +277,12 @@ const ToppingList = (props) => {
     }
   }
 
+  const handlePageChange = (page) => {
+    const menuId = menus[0].id
+    setCurrentPage(page)
+    getToppingItems({ merchantId, restaurantId, menuId, page: page - 1 })
+  }
+
   const onToppingGroupCreateClick = () => {
     history.push('/app/toppings/create/topping-group')
   }
@@ -345,6 +355,9 @@ const ToppingList = (props) => {
               onDeleteItems={onDeleteItems}
               onDeactiveItems={onDeactivateItems}
               onActiveItems={onActivateItems}
+              isTopping={true}
+              handlePageChange={handlePageChange}
+              currentPage={currentPage}
             />
           )}
         </Colxx>

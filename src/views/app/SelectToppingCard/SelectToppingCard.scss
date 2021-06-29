@@ -1,0 +1,20 @@
+.SelectToppingCard {
+  max-width: 600px;
+
+  p {
+    margin: 0;
+  }
+
+  .default-label {
+    margin-right: 10px;
+  }
+
+  .price-input {
+    padding: 0 10px;
+
+    input {
+      padding: 5px 10px;
+      width: 70%;
+    }
+  }
+}

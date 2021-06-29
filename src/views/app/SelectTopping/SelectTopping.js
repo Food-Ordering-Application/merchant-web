@@ -14,8 +14,15 @@ import {
   setToppingByMenuItems,
   updateToppingWithMenuItems,
 } from '../../../redux/actions'
+import axios from 'axios'
+import { USER_URL } from 'src/constants'
 
-const SelectTopping = (props) => {
+import SelectToppingCard from '../SelectToppingCard'
+
+import './SelectTopping'
+import { NotificationManager } from 'src/components/common/react-notifications'
+
+const ToppingMapper = (props) => {
   const {
     getToppingGroup,
     getToppingItems,
@@ -38,9 +45,16 @@ const SelectTopping = (props) => {
     restaurant: { id: restaurantId = localStorage.getItem('restaurant_id') },
   } = restaurantInfo
   const merchantId = localStorage.getItem('merchant_id')
+  const access_token = localStorage.getItem('access_token')
 
+  const [selectedTopping, setSelectedTopping] = useState({
+    name: '',
+    value: '',
+  })
   const [toppingItemsOption, setToppingItemsOption] = useState([])
   const [menuItemsOption, setMenuItemsOption] = useState([])
+  const [updateLoading, setUpdateLoading] = useState(false)
+
   const [formInfo, setFormInfo] = useState({
     menuItem: {},
     toppingItems: [],
@@ -65,34 +79,27 @@ const SelectTopping = (props) => {
   }, [menus])
 
   useEffect(() => {
-    if (toppingItemsOption.length > 0) return
-
-    const newToppingItemsSelection = toppingItems.map(({ name, id }) => {
+    if (toppingItems.length === 0) return
+    const newToppingItemsOption = toppingItems.map(({ id, name }) => {
       return {
-        value: id,
         label: name,
+        value: id,
       }
     })
-    setToppingItemsOption(newToppingItemsSelection)
+    setToppingItemsOption(newToppingItemsOption)
   }, [toppingItems])
 
-  useEffect(() => {
-    if (menuItemsOption.length > 0) return
+  // useEffect(() => {
+  //   if (menuItemsOption.length > 0) return
 
-    const newMenuItemsSelection = menuItems.map(({ name, id }) => {
-      return {
-        value: id,
-        label: name,
-      }
-    })
-    setMenuItemsOption(newMenuItemsSelection)
-  }, [menuItems])
-
-  const initialValues = {
-    name: 'Cơm',
-    index: 65537,
-    isActive: true,
-  }
+  //   const newMenuItemsSelection = menuItems.map(({ name, id }) => {
+  //     return {
+  //       value: id,
+  //       label: name,
+  //     }
+  //   })
+  //   setMenuItemsOption(newMenuItemsSelection)
+  // }, [menuItems])
 
   const handleSave = (values) => {
     console.log(values)
@@ -142,7 +149,6 @@ const SelectTopping = (props) => {
         menuItemToppings: menuItems,
       }
 
-      console.log(data)
       updateToppingWithMenuItems({
         merchantId,
         restaurantId,
@@ -150,7 +156,6 @@ const SelectTopping = (props) => {
         toppingItemId,
         data,
       })
-      console.log('SENT')
     })
 
     console.log('call api')
@@ -199,15 +204,157 @@ const SelectTopping = (props) => {
     })
   }
 
-  const menuGroupOption = [
-    { value: 1, label: '1111' },
-    { value: 2, label: '2222' },
-    { value: 4, label: '3333' },
-  ]
+  const getMenuItemName = (id) => {
+    return menuItems.find((item) => item.id === id).name
+  }
+
+  const handleToppingItemChange = (e) => {
+    setSelectedTopping(e)
+    fetchMenuItemsByTopping(e.value)
+  }
+
+  const fetchMenuItemsByTopping = async (toppingItemId) => {
+    let res
+    try {
+      const menuId = menus[0].id
+      res = await axios({
+        method: 'GET',
+        url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/menu/${menuId}/topping-item/${toppingItemId}/menu-item`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+
+      const {
+        data: {
+          data: { results = [] },
+        },
+      } = res
+
+      const newMenuItemsOption = results.map(({ menuItemId, customPrice }) => {
+        return {
+          label: getMenuItemName(menuItemId),
+          value: menuItemId,
+          customPrice,
+        }
+      })
+
+      setMenuItemsOption(newMenuItemsOption)
+    } catch (error) {
+      console.log('Error in fetchMenuItemsByTopping')
+      console.error(error)
+    } finally {
+    }
+  }
+
+  const updateMenuItems = async () => {
+    let res
+    setUpdateLoading(true)
+    try {
+      const menuId = menus[0].id
+      const toppingItemId = selectedTopping.value
+      const body = {
+        menuItemToppings: menuItemsOption.map(
+          ({ label, value, customPrice }) => ({
+            menuItemId: value,
+            customPrice,
+          })
+        ),
+      }
+
+      res = await axios({
+        method: 'PUT',
+        url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/menu/${menuId}/topping-item/${toppingItemId}/menu-item`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        data: body,
+      })
+
+      NotificationManager.success(
+        'Mapping topping items sucessfully!',
+        'Success',
+        3000
+      )
+      // const newMenuItemsOption = results.map(({ menuItemId, customPrice }) => {
+      //   return {
+      //     label: getMenuItemName(menuItemId),
+      //     value: menuItemId,
+      //     customPrice,
+      //   }
+      // })
+
+      // setMenuItemsOption(newMenuItemsOption)
+    } catch (error) {
+      console.log('Error in fetchMenuItemsByTopping')
+      console.error(error)
+    } finally {
+      setUpdateLoading(false)
+    }
+  }
+
+  const onCustomPriceChange = (price, id) => {
+    let newOptions = [...menuItemsOption]
+    const index = newOptions.findIndex((item) => item.value === id)
+
+    if (price) {
+      newOptions[index].customPrice = +price
+    } else {
+      newOptions[index].customPrice = price
+    }
+    setMenuItemsOption(newOptions)
+  }
+
+  // console.log(toppingItems)
+  // console.log(menuItems)
+  // console.log(toppingItemsOption)
 
   return (
     <div className='mb-4'>
-      <Formik initialValues={initialValues}>
+      {/* <SelectToppingCard onCustomPriceChange={onCustomPriceChange} /> */}
+
+      {toppingItemsOption.length > 0 && (
+        <div className='mb-4' style={{ width: 600 }}>
+          <ReactSelect
+            placeholder=''
+            name='toppingItems'
+            options={toppingItemsOption}
+            className='basic-multi-select'
+            classNamePrefix='select'
+            noOptionsMessage='Không có sẵn topping nào.'
+            onChange={handleToppingItemChange}
+            // onChange={onToppingItemsChange}
+          />
+        </div>
+      )}
+
+      {menuItemsOption.map((menuItem) => (
+        <SelectToppingCard
+          {...menuItem}
+          onCustomPriceChange={onCustomPriceChange}
+        />
+      ))}
+
+      <Button
+        color='primary'
+        className={`btn-shadow btn-multiple-state ${
+          updateLoading ? 'show-spinner' : ''
+        }`}
+        disabled={updateLoading}
+        size='lg'
+        onClick={updateMenuItems}
+      >
+        <span className='spinner d-inline-block'>
+          <span className='bounce1' />
+          <span className='bounce2' />
+          <span className='bounce3' />
+        </span>
+        <span className='label'>
+          <IntlMessages id='menu.btn-save' />
+        </span>
+      </Button>
+
+      {/* <Formik initialValues={initialValues}>
         {({
           errors,
           touched,
@@ -255,45 +402,6 @@ const SelectTopping = (props) => {
                 noOptionsMessage={() => <p>Không có topping nào có sẵn</p>}
                 onChange={handleToppingChange}
               />
-
-              {/* <FormGroup className='form-group has-float-label'>
-                <Label>
-                  <IntlMessages id='menu.menu-item-index' />
-                </Label>
-                <Field
-                  className='form-control'
-                  name='index'
-                  type='number'
-                  validate={validateIndex}
-                  onChange={(e) => {
-                    console.log(e)
-                    handleChange(e)
-                  }}
-                />
-                {errors.index && touched.index && (
-                  <div className='invalid-feedback d-block'>{errors.index}</div>
-                )}
-              </FormGroup> */}
-
-              {/* <select
-                name='menuGroup'
-                className='form-control'
-                value={values.menuGroup}
-                multiple
-                onChange={handleChange}
-                onBlur={handleBlur}
-              >
-                {menuGroupOption.length > 0 &&
-                  menuGroupOption.map((item) => {
-                    return <option value={item.value}>{item.label}</option>
-                  })}
-              </select>
-
-              {errors.menuGroup && touched.menuGroup ? (
-                <div className='invalid-feedback d-block'>
-                  {errors.menuGroup}
-                </div>
-              ) : null} */}
             </FormGroup>
 
             <Button
@@ -333,7 +441,7 @@ const SelectTopping = (props) => {
             </Button>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
     </div>
   )
 }
@@ -350,4 +458,4 @@ export default connect(mapStateToProps, {
   getMenuItems,
   setToppingByMenuItems,
   updateToppingWithMenuItems,
-})(SelectTopping)
+})(ToppingMapper)

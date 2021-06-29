@@ -58,7 +58,6 @@ const getMenuAsync = async (merchantId, restaurantId) => {
 }
 
 function* getMenus({ payload }) {
-  console.log(payload)
   const { merchantId, restaurantId } = payload
   try {
     const response = yield call(getMenuAsync, merchantId, restaurantId)
@@ -470,7 +469,14 @@ function* getToppingGroups({ payload }) {
   }
 }
 
-const getToppingItemsAsync = async (merchantId, restaurantId, menuId) => {
+const getToppingItemsAsync = async (
+  merchantId,
+  restaurantId,
+  menuId,
+  page,
+  size
+) => {
+  console.log(page, size)
   const accessToken = localStorage.getItem('access_token')
   try {
     let response
@@ -480,6 +486,11 @@ const getToppingItemsAsync = async (merchantId, restaurantId, menuId) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      params: {
+        // page: 1,
+        page,
+        size,
+      },
     })
     return response
   } catch (error) {
@@ -488,21 +499,23 @@ const getToppingItemsAsync = async (merchantId, restaurantId, menuId) => {
 }
 
 function* getToppingItems({ payload }) {
-  const { merchantId, restaurantId, menuId } = payload
+  const { merchantId, restaurantId, menuId, page, size } = payload
   try {
     const response = yield call(
       getToppingItemsAsync,
       merchantId,
       restaurantId,
-      menuId
+      menuId,
+      page,
+      size
     )
     if (!response.message) {
       const {
         data: {
-          data: { results = [] },
+          data: { results = [], size, total },
         },
       } = response
-      yield put(getToppingItemsSuccess(results))
+      yield put(getToppingItemsSuccess(results, total))
     } else {
       console.log(response.message)
       yield put(getToppingItemsError(response.message))

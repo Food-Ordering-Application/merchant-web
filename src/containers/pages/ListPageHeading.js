@@ -71,6 +71,7 @@ class ListPageHeading extends Component {
       onActiveItems,
       isStaffList,
       isOrderList,
+      isTopping,
     } = this.props
 
     const { displayOptionsIsOpen, dropdownSplitOpen } = this.state
@@ -85,14 +86,16 @@ class ListPageHeading extends Component {
 
               <div className='text-zero top-right-button-container'>
                 {isOrderList ? null : displayCreate ? (
-                  <Button
-                    color='primary'
-                    size='lg'
-                    className='top-right-button mr-2'
-                    onClick={() => toggleModal()}
-                  >
-                    <IntlMessages id='pages.add-new' />
-                  </Button>
+                  isTopping && (
+                    <Button
+                      color='primary'
+                      size='lg'
+                      className='top-right-button mr-2'
+                      onClick={() => toggleModal()}
+                    >
+                      <IntlMessages id='pages.add-new' />
+                    </Button>
+                  )
                 ) : (
                   <Button
                     color='primary'

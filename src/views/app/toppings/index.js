@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import MenuItemCreate from '../MenuItemCreate'
 import ToppingGroupCreate from '../ToppingGroupCreate'
 import ToppingItemCreate from '../ToppingItemCreate'
-import SelectTopping from '../SelectTopping'
+import ToppingMapper from '../SelectTopping'
 
 const ToppingList = React.lazy(() =>
   import(/* webpackChunkName: "second" */ '../ToppingList')
@@ -49,7 +49,7 @@ const ToppingsRoute = ({ match }) => (
       <Route
         exact
         path={`${match.url}/select-topping`}
-        render={(props) => <SelectTopping {...props} />}
+        render={(props) => <ToppingMapper {...props} />}
       />
       {/* <Route
         exact

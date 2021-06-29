@@ -347,7 +347,7 @@ class TopNav extends Component {
             >
               <span
                 style={{ marginBottom: -2, cursor: 'pointer' }}
-                class='iconify'
+                className='iconify'
                 data-icon='bi:shop'
                 data-inline='false'
                 data-width='22'

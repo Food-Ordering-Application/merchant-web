@@ -130,6 +130,7 @@ class DataListPages extends Component {
     return false
   }
   onChangePage = (page) => {
+    this.props.handlePageChange(page)
     this.setState(
       {
         currentPage: page,
@@ -293,6 +294,7 @@ class DataListPages extends Component {
       onDeleteItems,
       onActiveItems,
       onDeactiveItems,
+      isTopping,
     } = this.props
     const startIndex = (currentPage - 1) * selectedPageSize
     const endIndex = currentPage * selectedPageSize
@@ -324,6 +326,7 @@ class DataListPages extends Component {
             onDeleteItems={onDeleteItems}
             onDeactiveItems={onDeactiveItems}
             onActiveItems={onActiveItems}
+            isTopping={isTopping}
           />
           <AddNewModal
             modalOpen={modalOpen}
@@ -368,8 +371,8 @@ class DataListPages extends Component {
               }
             })}
             <Pagination
-              currentPage={this.state.currentPage}
-              totalPage={this.state.totalPage}
+              currentPage={this.props.currentPage || this.state.currentPage}
+              totalPage={this.props.totalPage || this.state.totalPage}
               onChangePage={(i) => this.onChangePage(i)}
             />
             <ContextMenuContainer

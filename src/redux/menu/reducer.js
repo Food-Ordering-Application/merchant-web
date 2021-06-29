@@ -51,6 +51,7 @@ const INIT_STATE = {
   loadingToppingItems: false,
   toppingByMenuItems: [],
   error: '',
+  totalToppingItems: 0,
 }
 
 export default (state = INIT_STATE, action) => {
@@ -110,7 +111,6 @@ export default (state = INIT_STATE, action) => {
     }
 
     case GET_MENU_ITEM: {
-      console.log(payload)
       return { ...state, loadingMenuItems: true, error: '' }
     }
     case GET_MENU_ITEM_SUCCESS: {
@@ -270,7 +270,6 @@ export default (state = INIT_STATE, action) => {
 
     // GET TOPPING ITEM LIST
     case GET_TOPPING_ITEMS: {
-      console.log(payload)
       return { ...state, loadingToppingItems: true, error: '' }
     }
     case GET_TOPPING_ITEMS_SUCCESS: {
@@ -281,6 +280,7 @@ export default (state = INIT_STATE, action) => {
         loadingToppingItems: false,
         error: '',
         toppingItems: payload.toppingItems,
+        totalToppingItems: payload.total,
       }
     }
     case GET_TOPPING_ITEMS_ERROR: {

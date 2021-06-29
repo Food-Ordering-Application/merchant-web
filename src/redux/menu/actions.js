@@ -200,14 +200,20 @@ export const getToppingGroupError = (error) => ({
   payload: { message: error },
 })
 
-export const getToppingItems = ({ merchantId, restaurantId, menuId }) => ({
+export const getToppingItems = ({
+  merchantId,
+  restaurantId,
+  menuId,
+  page = 0,
+  size = 10,
+}) => ({
   type: GET_TOPPING_ITEMS,
-  payload: { merchantId, restaurantId, menuId },
+  payload: { merchantId, restaurantId, menuId, page, size },
 })
 
-export const getToppingItemsSuccess = (toppingItems) => ({
+export const getToppingItemsSuccess = (toppingItems, total) => ({
   type: GET_TOPPING_ITEMS_SUCCESS,
-  payload: { toppingItems },
+  payload: { toppingItems, total },
 })
 
 export const getToppingItemsError = (error) => ({

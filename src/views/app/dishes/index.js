@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import MenuItemCreate from '../MenuItemCreate'
 import ToppingGroupCreate from '../ToppingGroupCreate'
 import ToppingItemCreate from '../ToppingItemCreate'
-import SelectTopping from '../SelectTopping'
+import ToppingMapper from '../SelectTopping'
 
 const Dishes = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './dishes')
