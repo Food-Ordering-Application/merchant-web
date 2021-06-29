@@ -3,6 +3,7 @@ import {
   REGISTER_STAFF_SUCCESS,
   REGISTER_STAFF_ERROR,
   SET_STAFF_LIST,
+  SET_STAFF,
 } from '../actions'
 
 const INIT_STATE = {
@@ -42,6 +43,17 @@ export default (state = INIT_STATE, action) => {
         staffs: action.payload.staffs,
         error: '',
       }
+    case SET_STAFF: {
+      const { data } = action.payload
+      let newStaffList = [...state.staffs]
+      const foundIndex = newStaffList.findIndex((item) => item.id === data.id)
+      newStaffList[foundIndex] = { ...data }
+
+      return {
+        ...state,
+        staffs: newStaffList,
+      }
+    }
     default:
       return { ...state }
   }

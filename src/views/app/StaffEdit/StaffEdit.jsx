@@ -17,7 +17,10 @@ import { useParams } from 'react-router-dom'
 
 import Select from 'react-select'
 
-import { setStaffList } from '../../../redux/actions'
+import {
+  setStaffList,
+  setStaff as setStaffAction,
+} from '../../../redux/actions'
 import { createFile, sortByDay, uploadFile } from 'src/helpers/Utils'
 import IntlMessages from '../../../helpers/IntlMessages'
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap'
@@ -141,6 +144,8 @@ const StaffEdit = (props) => {
           ...updatedStaff,
         },
       })
+      const { setStaffAction } = props
+      setStaffAction(updatedStaff)
       NotificationManager.success('Updated staff information', 'Success', 3000)
     } catch (error) {
       console.log('Error in fetchStaffInfo')
@@ -214,7 +219,7 @@ const StaffEdit = (props) => {
                       name='fullName'
                       defaultValue={staff.fullName}
                     />
-                    <IntlMessages id='menu.item-name' />
+                    <IntlMessages id='menu.full-name' />
                   </Label>
 
                   <Label className='form-group has-float-label mb-4'>
@@ -309,4 +314,6 @@ const mapStateToProps = ({ staffUser }) => ({
 })
 
 // export default connect(mapStateToProps, mapDispatchToProps)(MenuItemDetail)
-export default connect(mapStateToProps, { setStaffList })(StaffEdit)
+export default connect(mapStateToProps, { setStaffList, setStaffAction })(
+  StaffEdit
+)

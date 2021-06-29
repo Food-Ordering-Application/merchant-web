@@ -6,6 +6,7 @@ import {
   GET_STAFF_LIST_SUCCESS,
   GET_STAFF_LIST_ERROR,
   SET_STAFF_LIST,
+  SET_STAFF,
 } from '../actions'
 
 export const registerStaff = (user, history) => {
@@ -51,4 +52,9 @@ export const getStaffListSuccess = (user) => {
 export const getStaffListError = (message) => ({
   type: GET_STAFF_LIST_ERROR,
   payload: { message },
+})
+
+export const setStaff = (data) => ({
+  type: SET_STAFF,
+  payload: { data },
 })

@@ -112,6 +112,7 @@ export const SET_STAFF_LIST = 'SET_STAFF_LIST'
 export const GET_STAFF_LIST = 'GET_STAFF_LIST'
 export const GET_STAFF_LIST_SUCCESS = 'GET_STAFF_LIST_SUCCESS'
 export const GET_STAFF_LIST_ERROR = 'GET_STAFF_LIST_ERROR'
+export const SET_STAFF = 'SET_STAFF'
 
 export * from './menu2/actions'
 export * from './settings/actions'

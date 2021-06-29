@@ -193,6 +193,7 @@ module.exports = {
   'menu.phone': 'Số điện thoại',
   'menu.id-number': 'Số ID',
   'menu.date-of-birth': 'Ngày sinh',
+  'menu.full-name': 'Họ tên',
 
   'back-button': 'Trở lại',
 }

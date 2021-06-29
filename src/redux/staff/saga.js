@@ -6,7 +6,6 @@ import { STAFF_URL, ACCESS_TOKEN } from 'src/constants/config'
 import { registerStaffSuccess, registerStaffError } from './actions'
 
 const registerstaffdAsync = async (user) => {
-  console.log('async')
   try {
     let response
     response = await axios({
@@ -22,27 +21,19 @@ const registerstaffdAsync = async (user) => {
   } catch (error) {
     return getErrorMessage(error)
   }
-  // await auth
-  //   .createUserWithEmailAndPassword(email, password)
-  //   .then((authUser) => authUser)
-  //   .catch((error) => error)
 }
 
 function* registerStaff({ payload }) {
-  // const { username, email, password } = payload.user
   const { history } = payload
   try {
     const registerStaff = yield call(registerstaffdAsync, payload.user)
     if (!registerStaff.message) {
-      // localStorage.setItem('user_id', registerUser.user.uid)
       yield put(registerStaffSuccess(registerStaff))
-      // history.push('/')
     } else {
       console.log(registerStaff.message)
       yield put(registerStaffError(registerStaff.message))
     }
   } catch (error) {
-    // console.log('ERR', error.response)
     yield put(registerStaffError('Something went wrong in Saga!'))
   }
 }
