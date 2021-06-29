@@ -170,7 +170,7 @@ const MenuInfo = (props) => {
             id,
             title: name,
             img: imageUrl,
-            category: group.name || 'Unknown',
+            category: group?.name || 'Unknown',
             statusColor: 'secondary',
             description,
             isActive,

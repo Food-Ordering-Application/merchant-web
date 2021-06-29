@@ -304,8 +304,9 @@ const ToppingList = (props) => {
       <Row>
         <Colxx xxs='12'>
           <div className='d-flex'>
-            <Breadcrumb heading='menu.toppings' match={props.match} />
+            {/* <Breadcrumb heading='menu.toppings' match={props.match} /> */}
 
+            <h1>Toppings</h1>
             <div style={{ display: 'block', marginLeft: 'auto' }}>
               <button
                 type='button'
