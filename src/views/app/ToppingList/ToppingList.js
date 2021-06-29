@@ -116,7 +116,7 @@ const ToppingList = (props) => {
             title: name,
             img: imageUrl,
             // category: group.name || 'Unknown',
-            category: group.name || 'Unknown',
+            category: group?.name || 'Unknown',
             statusColor: 'secondary',
             // date: '01.04.2021',
           }

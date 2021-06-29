@@ -143,7 +143,13 @@ function* getMenuGroup({ payload }) {
   }
 }
 
-const getMenuItemsAsync = async (merchantId, restaurantId, menuId) => {
+const getMenuItemsAsync = async (
+  merchantId,
+  restaurantId,
+  menuId,
+  page,
+  size
+) => {
   const accessToken = localStorage.getItem('access_token')
   try {
     let response
@@ -152,6 +158,10 @@ const getMenuItemsAsync = async (merchantId, restaurantId, menuId) => {
       url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/menu/${menuId}/menu-item`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        page,
+        size,
       },
     })
     return response
@@ -162,13 +172,15 @@ const getMenuItemsAsync = async (merchantId, restaurantId, menuId) => {
 
 function* getMenuItems({ payload }) {
   console.log('ASDS')
-  const { merchantId, restaurantId, menuId } = payload
+  const { merchantId, restaurantId, menuId, page, size } = payload
   try {
     const response = yield call(
       getMenuItemsAsync,
       merchantId,
       restaurantId,
-      menuId
+      menuId,
+      page,
+      size
     )
     console.log(response)
     if (!response.message) {

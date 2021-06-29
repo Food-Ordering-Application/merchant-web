@@ -48,12 +48,15 @@ const ToppingMapper = (props) => {
   const access_token = localStorage.getItem('access_token')
 
   const [selectedTopping, setSelectedTopping] = useState({
-    name: '',
+    label: '',
     value: '',
   })
-  const [toppingItemsOption, setToppingItemsOption] = useState([])
-  const [menuItemsOption, setMenuItemsOption] = useState([])
   const [updateLoading, setUpdateLoading] = useState(false)
+  const [toppingItemsOption, setToppingItemsOption] = useState([])
+
+  const [menuItemsOption, setMenuItemsOption] = useState([])
+  const [allMenuItemsOption, setAllMenuItemsOption] = useState([])
+  const [existMenuItemsOption, setExistMenuItemsOption] = useState([])
 
   const [formInfo, setFormInfo] = useState({
     menuItem: {},
@@ -88,6 +91,45 @@ const ToppingMapper = (props) => {
     })
     setToppingItemsOption(newToppingItemsOption)
   }, [toppingItems])
+
+  useEffect(() => {
+    if (menuItems.length === 0) return
+
+    const allMenuItemOptions = menuItems.map(({ id, name }) => ({
+      label: name,
+      value: id,
+      customPrice: null,
+      selected: false,
+    }))
+
+    setAllMenuItemsOption(allMenuItemOptions)
+
+    // {
+    //   label: getMenuItemName(menuItemId),
+    //   value: menuItemId,
+    //   customPrice,
+    //   selected: true
+    // }
+  }, [menuItems])
+
+  useEffect(() => {
+    if (!selectedTopping.label) return
+
+    const finalOptions = []
+    for (let i = 0; i < allMenuItemsOption.length; i++) {
+      const item = allMenuItemsOption[i]
+      // const exist = existMenuItemsOption.find((it) => it.value === item.value)
+      const exist = existMenuItemsOption.find((it) => it.value === item.value)
+      if (exist) {
+        finalOptions.push(exist)
+      } else {
+        finalOptions.push(item)
+      }
+    }
+    // Sort selected items to be first
+    finalOptions.sort((a, b) => (a.selected ? -1 : 1))
+    setMenuItemsOption(finalOptions)
+  }, [allMenuItemsOption, existMenuItemsOption])
 
   // useEffect(() => {
   //   if (menuItemsOption.length > 0) return
@@ -231,15 +273,18 @@ const ToppingMapper = (props) => {
         },
       } = res
 
-      const newMenuItemsOption = results.map(({ menuItemId, customPrice }) => {
-        return {
-          label: getMenuItemName(menuItemId),
-          value: menuItemId,
-          customPrice,
+      const newSelectedMenuItemsOption = results.map(
+        ({ menuItemId, customPrice }) => {
+          return {
+            label: getMenuItemName(menuItemId),
+            value: menuItemId,
+            customPrice,
+            selected: true,
+          }
         }
-      })
+      )
 
-      setMenuItemsOption(newMenuItemsOption)
+      setExistMenuItemsOption(newSelectedMenuItemsOption)
     } catch (error) {
       console.log('Error in fetchMenuItemsByTopping')
       console.error(error)
@@ -254,12 +299,12 @@ const ToppingMapper = (props) => {
       const menuId = menus[0].id
       const toppingItemId = selectedTopping.value
       const body = {
-        menuItemToppings: menuItemsOption.map(
-          ({ label, value, customPrice }) => ({
+        menuItemToppings: menuItemsOption
+          .filter((item) => item.selected)
+          .map(({ label, value, customPrice }) => ({
             menuItemId: value,
             customPrice,
-          })
-        ),
+          })),
       }
 
       res = await axios({
@@ -305,6 +350,27 @@ const ToppingMapper = (props) => {
     setMenuItemsOption(newOptions)
   }
 
+  const onMenuItemAdded = (id, isAdded) => {
+    let options = [...menuItemsOption]
+    options = options.map((item) => {
+      if (item.value === id) {
+        if (isAdded) {
+          return {
+            ...item,
+            selected: true,
+          }
+        } else {
+          return {
+            ...item,
+            selected: false,
+          }
+        }
+      } else {
+        return { ...item }
+      }
+    })
+    setMenuItemsOption(options)
+  }
   // console.log(toppingItems)
   // console.log(menuItems)
   // console.log(toppingItemsOption)
@@ -330,14 +396,16 @@ const ToppingMapper = (props) => {
 
       {menuItemsOption.map((menuItem) => (
         <SelectToppingCard
+          key={menuItem.value}
           {...menuItem}
           onCustomPriceChange={onCustomPriceChange}
+          onMenuItemAdded={onMenuItemAdded}
         />
       ))}
 
       <Button
         color='primary'
-        className={`btn-shadow btn-multiple-state ${
+        className={`btn-shadow btn-multiple-state d-block ml-auto ${
           updateLoading ? 'show-spinner' : ''
         }`}
         disabled={updateLoading}

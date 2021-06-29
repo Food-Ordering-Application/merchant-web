@@ -87,9 +87,15 @@ export const getMenuGroupError = (error) => ({
   payload: { message: error },
 })
 
-export const getMenuItems = ({ merchantId, restaurantId, menuId }) => ({
+export const getMenuItems = ({
+  merchantId,
+  restaurantId,
+  menuId,
+  page = 0,
+  size = 10,
+}) => ({
   type: GET_MENU_ITEM,
-  payload: { merchantId, restaurantId, menuId },
+  payload: { merchantId, restaurantId, menuId, page, size },
 })
 
 export const getMenuItemsSuccess = (menuItems) => ({

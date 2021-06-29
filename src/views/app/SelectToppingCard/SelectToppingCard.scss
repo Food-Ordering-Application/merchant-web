@@ -10,11 +10,10 @@
   }
 
   .price-input {
-    padding: 0 10px;
-
+    overflow: hidden;
     input {
       padding: 5px 10px;
-      width: 70%;
+      width: 80%;
     }
   }
 }
