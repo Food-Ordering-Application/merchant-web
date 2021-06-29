@@ -187,6 +187,12 @@ module.exports = {
   'analytics.complete-ratio': 'Tỉ lệ hoàn thành đơn',
   'analytics.order-number-by-area': 'Tỉ lệ đơn theo khu vực',
   'analytics.revenue-by-order-type': 'Doanh thu theo loại đơn',
+  'menu.edit-staff': 'Chỉnh sửa thông tin nhân viên',
+  'menu.first-name': 'Tên',
+  'menu.last-name': 'Họ và tên đệm',
+  'menu.phone': 'Số điện thoại',
+  'menu.id-number': 'Số ID',
+  'menu.date-of-birth': 'Ngày sinh',
 
   'back-button': 'Trở lại',
 }

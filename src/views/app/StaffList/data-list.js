@@ -16,29 +16,6 @@ import AddNewModal from '../../../containers/pages/AddNewModal'
 function collect(props) {
   return { data: props.data }
 }
-const apiUrl = servicePath + '/cakes/paging'
-
-// const temp = {
-//   status: true,
-//   totalItem: 20,
-//   totalPage: 2,
-//   pageSize: '10',
-//   currentPage: '1',
-//   data: [
-//     {
-//       id: 18,
-//       title: 'Cơm chiên',
-//       img: '/assets/img/bebinca-thumb.jpg',
-//       category: 'Món chính',
-//       status: 'Đang chuẩn bị',
-//       statusColor: 'secondary',
-//       description: 'Homemade cheesecake with fresh berries and mint',
-//       sales: 574,
-//       stock: 16,
-//       date: '01.04.2021',
-//     },
-//   ],
-// }
 
 class DataListPages extends Component {
   constructor(props) {
@@ -165,7 +142,6 @@ class DataListPages extends Component {
     if (!event.target.className.includes('custom-control')) {
       // Menu item clicked
       const { history } = this.props
-      history.push(`/app/dishes/${id}`)
     }
     if (
       event.target.tagName === 'A' ||

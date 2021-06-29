@@ -38,7 +38,6 @@ const ToppingItemDetail = (props) => {
       const menuId = menus[0].id
       getToppingItems({ merchantId, restaurantId, menuId })
     }
-    const accessToken = localStorage.getItem('access_token')
   }, [menus])
 
   useEffect(() => {
@@ -58,7 +57,7 @@ const ToppingItemDetail = (props) => {
     window.location.replace(editPath)
   }
 
-  if (toppingItems.length === 0 || !toppingItem.id || loading) {
+  if (toppingItems.length === 0 || !toppingItem?.id || loading) {
     return <div className='loading'></div>
   }
 
@@ -70,7 +69,7 @@ const ToppingItemDetail = (props) => {
       <Separator className='mb-4 mt-3' />
 
       <Row className='mt-4'>
-        <Colxx md='12'>
+        <Colxx md='6' className=''>
           <Card>
             <CardBody>
               <div className='section'>

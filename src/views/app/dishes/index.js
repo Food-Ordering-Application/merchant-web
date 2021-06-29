@@ -25,18 +25,14 @@ const DishesMenu = ({ match }) => {
         {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/dishes`} /> */}
         <Route
           path={`${match.url}/:menuId/item/:id`}
-          render={(props) => <MenuItemDetail />}
+          render={(props) => <MenuItemDetail {...props} />}
         />
 
         <Route
           path={`${match.url}/:menuId/edit/:menuItemId`}
-          render={(props) => <MenuItemEdit />}
+          render={(props) => <MenuItemEdit {...props} />}
         />
 
-        <Route
-          path={`${match.url}/hello`}
-          render={(props) => <span>Hello</span>}
-        />
         <Route
           exact
           path={`${match.url}/`}

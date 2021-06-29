@@ -33,6 +33,8 @@ import {
   UPDATE_TOPPING_WITH_MENU_ITEMS_ERROR,
   UPDATE_TOPPING_WITH_MENU_ITEMS_SUCCESS,
   GET_MENUS_ERROR,
+  SET_TOPPING_ITEM,
+  SET_MENU_ITEM,
 } from '../actions'
 
 const INIT_STATE = {
@@ -141,6 +143,18 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         menuGroup: [...state.menuGroup, payload.menuGroup],
+      }
+    }
+
+    case SET_MENU_ITEM: {
+      const { data } = payload
+      let newMenuItems = [...state.menuItems]
+      const foundIndex = newMenuItems.findIndex((item) => item.id === data.id)
+      newMenuItems[foundIndex] = { ...data }
+
+      return {
+        ...state,
+        menuItems: newMenuItems,
       }
     }
 
@@ -360,6 +374,20 @@ export default (state = INIT_STATE, action) => {
       }
     }
 
+    case SET_TOPPING_ITEM: {
+      const { data } = payload
+      console.log(payload)
+      let newToppingItems = [...state.toppingItems]
+      const foundIndex = newToppingItems.findIndex(
+        (item) => item.id === data.id
+      )
+      newToppingItems[foundIndex] = { ...data }
+
+      return {
+        ...state,
+        toppingItems: newToppingItems,
+      }
+    }
     // case SET_RESTAURANT: {
     //   return { ...state, restaurant: action.payload.restaurant }
     // }

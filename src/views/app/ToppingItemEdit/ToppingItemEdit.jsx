@@ -16,7 +16,11 @@ import axios from 'axios'
 
 import Select from 'react-select'
 
-import { getMenuItems, getToppingItems } from '../../../redux/actions'
+import {
+  getMenuItems,
+  getToppingItems,
+  setToppingItem,
+} from '../../../redux/actions'
 import { createFile, sortByDay, uploadFile } from 'src/helpers/Utils'
 import IntlMessages from '../../../helpers/IntlMessages'
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap'
@@ -47,6 +51,7 @@ const ToppingItemEdit = (props) => {
     restaurantMenu: { toppingItems, menuGroup },
     getMenuItems,
     getToppingItems,
+    history,
   } = props
 
   const [toppingItem, setToppingItem] = useState({
@@ -200,11 +205,15 @@ const ToppingItemEdit = (props) => {
         },
       })
 
+      const { setToppingItem } = props
+      setToppingItem({ ...updatedMenuItem })
       NotificationManager.success(
         'Topping item updated successfully',
         'Success',
         3000
       )
+
+      // history.push(`/app/toppings/item/${toppingItemId}`)
 
       // window.location.reload()
     } catch (error) {
@@ -292,6 +301,10 @@ const ToppingItemEdit = (props) => {
                       value={activeOptions.find(
                         (option) => option.value === toppingItem.isActive
                       )}
+                      styles={{
+                        // Fixes the overlapping problem of the component
+                        menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                      }}
                       onChange={onActiveChange}
                       // onBlur={handleBlur}
                     />
@@ -316,7 +329,19 @@ const ToppingItemEdit = (props) => {
                   <div className='d-flex justify-content-end align-items-center'>
                     <Button
                       color='primary'
-                      className={`btn-shadow btn-multiple-state ${
+                      size='lg'
+                      onClick={() => {
+                        history.push(`/app/toppings/item/${toppingItem.id}`)
+                      }}
+                    >
+                      <span className='label'>
+                        <IntlMessages id='back-button' />
+                      </span>
+                    </Button>
+
+                    <Button
+                      color='primary'
+                      className={`btn-shadow btn-multiple-state ml-3 ${
                         loading ? 'show-spinner' : ''
                       }`}
                       size='lg'
@@ -349,4 +374,6 @@ const mapStateToProps = ({ restaurantInfo, restaurantMenu }) => ({
 })
 
 // export default connect(mapStateToProps, mapDispatchToProps)(MenuItemDetail)
-export default connect(mapStateToProps, { getToppingItems })(ToppingItemEdit)
+export default connect(mapStateToProps, { getToppingItems, setToppingItem })(
+  ToppingItemEdit
+)

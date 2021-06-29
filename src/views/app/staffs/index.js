@@ -9,6 +9,14 @@ const StaffCreate = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './createStaff')
 )
 
+const StaffDetail = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ '../StaffDetail')
+)
+
+const StaffEdit = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ '../StaffEdit')
+)
+
 const StaffMenu = ({ match }) => (
   <Suspense fallback={<div className='loading' />}>
     <Switch>
@@ -17,6 +25,16 @@ const StaffMenu = ({ match }) => (
         exact
         path={`${match.url}/`}
         render={(props) => <StaffList {...props} />}
+      />
+      <Route
+        exact
+        path={`${match.url}/edit/:staffId`}
+        render={(props) => <StaffEdit {...props} />}
+      />
+      <Route
+        exact
+        path={`${match.url}/:staffId`}
+        render={(props) => <StaffDetail {...props} />}
       />
       <Route
         path={`${match.url}/create`}

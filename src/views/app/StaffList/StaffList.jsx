@@ -137,15 +137,7 @@ const StaffList = (props) => {
   return (
     <div className='StaffList'>
       <Row>
-        <Colxx xxs='12'>
-          <Separator className='mb-5' />
-        </Colxx>
-      </Row>
-      <Row>
         <Colxx xxs='12' className='mb-4'>
-          <p>
-            <IntlMessages id='menu.staff-list' />
-          </p>
           {tableData.data.length > 0 && (
             <DataList
               history={history}

@@ -16,7 +16,10 @@ import axios from 'axios'
 
 import Select from 'react-select'
 
-import { getMenuItems } from '../../../redux/actions'
+import {
+  getMenuItems,
+  setMenuItem as setMenuItemAction,
+} from '../../../redux/actions'
 import { createFile, sortByDay, uploadFile } from 'src/helpers/Utils'
 import IntlMessages from '../../../helpers/IntlMessages'
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap'
@@ -129,6 +132,13 @@ const MenuItemEdit = (props) => {
     }))
   }
 
+  const redirectBack = () => {
+    const { history } = props
+    const path = window.location.href.split('/')
+    const menuId = path[path.length - 3]
+    history.push(`/app/dishes/${menuId}/item/${menuItem.id}`)
+  }
+
   const onSubmit = async () => {
     const { id, name, description, price, image, imageUrl, isActive, state } =
       menuItem
@@ -187,6 +197,9 @@ const MenuItemEdit = (props) => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
+
+      const { setMenuItemAction } = props
+      setMenuItemAction({ ...updatedMenuItem })
 
       NotificationManager.success(
         'Menu item updated successfully',
@@ -295,7 +308,18 @@ const MenuItemEdit = (props) => {
                   <div className='d-flex justify-content-end align-items-center'>
                     <Button
                       color='primary'
-                      className={`btn-shadow btn-multiple-state ${
+                      className={`btn-shadow btn-multiple-state`}
+                      size='lg'
+                      onClick={redirectBack}
+                    >
+                      <span className='label'>
+                        <IntlMessages id='back-button' />
+                      </span>
+                    </Button>
+
+                    <Button
+                      color='primary'
+                      className={`btn-shadow btn-multiple-state ml-3 ${
                         loading ? 'show-spinner' : ''
                       }`}
                       size='lg'
@@ -328,4 +352,6 @@ const mapStateToProps = ({ restaurantInfo, restaurantMenu }) => ({
 })
 
 // export default connect(mapStateToProps, mapDispatchToProps)(MenuItemDetail)
-export default connect(mapStateToProps, { getMenuItems })(MenuItemEdit)
+export default connect(mapStateToProps, { getMenuItems, setMenuItemAction })(
+  MenuItemEdit
+)

@@ -29,12 +29,12 @@ const ToppingsRoute = ({ match }) => (
       <Route
         exact
         path={`${match.url}/item/:toppingId`}
-        render={(props) => <ToppingItemDetail />}
+        render={(props) => <ToppingItemDetail {...props} />}
       />
       <Route
         exact
         path={`${match.url}/:menuId/edit/:toppingId`}
-        render={(props) => <ToppingItemEdit />}
+        render={(props) => <ToppingItemEdit {...props} />}
       />
       <Route
         exact
