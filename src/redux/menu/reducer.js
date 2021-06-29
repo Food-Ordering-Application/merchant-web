@@ -35,6 +35,7 @@ import {
   GET_MENUS_ERROR,
   SET_TOPPING_ITEM,
   SET_MENU_ITEM,
+  EDIT_TOPPING_GROUP,
 } from '../actions'
 
 const INIT_STATE = {
@@ -53,9 +54,10 @@ const INIT_STATE = {
   loadingToppingItems: false,
   toppingByMenuItems: [],
   error: '',
-  totalToppingItems: 0,
   totalMenuItems: 0,
   totalMenuGroups: 0,
+  totalToppingItems: 0,
+  totalToppingGroups: 0,
 }
 
 export default (state = INIT_STATE, action) => {
@@ -65,7 +67,6 @@ export default (state = INIT_STATE, action) => {
       return { ...state, loadingGetMenus: true, error: '' }
     }
     case GET_MENUS_SUCCESS: {
-      console.log(payload)
       return {
         ...state,
         loadingGetMenus: false,
@@ -119,9 +120,6 @@ export default (state = INIT_STATE, action) => {
       return { ...state, loadingMenuItems: true, error: '' }
     }
     case GET_MENU_ITEM_SUCCESS: {
-      // console.log(payload.menuItems)
-      // console.log(state.menuGroup)
-
       return {
         ...state,
         loadingMenuItems: false,
@@ -142,8 +140,6 @@ export default (state = INIT_STATE, action) => {
 
     // MENU GROUP
     case SET_MENU_GROUP: {
-      console.log(payload)
-
       const { data } = payload
       let newMenuGroups = [...state.menuGroup]
       const foundIndex = newMenuGroups.findIndex((item) => item.id === data.id)
@@ -167,8 +163,21 @@ export default (state = INIT_STATE, action) => {
       }
     }
 
+    case EDIT_TOPPING_GROUP: {
+      const { data } = payload
+      let newToppingGroups = [...state.toppingGroups]
+      const foundIndex = newToppingGroups.findIndex(
+        (item) => item.id === data.id
+      )
+      newToppingGroups[foundIndex] = { ...data }
+
+      return {
+        ...state,
+        toppingGroups: newToppingGroups,
+      }
+    }
+
     case CREATE_MENU_GROUP: {
-      console.log(payload)
       return { ...state, loadingMenuGroups: true, error: '' }
     }
 
@@ -193,12 +202,10 @@ export default (state = INIT_STATE, action) => {
 
     // CREATE MENU ITEM
     case CREATE_MENU_ITEM: {
-      console.log(payload)
       return { ...state, loadingMenuItem: true, error: '' }
     }
 
     case CREATE_MENU_ITEM_SUCCESS: {
-      console.log(payload)
       return {
         ...state,
         menuItems: [...state.menuItems, payload.menuItem],
@@ -217,12 +224,10 @@ export default (state = INIT_STATE, action) => {
 
     // CREATE TOPPING GROUP
     case CREATE_TOPPING_GROUP: {
-      console.log(payload)
       return { ...state, loadingToppingGroups: true, error: '' }
     }
 
     case CREATE_TOPPING_GROUP_SUCCESS: {
-      console.log(payload)
       return {
         ...state,
         toppingGroups: [...state.toppingGroups, payload.toppingGroup],
@@ -243,17 +248,16 @@ export default (state = INIT_STATE, action) => {
 
     // GET TOPPING GROUP
     case GET_TOPPING_GROUP: {
-      console.log(payload)
       return { ...state, loadingGetToppingGroups: true, error: '' }
     }
 
     case GET_TOPPING_GROUP_SUCCESS: {
-      console.log(payload)
       return {
         ...state,
         loadingGetToppingGroups: false,
         error: '',
         toppingGroups: payload.toppingGroups,
+        totalToppingGroups: payload.total,
       }
     }
 
@@ -269,12 +273,10 @@ export default (state = INIT_STATE, action) => {
 
     // CREATE TOPPING ITEM
     case CREATE_TOPPING_ITEM: {
-      console.log(payload)
       return { ...state, loadingCreateToppingItem: true, error: '' }
     }
 
     case CREATE_TOPPING_ITEM_SUCCESS: {
-      console.log(payload)
       return {
         ...state,
         // toppingGroups: [...state.toppingGroups, payload.toppingGroup],
@@ -298,8 +300,6 @@ export default (state = INIT_STATE, action) => {
       return { ...state, loadingToppingItems: true, error: '' }
     }
     case GET_TOPPING_ITEMS_SUCCESS: {
-      // console.log(payload.menuItems)
-      // console.log(state.menuGroup)
       return {
         ...state,
         loadingToppingItems: false,
@@ -318,7 +318,6 @@ export default (state = INIT_STATE, action) => {
       }
     }
     case SET_TOPPING_BY_MENU_ITEMS: {
-      console.log(payload)
       const { data } = payload
 
       if (data.length === 0) return { ...state }
@@ -385,7 +384,6 @@ export default (state = INIT_STATE, action) => {
 
     case SET_TOPPING_ITEM: {
       const { data } = payload
-      console.log(payload)
       let newToppingItems = [...state.toppingItems]
       const foundIndex = newToppingItems.findIndex(
         (item) => item.id === data.id

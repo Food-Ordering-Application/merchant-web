@@ -34,9 +34,9 @@ const MenuGroup = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './menuGroup')
 )
 
-// const ToppingGroup = React.lazy(() =>
-//   import(/* webpackChunkName: "viwes-blank-page" */ './toppingGroup')
-// )
+const ToppingGroup = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './toppingGroup')
+)
 
 const Paypal = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './paypal')
@@ -106,10 +106,10 @@ class App extends Component {
                 path={`${match.url}/menu-group`}
                 render={(props) => <MenuGroup {...props} />}
               />
-              {/* <Route
+              <Route
                 path={`${match.url}/topping-group`}
                 render={(props) => <ToppingGroup {...props} />}
-              /> */}
+              />
               <Route
                 path={`${match.url}/orders`}
                 render={(props) => <Orders {...props} />}

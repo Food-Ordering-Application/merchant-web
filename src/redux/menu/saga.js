@@ -499,10 +499,10 @@ function* getToppingGroups({ payload }) {
     if (!response.message) {
       const {
         data: {
-          data: { results = [] },
+          data: { results = [], total, size: pageSize },
         },
       } = response
-      yield put(getToppingGroupSuccess(results))
+      yield put(getToppingGroupSuccess(results, total))
     } else {
       console.log(response.message)
       yield put(getToppingGroupError(response.message))

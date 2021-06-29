@@ -98,7 +98,8 @@ class DataListPages extends Component {
 
   toggleModal = () => {
     const { history } = this.props
-    history.push(`/app/dishes/create`)
+    const linkToCreateToppingGroup = `/app/toppings/create/topping-group`
+    history.push(linkToCreateToppingGroup)
     // this.setState({
     //   modalOpen: !this.state.modalOpen,
     // })
@@ -327,6 +328,7 @@ class DataListPages extends Component {
             onDeactiveItems={onDeactiveItems}
             onActiveItems={onActiveItems}
             isTopping={isTopping}
+            // linkCreate={linkToCreateToppingGroup}
           />
           <AddNewModal
             modalOpen={modalOpen}
@@ -365,7 +367,6 @@ class DataListPages extends Component {
                     isSelect={this.state.selectedItems.includes(product.id)}
                     onCheckItem={this.onCheckItem}
                     collect={collect}
-                    subItems={[{ name: 'ASdasda' }, { name: 'LOLOL' }]}
                   />
                 )
               }

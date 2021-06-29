@@ -72,9 +72,6 @@ const MenuGroupList = (props) => {
     getMenuGroup({ merchantId, restaurantId, menuId })
   }, [menus])
 
-  console.log(menuGroup)
-  console.log(totalMenuGroups)
-
   useEffect(() => {
     if (menuGroup.length === 0) return
     const newMenuGroups = [...menuGroup]
@@ -167,8 +164,6 @@ const MenuGroupList = (props) => {
   if (loadingGetToppingGroup || fetchLoading) {
     return <div className='loading' />
   }
-
-  console.log(tableData.data)
 
   return (
     <Fragment>

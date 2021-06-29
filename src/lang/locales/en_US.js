@@ -202,4 +202,7 @@ module.exports = {
   'menu-group.name': 'Tên nhóm món',
   'menu-group.index': 'Số thứ tự',
   'menu.status': 'Trạng thái',
+  'menu.edit-topping-group': 'Chỉnh sửa nhóm topping',
+
+  'topping-group.name': 'Tên nhóm topping',
 }

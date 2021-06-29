@@ -17,7 +17,6 @@ const DataListView = ({
   onItemClick,
   history,
 }) => {
-  console.log('Hello')
   useEffect(() => {}, [])
 
   const onNavLinkClick = () => {
@@ -35,8 +34,6 @@ const DataListView = ({
     if (status === 'CANCELLED') return '#e92e37'
     return 'orange'
   }
-
-  console.log(group)
 
   if (!group) {
     return <div className='loading'></div>

@@ -17,7 +17,6 @@ const DataListView = ({
   onItemClick,
   history,
 }) => {
-  console.log('Hello')
   useEffect(() => {}, [])
 
   const onNavLinkClick = () => {
@@ -25,7 +24,6 @@ const DataListView = ({
     window.location.replace(`${path}/item/${group.id}`)
   }
 
-  const linkToTopping = `/app/toppings/item/${group.id}`
   const getColor = (status) => {
     if (status === 'COMPLETED') return '#38d043'
     if (status === 'ORDERED') return '#b22ee9'
@@ -35,13 +33,12 @@ const DataListView = ({
     return 'orange'
   }
 
-  console.log(group)
+  const linkToToppingGroup = `/app/topping-group/item/${group.id}`
 
   if (!group) {
     return <div className='loading'></div>
   }
 
-  return null
   return (
     <Colxx xxs='12' className={clsx('mb-3')}>
       <ContextMenuTrigger id='menu_id' data={group.id} collect={collect}>
@@ -57,15 +54,22 @@ const DataListView = ({
               className='card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center'
               style={{
                 padding: '1.75rem 0.75rem',
+                opacity: group.isActive ? 1 : 0.4,
               }}
             >
-              <p
-                className='list-item-heading mb-1 truncate w-sm-100'
-                style={{ width: '22%' }}
+              <NavLink
+                to={linkToToppingGroup}
+                className='w-sm-100 w-80'
+                // style={{ width: '35%' }}
               >
-                {group.name || 'Unknown'}
-              </p>
-              <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
+                <p
+                  className='list-item-heading mb-1 truncate w-sm-100'
+                  style={{ width: '80%' }}
+                >
+                  {group.name || 'Unknown'}
+                </p>
+              </NavLink>
+              <p className='mb-1 text-muted text-md-small w-20 w-sm-100'>
                 {group.index}
               </p>
             </div>

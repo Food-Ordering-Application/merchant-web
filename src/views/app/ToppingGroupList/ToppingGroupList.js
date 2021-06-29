@@ -41,6 +41,7 @@ const ToppingGroupList = (props) => {
       toppingGroups = [],
       loadingToppingItems,
       totalToppingItems,
+      totalToppingGroups,
     },
     location: { pathname },
     restaurantInfo,
@@ -65,9 +66,6 @@ const ToppingGroupList = (props) => {
   useEffect(() => {
     if (menus.length === 0) return
     const menuId = menus[0].id
-    if (toppingItems.length === 0) {
-      getToppingItems({ merchantId, restaurantId, menuId })
-    }
     if (toppingGroups.length === 0) {
       getToppingGroup({ merchantId, restaurantId, menuId })
     }
@@ -75,66 +73,22 @@ const ToppingGroupList = (props) => {
 
   useEffect(() => {
     const pageSize = 10
-    console.log(toppingItems)
-    if (toppingItems.length !== 0 && toppingGroups.length !== 0) {
+    if (toppingGroups.length !== 0) {
       setLoading(false)
     }
-    console.log(toppingItems.length !== 0)
-    console.log(tableData.data.length === 0)
-    console.log(toppingGroups.length > 0)
-    if (
-      toppingItems.length !== 0 &&
-      // tableData.data.length === 0 &&
-      toppingGroups.length > 0
-    ) {
-      const newToppingItems = toppingItems.map(
-        ({
-          id,
-          name,
-          price,
-          maxQuantity,
-          isActive,
-          index,
-          state,
-          imageUrl,
-          description,
-          toppingGroupId,
-          menuId,
-        }) => {
-          const group = findToppingGroupById(toppingGroupId, toppingGroups)
-
-          return {
-            id,
-            price,
-            maxQuantity,
-            isActive,
-            index,
-            state,
-            description,
-            toppingGroupId,
-            menuId,
-            title: name,
-            img: imageUrl,
-            // category: group.name || 'Unknown',
-            category: group?.name || 'Unknown',
-            statusColor: 'secondary',
-            // date: '01.04.2021',
-          }
-        }
-      )
-
+    if (toppingGroups.length > 0) {
       const newTableData = {
         status: true,
-        totalItem: menuItems.length,
-        totalPage: Math.ceil(totalToppingItems / pageSize),
+        totalItem: toppingGroups.length,
+        totalPage: Math.ceil(totalToppingGroups / pageSize),
         pageSize,
-        currentPage: '1',
-        data: newToppingItems,
+        currentPage: 1,
+        data: toppingGroups,
       }
 
       setTableData(newTableData)
     }
-  }, [toppingItems, toppingGroups])
+  }, [toppingGroups])
 
   const onSelect = (ids) => {
     setSelectedItems(ids)
@@ -301,50 +255,6 @@ const ToppingGroupList = (props) => {
 
   return (
     <Fragment>
-      <Row>
-        <Colxx xxs='12'>
-          <div className='d-flex'>
-            {/* <Breadcrumb heading='menu.toppings' match={props.match} /> */}
-
-            <h1>Toppings</h1>
-            <div style={{ display: 'block', marginLeft: 'auto' }}>
-              <button
-                type='button'
-                className='btn-shadow btn btn-primary mr-3 font-weight-600'
-                onClick={onToppingGroupCreateClick}
-              >
-                <span>
-                  <IntlMessages id='menu.topping-group-create' />
-                </span>
-              </button>
-
-              <button
-                type='button'
-                className='btn-shadow btn btn-primary mr-3 font-weight-600'
-                onClick={onToppingItemCreateClick}
-              >
-                <span>
-                  <IntlMessages id='menu.topping-item-create' />
-                </span>
-              </button>
-
-              <button
-                type='button'
-                className='btn-shadow btn btn-primary font-weight-600'
-                onClick={onSetupToppingClick}
-              >
-                <span>
-                  <IntlMessages id='menu.select-topping' />
-                </span>
-              </button>
-            </div>
-          </div>
-          <Separator className='mb-5' />
-        </Colxx>
-      </Row>
-      <Row>
-        <Colxx md='12'></Colxx>
-      </Row>
       <Row>
         <Colxx xxs='12' className='mb-4'>
           {tableData.data.length > 0 && (

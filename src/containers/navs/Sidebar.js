@@ -344,7 +344,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='bx:bx-food-menu'
             data-inline='false'
             data-width='37'
@@ -360,7 +360,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='fluent:food-24-regular'
             data-inline='false'
             data-width='37'
@@ -376,7 +376,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='emojione-monotone:pot-of-food'
             data-inline='false'
             data-width='37'
@@ -392,7 +392,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='emojione-monotone:tropical-drink'
             data-inline='false'
             data-width='37'
@@ -408,7 +408,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='bi:cash-coin'
             data-inline='false'
             data-width='37'
@@ -424,7 +424,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='ant-design:area-chart-outlined'
             data-inline='false'
             data-width='39'
@@ -440,7 +440,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='carbon:location'
             data-inline='false'
             data-width='37'
@@ -456,7 +456,7 @@ class Sidebar extends Component {
       return (
         <NavLink to={item.to} data-flag={item.id}>
           <span
-            class='iconify'
+            className='iconify'
             data-icon='clarity:employee-group-line'
             data-inline='false'
             data-width='37'

@@ -72,6 +72,7 @@ class ListPageHeading extends Component {
       isStaffList,
       isOrderList,
       isTopping,
+      linkCreate,
     } = this.props
 
     const { displayOptionsIsOpen, dropdownSplitOpen } = this.state
