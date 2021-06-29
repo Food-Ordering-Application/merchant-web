@@ -9,6 +9,10 @@ const MenuGroupList = React.lazy(() =>
   import(/* webpackChunkName: "second" */ '../MenuGroupList')
 )
 
+const MenuGroupDetail = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ '../MenuGroupDetail')
+)
+
 const MenuGroupRoute = ({ match }) => (
   <Suspense fallback={<div className='loading' />}>
     <Switch>
@@ -17,6 +21,11 @@ const MenuGroupRoute = ({ match }) => (
         exact
         path={`${match.url}/`}
         render={(props) => <MenuGroupList {...props} />}
+      />
+      <Route
+        exact
+        path={`${match.url}/item/:id`}
+        render={(props) => <MenuGroupDetail {...props} />}
       />
       {/* <Route
         exact

@@ -37,6 +37,7 @@ import {
   UPDATE_TOPPING_WITH_MENU_ITEMS_ERROR,
   SET_TOPPING_ITEM,
   SET_MENU_ITEM,
+  SET_MENU_GROUP,
 } from '../actions'
 
 export const getMenus = (merchantId, restaurantId) => ({
@@ -77,6 +78,11 @@ export const getMenuSuccess = (menu) => ({
 export const getMenuError = (error) => ({
   type: GET_MENU_ERROR,
   payload: { message: error },
+})
+
+export const setMenuGroup = (data) => ({
+  type: SET_MENU_GROUP,
+  payload: { data },
 })
 
 export const getMenuGroup = ({

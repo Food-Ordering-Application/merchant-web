@@ -142,9 +142,16 @@ export default (state = INIT_STATE, action) => {
 
     // MENU GROUP
     case SET_MENU_GROUP: {
+      console.log(payload)
+
+      const { data } = payload
+      let newMenuGroups = [...state.menuGroup]
+      const foundIndex = newMenuGroups.findIndex((item) => item.id === data.id)
+      newMenuGroups[foundIndex] = { ...data }
+
       return {
         ...state,
-        menuGroup: [...state.menuGroup, payload.menuGroup],
+        menuGroup: newMenuGroups,
       }
     }
 
