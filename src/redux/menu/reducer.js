@@ -55,6 +55,7 @@ const INIT_STATE = {
   error: '',
   totalToppingItems: 0,
   totalMenuItems: 0,
+  totalMenuGroups: 0,
 }
 
 export default (state = INIT_STATE, action) => {
@@ -90,7 +91,8 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         error: '',
-        menuGroup: payload.menuGroup,
+        menuGroup: payload.menuGroups,
+        totalMenuGroups: payload.total,
       }
     }
     case GET_MENU_GROUP_ERROR: {

@@ -194,6 +194,7 @@ module.exports = {
   'menu.id-number': 'Số ID',
   'menu.date-of-birth': 'Ngày sinh',
   'menu.full-name': 'Họ tên',
+  'menu.topping-group': 'Nhóm topping',
 
   'back-button': 'Trở lại',
 }

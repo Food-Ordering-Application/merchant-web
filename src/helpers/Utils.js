@@ -1,6 +1,8 @@
+import axios from 'axios'
 import Pusher from 'pusher-js'
+import localStorage from 'redux-persist/es/storage'
 import { NotificationManager } from 'src/components/common/react-notifications'
-import { PUSHER_APP_CLUSTER, PUSHER_APP_KEY } from 'src/constants'
+import { BASE_URL, PUSHER_APP_CLUSTER, PUSHER_APP_KEY } from 'src/constants'
 import { defaultDirection } from '../constants/defaultValues'
 import { storage } from './Firebase'
 
@@ -118,9 +120,10 @@ export const padNumber = (number, offset = 2, char = '0') => {
   return String(number).padStart(offset, char)
 }
 
-export const listenNotification = () => {
+export const listenNotification = async () => {
   // const restaurantId = '6587f789-8c76-4a2e-9924-c14fc30629ef'
-  const restaurantId = '01bd1b6e-2dd2-4c7a-a79b-7ae05d029495'
+  // const restaurantId = '01bd1b6e-2dd2-4c7a-a79b-7ae05d029495'
+  const restaurantId = await localStorage.getItem('restaurant_id')
 
   const pusher = new Pusher(PUSHER_APP_KEY, {
     cluster: PUSHER_APP_CLUSTER,
@@ -137,35 +140,88 @@ export const listenNotification = () => {
   })
 }
 
-const handleNotification = (data) => {
+// const handleNotification = (data) => {
+//   const NOTIFY_TIME = 15000
+
+//   try {
+//     const {
+//       status,
+//       delivery: { customerId, customerName },
+//     } = data
+
+//     const notiMessage = `Khách hàng ${customerId} :${status}`
+//     NotificationManager.success(notiMessage, 'Đơn hàng mới', NOTIFY_TIME)
+//     return
+//   } catch (error) {
+//     console.log(error)
+//     // New order
+//     try {
+//       const {
+//         order: {
+//           delivery: { customerId },
+//           status,
+//         },
+//       } = data
+
+//       const notiMessage = `Khách hàng ${customerId} :${status}`
+//       NotificationManager.success(notiMessage, 'Đơn hàng mới', NOTIFY_TIME)
+//       return
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }
+
+const STATUS_MAPPER = {
+  CONFIRMED: 'Đã xác nhận',
+  COMPLETED: 'Đã hoàn thành',
+  ASSIGNING_DRIVER: 'Đang tìm tài xế',
+  READY: 'Đã chuẩn bị món',
+}
+
+const getCustomer = async (customerId) => {
+  const accessToken = await localStorage.getItem('access_token')
+  try {
+    const { data } = await axios({
+      method: 'GET',
+      url: `${BASE_URL}/user/customer/${customerId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        customerId,
+      },
+    })
+    console.log(data)
+    const {
+      data: { user },
+    } = data
+    return user
+  } catch (error) {
+    console.log('Error in getCustomer')
+    console.error(error)
+    return null
+  }
+}
+
+const handleNotification = async (data) => {
   const NOTIFY_TIME = 15000
 
+  // New order
   try {
     const {
-      status,
-      delivery: { customerId, customerName },
+      order: {
+        delivery: { customerId },
+        status,
+      },
     } = data
 
-    const notiMessage = `Khách hàng ${customerId} :${status}`
+    const customer = await getCustomer(customerId)
+    const notiMessage = `Khách hàng ${customer.name} \n Trạng thái:${STATUS_MAPPER[status]}`
     NotificationManager.success(notiMessage, 'Đơn hàng mới', NOTIFY_TIME)
     return
   } catch (error) {
     console.log(error)
-    // New order
-    try {
-      const {
-        order: {
-          delivery: { customerId },
-          status,
-        },
-      } = data
-
-      const notiMessage = `Khách hàng ${customerId} :${status}`
-      NotificationManager.success(notiMessage, 'Đơn hàng mới', NOTIFY_TIME)
-      return
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
 

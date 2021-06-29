@@ -340,6 +340,38 @@ class Sidebar extends Component {
     //   color='#aaaaaa'
     //   id='selectRestaurant'
     // ></span>
+    if (item.id === 'menuGroup') {
+      return (
+        <NavLink to={item.to} data-flag={item.id}>
+          <span
+            class='iconify'
+            data-icon='bx:bx-food-menu'
+            data-inline='false'
+            data-width='37'
+            data-height='37'
+          ></span>
+          <span style={{ marginTop: 5, whiteSpace: 'nowrap' }}>
+            <IntlMessages id={item.label} />
+          </span>
+        </NavLink>
+      )
+    }
+    if (item.id === 'toppingGroup') {
+      return (
+        <NavLink to={item.to} data-flag={item.id}>
+          <span
+            class='iconify'
+            data-icon='fluent:food-24-regular'
+            data-inline='false'
+            data-width='37'
+            data-height='37'
+          ></span>
+          <span style={{ marginTop: 5 }}>
+            <IntlMessages id={item.label} />
+          </span>
+        </NavLink>
+      )
+    }
     if (item.id === 'orders') {
       return (
         <NavLink to={item.to} data-flag={item.id}>

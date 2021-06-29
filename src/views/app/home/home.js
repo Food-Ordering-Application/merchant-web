@@ -186,14 +186,6 @@ class Home extends Component {
                             </Badge>
                           ))}
 
-                        {/* <Badge
-                          color='primary'
-                          pill
-                          style={{ padding: '5px 10px', marginLeft: 10 }}
-                        >
-                          Hủ tíu
-                        </Badge> */}
-
                         <NavLink to={`/app/home/edit`} className='black'>
                           <box-icon
                             name='edit-alt'
@@ -243,6 +235,38 @@ class Home extends Component {
                       <box-icon name='phone' type='solid'></box-icon>
                       <p className='contact'>{phone}</p>
                     </div>
+
+                    <div
+                      className='d-flex align-items-center justify-content-between'
+                      style={{ maxWidth: 400 }}
+                    >
+                      <div className='d-flex align-items-center'>
+                        <span
+                          class='iconify'
+                          data-icon='akar-icons:door'
+                          data-inline='false'
+                          data-width='28'
+                          data-height='28'
+                        ></span>
+                        <p className=''>
+                          {isActive ? 'Đang hoạt động' : 'Đang không hoạt động'}
+                        </p>
+                      </div>
+
+                      <div className='d-flex align-items-center'>
+                        <box-icon type='solid' name='check-circle'></box-icon>
+                        <p className=''>
+                          {isVerified ? 'Đã xác thực' : 'Chưa xác thực'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {isBanned && (
+                      <div className='d-flex align-items-center'>
+                        <box-icon name='x'></box-icon>
+                        <p className=''>Đã bị cấm</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

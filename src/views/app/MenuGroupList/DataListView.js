@@ -7,7 +7,7 @@ import { Colxx } from '../../../components/common/CustomBootstrap'
 import clsx from 'clsx'
 
 const DataListView = ({
-  product,
+  product: group,
   isSelect,
   collect,
   onCheckItem,
@@ -17,14 +17,16 @@ const DataListView = ({
   onItemClick,
   history,
 }) => {
+  console.log('Hello')
   useEffect(() => {}, [])
 
   const onNavLinkClick = () => {
     const path = window.location.href
-    window.location.replace(`${path}/item/${product.id}`)
+    window.location.replace(`${path}/item/${group.id}`)
   }
 
-  const linkToTopping = `/app/toppings/item/${product.id}`
+  const linkToMenuGroup = `/app/menu-group/item/${group.id}`
+
   const getColor = (status) => {
     if (status === 'COMPLETED') return '#38d043'
     if (status === 'ORDERED') return '#b22ee9'
@@ -34,15 +36,17 @@ const DataListView = ({
     return 'orange'
   }
 
-  if (!product) {
+  console.log(group)
+
+  if (!group) {
     return <div className='loading'></div>
   }
 
   return (
     <Colxx xxs='12' className={clsx('mb-3')}>
-      <ContextMenuTrigger id='menu_id' data={product.id} collect={collect}>
+      <ContextMenuTrigger id='menu_id' data={group.id} collect={collect}>
         <Card
-          onClick={(event) => onCheckItem(event, product.id)}
+          onClick={(event) => onCheckItem(event, group.id)}
           className={classnames('d-flex flex-row', {
             active: isSelect,
           })}
@@ -55,39 +59,26 @@ const DataListView = ({
                 padding: '1.75rem 0.75rem',
               }}
             >
-              <p
-                className='list-item-heading mb-1 truncate w-sm-100'
-                style={{ width: '22%' }}
-                // onClick={onNavLinkClick}
+              <NavLink
+                to={linkToMenuGroup}
+                className='w-sm-100 w-80'
+                // style={{ width: '35%' }}
               >
-                {product.delivery?.customerName || 'Unknown'}
+                {/* <a href='/hello'> */}
+                <p className='list-item-heading mb-1 truncate p-1 hover-orange'>
+                  {group.name}
+                </p>
+                {/* </a> */}
+              </NavLink>
+              {/* <p
+                className='list-item-heading mb-1 truncate w-sm-100'
+                // style={{ width: '22%' }}
+              >
+                {group.name || 'Unknown'}
+              </p> */}
+              <p className='mb-1 text-muted text-md-small w-20 w-sm-100'>
+                {group.index}
               </p>
-              <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
-                {product.orderItems.length} món
-              </p>
-              <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
-                {product.grandTotal}đ
-              </p>
-              <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
-                {product.updatedAt.substring(0, 10)}
-              </p>
-
-              <div className='w-15 w-sm-100'>
-                {/* <Badge color={getColor(product.status)} pill> */}
-                <span
-                  style={{
-                    backgroundColor: getColor(product.status),
-                    padding: '0.55em 0.75em 0.6em 0.75em',
-                    fontSize: '0.7rem',
-                    fontWeight: 700,
-                    borderRadius: '10rem',
-                    color: 'white',
-                    marginBotton: '0.25rem',
-                  }}
-                >
-                  {product.status}
-                </span>
-              </div>
             </div>
           </div>
         </Card>

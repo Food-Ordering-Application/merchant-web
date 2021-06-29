@@ -99,7 +99,13 @@ function* getMenu({ payload }) {
   }
 }
 
-const getMenuGroupAsync = async (merchantId, restaurantId, menuId) => {
+const getMenuGroupAsync = async (
+  merchantId,
+  restaurantId,
+  menuId,
+  page,
+  size
+) => {
   const accessToken = localStorage.getItem('access_token')
   try {
     let response
@@ -109,6 +115,10 @@ const getMenuGroupAsync = async (merchantId, restaurantId, menuId) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      params: {
+        page,
+        size,
+      },
     })
     return response
   } catch (error) {
@@ -117,22 +127,24 @@ const getMenuGroupAsync = async (merchantId, restaurantId, menuId) => {
 }
 
 function* getMenuGroup({ payload }) {
-  const { merchantId, restaurantId, menuId } = payload
+  const { merchantId, restaurantId, menuId, page = 0, size = 10 } = payload
   try {
     const response = yield call(
       getMenuGroupAsync,
       merchantId,
       restaurantId,
-      menuId
+      menuId,
+      page,
+      size
     )
     console.log(response)
     if (!response.message) {
       const {
         data: {
-          data: { results = [] },
+          data: { results = [], size: resultSize, total },
         },
       } = response
-      yield put(getMenuGroupSuccess(results))
+      yield put(getMenuGroupSuccess(results, total))
     } else {
       console.log(response.message)
       yield put(getMenuGroupError(response.message))

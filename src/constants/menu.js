@@ -52,6 +52,18 @@ const data = [
     // ],
   },
   {
+    id: 'menuGroup',
+    icon: 'iconsminds-bar-chart-4',
+    label: 'menu.menu-group',
+    to: '/app/menu-group',
+  },
+  {
+    id: 'toppingGroup',
+    icon: 'iconsminds-bar-chart-4',
+    label: 'menu.topping-group',
+    to: '/app/topping-group',
+  },
+  {
     id: 'staffs',
     icon: 'iconsminds-user',
     label: 'menu.staffs',
