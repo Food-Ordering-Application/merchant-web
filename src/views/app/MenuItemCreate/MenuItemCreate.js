@@ -57,7 +57,7 @@ const MenuItemCreate = (props) => {
     description: '',
     price: '',
     isActive: true,
-    index: 65537,
+    index: '',
   }
 
   const handleUpload = async () => {

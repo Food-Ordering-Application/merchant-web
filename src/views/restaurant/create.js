@@ -27,12 +27,12 @@ class CreateRestaurant extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: 'mechant123@foa.com',
-      address: '324 Trần Hưng Đạo',
-      password: '123123',
-      name: 'Quán ăn Happy Food',
-      phone: '0943123456',
-      idNumber: '272699300',
+      email: '',
+      address: '',
+      password: '',
+      name: '',
+      phone: '',
+      idNumber: '',
       pictures: [],
       image: null,
       imageUrl: '',

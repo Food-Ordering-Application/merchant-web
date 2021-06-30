@@ -85,7 +85,7 @@ class Register extends Component {
 
   validateUsername = (value) => {
     let error
-    if (!value) {
+    if (!value || !value.trim()) {
       error = 'Please enter your username'
     } else if (value.length < 5) {
       error = 'Username must be longer than 5 character'
@@ -106,7 +106,7 @@ class Register extends Component {
   validatePassword = (value) => {
     let error
     this.setState({ password: value })
-    if (!value) {
+    if (!value || !value.trim()) {
       error = 'Please enter your password'
     } else if (!new RegExp(PASSWORD_REGEX).test(value)) {
       error =
@@ -127,10 +127,18 @@ class Register extends Component {
 
   validatePhone = (value) => {
     let error
-    if (!value) {
+    if (!value | !value.trim()) {
       error = 'Please enter your phone number'
     } else if (`${value}`.length < 9 || `${value}`.length > 12) {
       error = 'Phone number is not valid'
+    }
+    return error
+  }
+
+  validateIdNumber = (value) => {
+    let error
+    if (!value | !value.trim()) {
+      error = 'Please enter your phone id number'
     }
     return error
   }
@@ -146,7 +154,7 @@ class Register extends Component {
                 Hãy dùng form này để đăng ký. <br />
                 Nếu bạn đã có tài khoản, hãy{' '}
                 <NavLink
-                  to={`/user/login`}
+                  to={`/merchant/login`}
                   className='white'
                   style={{ textDecoration: 'underline' }}
                 >
@@ -262,7 +270,7 @@ class Register extends Component {
                       <Field
                         className='form-control'
                         name='phone'
-                        type='number'
+                        type='text'
                         validate={this.validatePhone}
                       />
                       {errors.phone && touched.phone && (
@@ -279,7 +287,7 @@ class Register extends Component {
                       <Field
                         className='form-control'
                         name='idNumber'
-                        type='number'
+                        type='text'
                         validate={this.validateIdNumber}
                       />
                       {errors.idNumber && touched.idNumber && (

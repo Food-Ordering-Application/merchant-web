@@ -28,9 +28,9 @@ const ToppingGroupCreate = (props) => {
 
   const initialValues = {
     // name: '',
-    name: 'Nước sốt',
+    name: '',
     isActive: true,
-    index: 65537,
+    index: '',
   }
 
   const handleSubmit = async (values) => {
@@ -57,10 +57,6 @@ const ToppingGroupCreate = (props) => {
       restaurantId = await localStorage.getItem('restaurant_id')
     }
     const menuId = menus[0].id || ''
-    console.log(merchantId)
-    console.log(restaurantId)
-    console.log(menuId)
-
     createToppingGroup({
       merchantId,
       restaurantId,

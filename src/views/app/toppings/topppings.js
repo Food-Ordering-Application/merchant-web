@@ -36,7 +36,6 @@ class Dishes extends Component {
       // },
       restaurantInfo: {
         restaurant: {
-          // id: restaurantId = `8a9beb82-7c3f-45a5-883b-9d96a794d1f2`,
           id: restaurantId = localStorage.getItem('restaurant_id'),
         },
       },
@@ -53,22 +52,6 @@ class Dishes extends Component {
     getMenu(merchantId, restaurantId)
     getMenuGroup({ merchantId, restaurantId, menuId })
     getMenuItems({ merchantId, restaurantId, menuId })
-
-    // const {
-    //   // authUser: {
-    //   //   user: { id: merchantId }
-    //   // },
-    //   restaurantInfo: {
-    //     restaurant: {
-    //       id: restaurantId = `0053dc1a-5473-4000-9e99-6ec2f9f2e14d`,
-    //     },
-    //   },
-    //   getMenu,
-    // } = this.props
-    // const merchantId = `2487f7ec-2f25-4692-a2d5-97a7a471ebbd`
-    // console.log(merchantId)
-    // console.log(restaurantId)
-    // getMenu(merchantId, restaurantId)
   }
 
   componentDidUpdate() {

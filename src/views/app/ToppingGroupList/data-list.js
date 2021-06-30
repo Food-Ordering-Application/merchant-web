@@ -51,7 +51,7 @@ class DataListPages extends Component {
 
       selectedPageSize: 10,
       orderOptions: [
-        { column: 'title', label: 'Product Name' },
+        { column: 'title', label: 'Tên nhóm' },
         { column: 'category', label: 'Category' },
         { column: 'status', label: 'Status' },
       ],
@@ -64,7 +64,7 @@ class DataListPages extends Component {
         { label: 'Món tráng miệng', value: 'Món tráng miệng', key: 3 },
       ],
 
-      selectedOrderOption: { column: 'title', label: 'Product Name' },
+      selectedOrderOption: { column: 'title', label: 'Tên nhóm' },
       dropdownSplitOpen: false,
       modalOpen: false,
       currentPage: 1,

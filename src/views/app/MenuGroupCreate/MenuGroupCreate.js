@@ -6,14 +6,12 @@ import IntlMessages from 'src/helpers/IntlMessages'
 
 const MenuGroupCreate = (props) => {
   const initialValues = {
-    name: 'Cơm',
-    index: 65537,
+    name: '',
+    index: '',
     isActive: true,
   }
 
   const handleSubmit = (values) => {
-    console.log('SUBMIT create group')
-    console.log(values)
     const { createMenuGroup, loading, history } = props
     if (!loading) {
       if (values.name !== '' && values.index !== '') {
@@ -25,7 +23,7 @@ const MenuGroupCreate = (props) => {
 
   const validateName = (value) => {
     let error
-    if (!value) {
+    if (!value || !value.trim()) {
       error = `Please enter menu group's name`
     } else if (value.length < 2) {
       error = 'Value must be longer than 2 characters'
@@ -85,9 +83,7 @@ const MenuGroupCreate = (props) => {
 
             <Button
               color='primary'
-              className={`btn-shadow btn-multiple-state ${
-                props ? 'show-spinner' : ''
-              }`}
+              className={`btn-shadow btn-multiple-state`}
               size='lg'
             >
               <span className='spinner d-inline-block'>

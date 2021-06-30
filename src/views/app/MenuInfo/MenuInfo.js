@@ -404,7 +404,7 @@ const MenuInfo = (props) => {
             onClick={onMenuItemCreateClick}
           >
             <span>
-              <IntlMessages id='menu.menu-create-btn' />
+              <IntlMessages id='menu.menu-item-create-btn' />
             </span>
           </button>
         </div>
@@ -423,7 +423,7 @@ const MenuInfo = (props) => {
             <Button
               color='primary'
               size='lg'
-              className='show-by-btn top-right-button'
+              className='btn-shadow btn-multiple-state show-by-btn top-right-button'
               onClick={() => toggleDisplayByCategory()}
             >
               {/* <IntlMessages id='pages.add-new' /> */}

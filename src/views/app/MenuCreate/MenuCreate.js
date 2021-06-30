@@ -60,9 +60,9 @@ const MenuCreate = (props) => {
   const [loading, setLoading] = useState(false)
 
   const initialValues = {
-    menuName: 'Thực đơn 1',
+    menuName: '',
     isActive: true,
-    index: 65536,
+    index: 1,
   }
 
   // const merchantId = `2487f7ec-2f25-4692-a2d5-97a7a471ebbd`

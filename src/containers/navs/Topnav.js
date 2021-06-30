@@ -355,17 +355,17 @@ class TopNav extends Component {
                 color='#aaaaaa'
                 id='selectRestaurant'
               ></span>
-              <Tooltip
+              {/* <Tooltip
                 placement='bottom'
                 isOpen={tooltipOpen}
                 target={'selectRestaurant'}
                 toggle={this.toggleTooltip}
               >
                 Chọn nhà hàng
-              </Tooltip>
+              </Tooltip> */}
             </div>
 
-            <TopnavEasyAccess />
+            {/* <TopnavEasyAccess /> */}
             {/* <TopnavNotifications /> */}
             <button
               className='header-icon btn btn-empty d-none d-sm-inline-block'

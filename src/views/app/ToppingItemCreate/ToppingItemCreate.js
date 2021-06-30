@@ -50,14 +50,12 @@ const ToppingItemCreate = (props) => {
 
   const initialValues = {
     toppingGroup: '',
-    name: 'Topping 1',
-    description: 'Toppping 1 Description',
-    price: '20000',
-    imageUrl:
-      'https://daotaobeptruong.vn/wp-content/uploads/2020/09/topping-la-gi.jpg',
+    name: '',
+    description: '',
+    price: '',
     isActive: true,
     maxQuant: 1,
-    index: 65537,
+    index: '',
 
     // toppingGroup: '',
     // name: '',
@@ -188,7 +186,8 @@ const ToppingItemCreate = (props) => {
           >
             <FormGroup className='form-group has-float-label'>
               <Label>
-                <IntlMessages id='menu.select-menu-group' />
+                {/* <IntlMessages id='menu.select-menu-group' /> */}
+                Nhóm topping
               </Label>
               <select
                 name='toppingGroup'
@@ -255,7 +254,7 @@ const ToppingItemCreate = (props) => {
               )}
             </FormGroup>
 
-            <FormGroup className='form-group has-float-label'>
+            {/* <FormGroup className='form-group has-float-label'>
               <Label>
                 <IntlMessages id='menu.topping-item-image' />
               </Label>
@@ -269,7 +268,7 @@ const ToppingItemCreate = (props) => {
                   {errors.imageUrl}
                 </div>
               )}
-            </FormGroup>
+            </FormGroup> */}
 
             <FormGroup className='form-group has-float-label'>
               <Label>

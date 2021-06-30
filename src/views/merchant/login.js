@@ -43,17 +43,17 @@ class Login extends Component {
 
   validateUsername = (value) => {
     let error
-    if (!value) {
+    if (!value || !value.trim()) {
       error = 'Please enter your user name'
     } else if (value.length < 5) {
-      error = 'Value must be longer than 4 characters'
+      error = 'User name must be longer than 4 characters'
     }
     return error
   }
 
   validatePassword = (value) => {
     let error
-    if (!value) {
+    if (!value || !value.trim()) {
       error = 'Please enter your password'
     } else if (value.length < 4) {
       error = 'Value must be longer than 3 characters'
