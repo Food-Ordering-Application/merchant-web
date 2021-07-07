@@ -116,19 +116,19 @@ const data = [
     //   },
     // ],
   },
-  {
-    id: 'new-order',
-    icon: 'iconsminds-map-marker-2',
-    label: 'menu.new-order',
-    to: '/app/new-order',
-    // subs: [
-    //   {
-    //     icon: 'simple-icon-paper-plane',
-    //     label: 'menu.second',
-    //     to: '/app/anylitics/anylitics',
-    //   },
-    // ],
-  },
+  // {
+  //   id: 'new-order',
+  //   icon: 'iconsminds-map-marker-2',
+  //   label: 'menu.new-order',
+  //   to: '/app/new-order',
+  //   // subs: [
+  //   //   {
+  //   //     icon: 'simple-icon-paper-plane',
+  //   //     label: 'menu.second',
+  //   //     to: '/app/anylitics/anylitics',
+  //   //   },
+  //   // ],
+  // },
   {
     id: 'map',
     icon: 'iconsminds-map-marker-2',
