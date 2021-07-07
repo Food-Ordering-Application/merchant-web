@@ -12,6 +12,8 @@ import DataListView from './DataListView'
 import ImageListView from './ImageListView'
 import ThumbListView from './ThumbListView'
 import AddNewModal from '../../../containers/pages/AddNewModal'
+import isEqual from 'lodash.isequal'
+import Select from 'react-select'
 
 function collect(props) {
   return { data: props.data }
@@ -94,9 +96,10 @@ class DataListPages extends Component {
     } = this.props
     const {
       data: { data: prevData },
+      prevPage,
     } = prevProps
 
-    if (newData.length > 0 && prevData.length === 0) {
+    if (!isEqual(newData, prevData)) {
       this.dataListRender()
     }
   }
@@ -110,7 +113,7 @@ class DataListPages extends Component {
 
   toggleModal = () => {
     const { history } = this.props
-    history.push(`/app/staffs/create`)
+    // history.push(`/app/staffs/create`)
     // this.setState({
     //   modalOpen: !this.state.modalOpen,
     // })
@@ -142,6 +145,7 @@ class DataListPages extends Component {
     return false
   }
   onChangePage = (page) => {
+    this.props.onPageChange(page)
     this.setState(
       {
         currentPage: page,
@@ -165,7 +169,7 @@ class DataListPages extends Component {
     if (!event.target.className.includes('custom-control')) {
       // Menu item clicked
       const { history } = this.props
-      history.push(`/app/dishes/${id}`)
+      // history.push(`/app/dishes/${id}`)
     }
     if (
       event.target.tagName === 'A' ||
@@ -249,6 +253,7 @@ class DataListPages extends Component {
     items = items.filter(
       (item) =>
         item.delivery &&
+        item.delivery.customerName &&
         item.delivery.customerName.toLowerCase().includes(search)
     )
     this.setState({
@@ -276,6 +281,16 @@ class DataListPages extends Component {
     return true
   }
 
+  timeOptions = [
+    { value: 6, label: 'Tháng 6' },
+    { value: 7, label: 'Tháng 7' },
+    { value: 8, label: 'Tháng 8' },
+  ]
+
+  onTimeSelect = ({ value }) => {
+    this.props.onTimeSelect(value)
+  }
+
   render() {
     const {
       currentPage,
@@ -294,7 +309,7 @@ class DataListPages extends Component {
     const startIndex = (currentPage - 1) * selectedPageSize
     const endIndex = currentPage * selectedPageSize
 
-    return !this.state.isLoading ? (
+    return !this.state.isLoading || this.props.loading ? (
       <div className='loading' />
     ) : (
       <Fragment>
@@ -322,6 +337,25 @@ class DataListPages extends Component {
             // isStaffList={true}
             isOrderList
           />
+          <div
+            style={{ width: '110px', marginBottom: '15px', marginLeft: 'auto' }}
+          >
+            <Select
+              className={`react-select`}
+              placeholder={'Chọn tháng'}
+              classNamePrefix='react-select-active-state'
+              options={this.timeOptions}
+              value={this.timeOptions.find(
+                (option) => option.value === this.props.time
+              )}
+              styles={{
+                // Fixes the overlapping problem of the component
+                menu: (provided) => ({ ...provided, zIndex: 9999 }),
+              }}
+              onChange={this.onTimeSelect}
+              // onBlur={handleBlur}
+            />
+          </div>
           <AddNewModal
             modalOpen={modalOpen}
             toggleModal={this.toggleModal}
@@ -376,8 +410,8 @@ class DataListPages extends Component {
               }
             })}
             <Pagination
-              currentPage={this.state.currentPage}
-              totalPage={this.state.totalPage}
+              currentPage={this.props.currentPage || this.state.currentPage}
+              totalPage={this.props.totalPage || this.state.totalPage}
               onChangePage={(i) => this.onChangePage(i)}
             />
             <ContextMenuContainer
