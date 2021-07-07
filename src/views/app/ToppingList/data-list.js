@@ -11,7 +11,6 @@ import ListPageHeading from '../../../containers/pages/ListPageHeading'
 import ImageListView from '../../../containers/pages/ImageListView'
 import ThumbListView from '../../../containers/pages/ThumbListView'
 import AddNewModal from '../../../containers/pages/AddNewModal'
-
 // import mockData from './mockData.json'
 
 function collect(props) {
@@ -260,18 +259,39 @@ class DataListPages extends Component {
     return true
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const {
+  //     data: { data: prevData },
+  //   } = this.props
+  //   const {
+  //     data: { data: nextData },
+  //   } = nextProps
+
+  //   console.log('update')
+  //   console.log(prevData)
+  //   console.log(nextData)
+  //   if (!isEqual(prevData, nextData)) {
+  //     this.dataListRender(nextData)
+  //     console.log('not equal')
+  //   }
+  //   return true
+  // }
+
+  componentDidUpdate(prevProps) {
     const {
-      data: { data: prevData },
+      data: { data: newData },
     } = this.props
     const {
-      data: { data: nextData },
-    } = nextProps
-    if (!isEqual(prevData, nextData)) {
-      this.dataListRender(nextData)
-      return true
+      data: { data: prevData },
+      prevPage,
+    } = prevProps
+
+    if (!isEqual(newData, prevData)) {
+      this.dataListRender()
     }
-    return true
+    // if (newData.length > 0 && prevData.length === 0) {
+    //   this.dataListRender()
+    // }
   }
 
   render() {

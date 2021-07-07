@@ -193,7 +193,6 @@ const getMenuItemsAsync = async (
 }
 
 function* getMenuItems({ payload }) {
-  console.log('ASDS')
   const { merchantId, restaurantId, menuId, page, size } = payload
   try {
     const response = yield call(

@@ -74,67 +74,71 @@ const ToppingList = (props) => {
   }, [menus])
 
   useEffect(() => {
-    const pageSize = 10
-    console.log(toppingItems)
     if (toppingItems.length !== 0 && toppingGroups.length !== 0) {
       setLoading(false)
     }
-    console.log(toppingItems.length !== 0)
-    console.log(tableData.data.length === 0)
-    console.log(toppingGroups.length > 0)
     if (
       toppingItems.length !== 0 &&
       // tableData.data.length === 0 &&
       toppingGroups.length > 0
     ) {
-      const newToppingItems = toppingItems.map(
-        ({
+      mapDataToTable()
+    }
+  }, [toppingItems, toppingGroups])
+
+  useEffect(() => {
+    mapDataToTable()
+  }, [toppingItems])
+
+  const mapDataToTable = () => {
+    const pageSize = 10
+    const newToppingItems = toppingItems.map(
+      ({
+        id,
+        name,
+        price,
+        maxQuantity,
+        isActive,
+        index,
+        state,
+        imageUrl,
+        description,
+        toppingGroupId,
+        menuId,
+      }) => {
+        const group = findToppingGroupById(toppingGroupId, toppingGroups)
+
+        return {
           id,
-          name,
           price,
           maxQuantity,
           isActive,
           index,
           state,
-          imageUrl,
           description,
           toppingGroupId,
           menuId,
-        }) => {
-          const group = findToppingGroupById(toppingGroupId, toppingGroups)
-
-          return {
-            id,
-            price,
-            maxQuantity,
-            isActive,
-            index,
-            state,
-            description,
-            toppingGroupId,
-            menuId,
-            title: name,
-            img: imageUrl,
-            // category: group.name || 'Unknown',
-            category: group?.name || 'Unknown',
-            statusColor: 'secondary',
-            // date: '01.04.2021',
-          }
+          title: name,
+          img: imageUrl,
+          // category: group.name || 'Unknown',
+          category: group?.name || 'Unknown',
+          statusColor: 'secondary',
+          // date: '01.04.2021',
         }
-      )
-
-      const newTableData = {
-        status: true,
-        totalItem: menuItems.length,
-        totalPage: Math.ceil(totalToppingItems / pageSize),
-        pageSize,
-        currentPage: '1',
-        data: newToppingItems,
       }
+    )
 
-      setTableData(newTableData)
+    const newTableData = {
+      status: true,
+      totalItem: menuItems.length,
+      totalPage: Math.ceil(totalToppingItems / pageSize),
+      pageSize,
+      currentPage: '1',
+      data: newToppingItems,
     }
-  }, [toppingItems, toppingGroups])
+
+    setTableData(newTableData)
+  }
 
   const onSelect = (ids) => {
     setSelectedItems(ids)
@@ -347,20 +351,19 @@ const ToppingList = (props) => {
       </Row>
       <Row>
         <Colxx xxs='12' className='mb-4'>
-          {tableData.data.length > 0 && (
-            <DataList
-              history={history}
-              data={tableData}
-              subData={menuItems}
-              onSelect={onSelect}
-              onDeleteItems={onDeleteItems}
-              onDeactiveItems={onDeactivateItems}
-              onActiveItems={onActivateItems}
-              isTopping={true}
-              handlePageChange={handlePageChange}
-              currentPage={currentPage}
-            />
-          )}
+          <DataList
+            history={history}
+            data={tableData}
+            subData={menuItems}
+            onSelect={onSelect}
+            onDeleteItems={onDeleteItems}
+            onDeactiveItems={onDeactivateItems}
+            onActiveItems={onActivateItems}
+            isTopping={true}
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+            totalPage={Math.ceil(totalToppingItems / 10)}
+          />
         </Colxx>
       </Row>
     </Fragment>

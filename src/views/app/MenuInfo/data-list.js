@@ -13,6 +13,7 @@ import ImageListView from '../../../containers/pages/ImageListView'
 import ThumbListView from '../../../containers/pages/ThumbListView'
 import AddNewModal from '../../../containers/pages/AddNewModal'
 import { isObject } from 'formik'
+import isEqual from 'lodash.isequal'
 
 function collect(props) {
   return { data: props.data }
@@ -93,9 +94,10 @@ class DataListPages extends Component {
     } = this.props
     const {
       data: { data: prevData },
+      prevPage,
     } = prevProps
 
-    if (newData.length > 0 && prevData.length === 0) {
+    if (!isEqual(newData, prevData)) {
       this.dataListRender()
     }
   }
@@ -141,6 +143,7 @@ class DataListPages extends Component {
     return false
   }
   onChangePage = (page) => {
+    this.props.onPageChange(page)
     this.setState(
       {
         currentPage: page,
@@ -387,8 +390,8 @@ class DataListPages extends Component {
               }
             })}{' '}
             <Pagination
-              currentPage={this.state.currentPage}
-              totalPage={this.state.totalPage}
+              currentPage={this.props.currentPage || this.state.currentPage}
+              totalPage={this.props.totalPage || this.state.totalPage}
               onChangePage={(i) => this.onChangePage(i)}
             />
             <ContextMenuContainer

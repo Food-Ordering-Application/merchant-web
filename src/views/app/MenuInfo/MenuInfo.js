@@ -106,6 +106,7 @@ const MenuInfo = (props) => {
   const [tableData, setTableData] = useState({ data: [] })
   const [showByCategory, setShowByCategory] = useState(false)
   const [selectedItems, setSelectedItems] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
   const {
@@ -125,6 +126,7 @@ const MenuInfo = (props) => {
       error,
       menuItems,
       loadingMenuGroups,
+      totalMenuItems,
     },
     restaurantInfo,
   } = props
@@ -152,51 +154,59 @@ const MenuInfo = (props) => {
       tableData.data.length === 0 &&
       menuGroup.length > 0
     ) {
-      const pageSize = 10
-      const newMenuItems = menuItems.map(
-        ({
-          id,
-          name,
-          imageUrl,
-          description,
-          menuGroupId,
-          isActive,
-          price,
-          state,
-        }) => {
-          const group = findMenuGroupById(menuGroupId, menuGroup)
-
-          return {
-            id,
-            title: name,
-            img: imageUrl,
-            category: group?.name || 'Unknown',
-            statusColor: 'secondary',
-            description,
-            isActive,
-            price,
-            date: '',
-            state,
-          }
-        }
-      )
-
-      const newTableData = {
-        status: true,
-        totalItem: menuItems.length,
-        totalPage: Math.ceil(menuItems.length / pageSize),
-        pageSize,
-        currentPage: '1',
-        data: newMenuItems,
-      }
-      setTableData(newTableData)
+      mapDataToTable()
     }
   }, [menuItems, menuGroup])
+
+  useEffect(() => {
+    mapDataToTable()
+  }, [menuItems])
 
   useEffect(() => {
     setShowCreateGroup(false)
     setShowCreateItem(false)
   }, [menuGroup])
+
+  const mapDataToTable = () => {
+    const pageSize = 10
+    const newMenuItems = menuItems.map(
+      ({
+        id,
+        name,
+        imageUrl,
+        description,
+        menuGroupId,
+        isActive,
+        price,
+        state,
+      }) => {
+        const group = findMenuGroupById(menuGroupId, menuGroup)
+
+        return {
+          id,
+          title: name,
+          img: imageUrl,
+          category: group?.name || 'Unknown',
+          statusColor: 'secondary',
+          description,
+          isActive,
+          price,
+          date: '',
+          state,
+        }
+      }
+    )
+
+    const newTableData = {
+      status: true,
+      totalItem: menuItems.length,
+      totalPage: Math.ceil(menuItems.length / pageSize),
+      pageSize,
+      currentPage,
+      data: newMenuItems,
+    }
+    setTableData(newTableData)
+  }
 
   const toggleDisplayByCategory = () => {
     setShowByCategory((prevState) => !prevState)
@@ -373,6 +383,12 @@ const MenuInfo = (props) => {
     }
   }
 
+  const onPageChange = (page) => {
+    console.log(page)
+    setCurrentPage(page)
+    getMenuItems({ merchantId, restaurantId, menuId, page: page - 1 })
+  }
+
   if (loading || fetchLoading) {
     // return <p>Loading</p>
     return <div className='loading'></div>
@@ -454,6 +470,9 @@ const MenuInfo = (props) => {
               onDeleteItems={onDeleteItems}
               onDeactiveItems={onDeactivateItems}
               onActiveItems={onActivateItems}
+              totalPage={Math.ceil(totalMenuItems / 10)}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
             />
           </Colxx>
         </Row>
