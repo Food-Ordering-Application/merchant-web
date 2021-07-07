@@ -55,13 +55,18 @@ const DataListView = ({
                 padding: '1.75rem 0.75rem',
               }}
             >
-              <p
-                className='list-item-heading mb-1 truncate w-sm-100'
+              <NavLink
+                to={`/app/orders/${product.id}`}
                 style={{ width: '22%' }}
-                // onClick={onNavLinkClick}
               >
-                {product.delivery?.customerName || 'Unknown'}
-              </p>
+                <p
+                  className='list-item-heading mb-1 truncate w-sm-100'
+
+                  // onClick={onNavLinkClick}
+                >
+                  {product.delivery?.customerName || 'Unknown'}
+                </p>
+              </NavLink>
               <p className='mb-1 text-muted text-md-small w-15 w-sm-100'>
                 {product.orderItems.length} món
               </p>

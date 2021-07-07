@@ -15,7 +15,6 @@ import {
   Marker,
 } from 'react-google-maps'
 import { PUSHER_APP_CLUSTER, PUSHER_APP_KEY } from 'src/constants/config'
-import { listenNotification } from 'src/helpers/Utils'
 import { connect } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -40,7 +39,6 @@ const MapsUi = (props) => {
     const merchantId = localStorage.getItem('merchant_id')
 
     getRestaurant(merchantId, restaurantId)
-    listenNotification()
   }, [])
 
   const { position } = restaurant

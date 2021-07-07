@@ -6,6 +6,7 @@ import authUser from './auth/reducer'
 import staffUser from './staff/reducer'
 import merchantUser from './merchant/reducer'
 import restaurantInfo from './restaurant/reducer'
+import newOrder from './newOrder/reducer'
 
 const reducers = combineReducers({
   menu,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   merchantUser,
   restaurantInfo,
   restaurantMenu,
+  newOrder,
 })
 
 export default reducers

@@ -46,6 +46,10 @@ const Orders = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './orders')
 )
 
+const NewOrder = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './newOrder')
+)
+
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
 )
@@ -121,6 +125,10 @@ class App extends Component {
               <Route
                 path={`${match.url}/blank-page`}
                 render={(props) => <BlankPage {...props} />}
+              />
+              <Route
+                path={`${match.url}/new-order`}
+                render={(props) => <NewOrder {...props} />}
               />
               {/* <Route
                 path={`${match.url}/create-cashier`}

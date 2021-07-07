@@ -20,7 +20,7 @@ import {
   USER_URL,
 } from 'src/constants/config'
 import './home.scss'
-import { getDayByName, listenNotification, padNumber } from 'src/helpers/Utils'
+import { getDayByName, padNumber } from 'src/helpers/Utils'
 
 class Home extends Component {
   constructor(props) {
@@ -31,8 +31,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    listenNotification()
-
     const restaurantId = localStorage.getItem('restaurant_id')
     const merchantId = localStorage.getItem('merchant_id')
     const accessToken = localStorage.getItem('access_token')

@@ -436,6 +436,22 @@ class Sidebar extends Component {
         </NavLink>
       )
     }
+    if (item.id === 'new-order') {
+      return (
+        <NavLink to={item.to} data-flag={item.id}>
+          <span
+            class='iconify'
+            data-icon='fluent:form-new-24-regular'
+            data-inline='false'
+            data-width='37'
+            data-height='37'
+          ></span>
+          <span style={{ marginTop: 5 }}>
+            <IntlMessages id={item.label} />
+          </span>
+        </NavLink>
+      )
+    }
     if (item.id === 'map') {
       return (
         <NavLink to={item.to} data-flag={item.id}>

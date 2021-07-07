@@ -183,7 +183,7 @@ class DataListPages extends Component {
       })
     }
 
-    const { onSelect } = this.props
+    // const { onSelect } = this.props
     let selectedItems = this.state.selectedItems
 
     if (selectedItems.includes(id)) {
@@ -191,7 +191,7 @@ class DataListPages extends Component {
     } else {
       selectedItems.push(id)
     }
-    onSelect(selectedItems)
+    // onSelect(selectedItems)
     this.setState({
       selectedItems,
     })
@@ -210,7 +210,7 @@ class DataListPages extends Component {
       this.setState({
         selectedItems,
       })
-      onSelect(selectedItems)
+      // onSelect(selectedItems)
     }
     document.activeElement.blur()
   }
@@ -225,20 +225,20 @@ class DataListPages extends Component {
   }
 
   handleChangeSelectAll = (isToggle) => {
-    const { onSelect } = this.props
+    // const { onSelect } = this.props
     if (this.state.selectedItems.length >= this.state.items.length) {
       if (isToggle) {
         this.setState({
           selectedItems: [],
         })
-        onSelect([])
+        // onSelect([])
       }
     } else {
       const newSelectedItems = this.state.items.map((x) => x.id)
       this.setState({
         selectedItems: newSelectedItems,
       })
-      onSelect(newSelectedItems)
+      // onSelect(newSelectedItems)
     }
     document.activeElement.blur()
     return false

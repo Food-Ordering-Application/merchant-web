@@ -173,6 +173,7 @@ module.exports = {
   'menu.order-list': 'Danh sách đơn hàng',
   'menu.btn-save': 'Hoàn tất',
   'menu.topping-item-max-quantity': 'Số lượng tối đa',
+  'menu.new-order': 'Đơn mới',
 
   'menu.toppings': 'Toppings',
   'menu.topping-data-list': 'Danh sách topping',

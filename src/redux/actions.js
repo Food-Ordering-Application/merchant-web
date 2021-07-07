@@ -115,6 +115,12 @@ export const GET_STAFF_LIST_SUCCESS = 'GET_STAFF_LIST_SUCCESS'
 export const GET_STAFF_LIST_ERROR = 'GET_STAFF_LIST_ERROR'
 export const SET_STAFF = 'SET_STAFF'
 
+// SET NEW ORDER
+export const SET_NEW_ORDER = 'SET_NEW_ORDER'
+export const GET_NEW_ORDER = 'GET_NEW_ORDER'
+export const GET_NEW_ORDER_SUCCESS = 'GET_NEW_ORDER_SUCCESS'
+export const GET_NEW_ORDER_ERROR = 'GET_NEW_ORDER_ERROR'
+
 export * from './menu2/actions'
 export * from './settings/actions'
 export * from './auth/actions'
@@ -122,3 +128,4 @@ export * from './staff/actions'
 export * from './merchant/actions'
 export * from './restaurant/actions'
 export * from './menu/actions'
+export * from './newOrder/actions'

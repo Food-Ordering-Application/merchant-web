@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Pusher from 'pusher-js'
 import localStorage from 'redux-persist/es/storage'
 import { NotificationManager } from 'src/components/common/react-notifications'
 import { BASE_URL, PUSHER_APP_CLUSTER, PUSHER_APP_KEY } from 'src/constants'
@@ -120,26 +119,6 @@ export const padNumber = (number, offset = 2, char = '0') => {
   return String(number).padStart(offset, char)
 }
 
-export const listenNotification = async () => {
-  // const restaurantId = '6587f789-8c76-4a2e-9924-c14fc30629ef'
-  // const restaurantId = '01bd1b6e-2dd2-4c7a-a79b-7ae05d029495'
-  const restaurantId = await localStorage.getItem('restaurant_id')
-
-  const pusher = new Pusher(PUSHER_APP_KEY, {
-    cluster: PUSHER_APP_CLUSTER,
-  })
-
-  // const order_id = `1e6f9eca-0899-4d49-9837-49f2397ff808`
-  const channel = pusher.subscribe(`orders_${restaurantId}`)
-  console.log(channel)
-
-  channel.bind('order-status', (data) => {
-    console.log(data)
-
-    handleNotification(data)
-  })
-}
-
 // const handleNotification = (data) => {
 //   const NOTIFY_TIME = 15000
 
@@ -172,57 +151,16 @@ export const listenNotification = async () => {
 //   }
 // }
 
-const STATUS_MAPPER = {
+export const STATUS_MAPPER = {
   CONFIRMED: 'Đã xác nhận',
   COMPLETED: 'Đã hoàn thành',
   ASSIGNING_DRIVER: 'Đang tìm tài xế',
   READY: 'Đã chuẩn bị món',
 }
 
-const getCustomer = async (customerId) => {
-  const accessToken = await localStorage.getItem('access_token')
-  try {
-    const { data } = await axios({
-      method: 'GET',
-      url: `${BASE_URL}/user/customer/${customerId}`,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        customerId,
-      },
-    })
-    console.log(data)
-    const {
-      data: { user },
-    } = data
-    return user
-  } catch (error) {
-    console.log('Error in getCustomer')
-    console.error(error)
-    return null
-  }
-}
-
-const handleNotification = async (data) => {
-  const NOTIFY_TIME = 15000
-
-  // New order
-  try {
-    const {
-      order: {
-        delivery: { customerId },
-        status,
-      },
-    } = data
-
-    const customer = await getCustomer(customerId)
-    const notiMessage = `Khách hàng ${customer.name} \n Trạng thái:${STATUS_MAPPER[status]}`
-    NotificationManager.success(notiMessage, 'Đơn hàng mới', NOTIFY_TIME)
-    return
-  } catch (error) {
-    console.log(error)
-  }
+export const PAYMENT_STATUS_MAPPER = {
+  SUCCESS: 'Hoàn thành',
+  PROCESSING: 'Đang xử lý',
 }
 
 export const PASSWORD_REGEX = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})'
