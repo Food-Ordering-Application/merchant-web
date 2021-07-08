@@ -198,29 +198,16 @@ const OrderList = (props) => {
     return <div className='loading'></div>
   }
 
-  if (tableData.data.length === 0) {
-    return (
-      <div>
-        <p>Hiện tại chưa có đơn hàng nào!</p>
-        {/* <Button
-          color='primary'
-          size='lg'
-          className='top-right-button mr-2'
-          onClick={redirectToCreateStaff}
-        >
-          <IntlMessages id='pages.add-new' />
-        </Button> */}
-      </div>
-    )
-  }
+  // if (tableData.data.length === 0) {
+  //   return (
+  //     <div>
+  //       <p>Hiện tại chưa có đơn hàng nào!</p>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className='OrderList'>
-      <Row>
-        <Colxx xxs='12'>
-          <Separator className='mb-5' />
-        </Colxx>
-      </Row>
       <Row>
         <Colxx xxs='12' className='mb-4'>
           {tableData.data.length > 0 && (

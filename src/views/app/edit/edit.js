@@ -232,7 +232,7 @@ const EditProfile = (props) => {
     <div className='EditRestaurant'>
       <Row>
         <Colxx xxs='12'>
-          <Breadcrumb heading='menu.home' match={props.match} />
+          <h1>Chỉnh sửa nhà hàng</h1>
           <Separator className='mb-5' />
         </Colxx>
       </Row>

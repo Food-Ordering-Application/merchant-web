@@ -38,6 +38,7 @@ module.exports = {
   'menu.gogo': 'Gogo',
   'menu.home': 'Trang chủ',
   'menu.dishes': 'Món ăn',
+  'menu.topping-group-list': 'Danh sách nhóm topping',
   'menu.second': 'Second',
   'menu.data-list': 'Danh sách món',
   'menu.ui': 'UI',

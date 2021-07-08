@@ -26,6 +26,12 @@ const data = [
     ],
   },
   {
+    id: 'menuGroup',
+    icon: 'iconsminds-bar-chart-4',
+    label: 'menu.menu-group',
+    to: '/app/menu-group',
+  },
+  {
     id: 'dishes',
     icon: 'iconsminds-chef-hat',
     label: 'menu.dishes',
@@ -37,6 +43,12 @@ const data = [
         to: '/app/dishes/dishes',
       },
     ],
+  },
+  {
+    id: 'toppingGroup',
+    icon: 'iconsminds-bar-chart-4',
+    label: 'menu.topping-group',
+    to: '/app/topping-group',
   },
   {
     id: 'topping',
@@ -51,18 +63,7 @@ const data = [
     //   },
     // ],
   },
-  {
-    id: 'menuGroup',
-    icon: 'iconsminds-bar-chart-4',
-    label: 'menu.menu-group',
-    to: '/app/menu-group',
-  },
-  {
-    id: 'toppingGroup',
-    icon: 'iconsminds-bar-chart-4',
-    label: 'menu.topping-group',
-    to: '/app/topping-group',
-  },
+
   {
     id: 'staffs',
     icon: 'iconsminds-user',
@@ -73,6 +74,19 @@ const data = [
     //     icon: 'simple-icon-paper-plane',
     //     label: 'menu.second',
     //     to: '/app/dishes/dishes',
+    //   },
+    // ],
+  },
+  {
+    id: 'orders',
+    icon: 'bx bx-cookie',
+    label: 'menu.orders',
+    to: '/app/orders',
+    // subs: [
+    //   {
+    //     icon: 'simple-icon-paper-plane',
+    //     label: 'menu.second',
+    //     to: '/app/anylitics/anylitics',
     //   },
     // ],
   },
@@ -90,19 +104,7 @@ const data = [
     //   },
     // ],
   },
-  {
-    id: 'orders',
-    icon: 'bx bx-cookie',
-    label: 'menu.orders',
-    to: '/app/orders',
-    // subs: [
-    //   {
-    //     icon: 'simple-icon-paper-plane',
-    //     label: 'menu.second',
-    //     to: '/app/anylitics/anylitics',
-    //   },
-    // ],
-  },
+
   {
     id: 'payment',
     icon: 'iconsminds-billing',

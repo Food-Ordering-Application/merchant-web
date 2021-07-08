@@ -232,7 +232,7 @@ class DataListPages extends Component {
 
     if (search) {
       items = items.filter((item) => {
-        return item.title.toString().toLowerCase().includes(search)
+        return item.name.toString().toLowerCase().includes(search)
       })
     }
 
@@ -306,7 +306,7 @@ class DataListPages extends Component {
       <Fragment>
         <div className='disable-text-selection'>
           <ListPageHeading
-            heading='menu.topping-data-list'
+            heading='menu.topping-group-list'
             displayMode={displayMode}
             changeDisplayMode={this.changeDisplayMode}
             handleChangeSelectAll={this.handleChangeSelectAll}

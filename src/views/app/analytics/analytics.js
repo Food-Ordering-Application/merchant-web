@@ -467,7 +467,7 @@ const Analytics = (props) => {
     <Fragment>
       <Row>
         <Colxx xxs='12'>
-          <Breadcrumb heading='menu.analytics' match={props.match} />
+          <h1>Thống kê</h1>
           <Separator className='mb-5' />
         </Colxx>
       </Row>

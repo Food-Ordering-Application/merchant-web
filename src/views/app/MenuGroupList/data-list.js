@@ -231,7 +231,7 @@ class DataListPages extends Component {
 
     if (search) {
       items = items.filter((item) => {
-        return item.title.toString().toLowerCase().includes(search)
+        return item.name.toString().toLowerCase().includes(search)
       })
     }
 

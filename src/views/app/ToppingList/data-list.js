@@ -347,6 +347,7 @@ class DataListPages extends Component {
             onDeactiveItems={onDeactiveItems}
             onActiveItems={onActiveItems}
             isTopping={isTopping}
+            oneView={true}
           />
           <AddNewModal
             modalOpen={modalOpen}

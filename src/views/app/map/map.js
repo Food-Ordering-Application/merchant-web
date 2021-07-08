@@ -51,7 +51,7 @@ const MapsUi = (props) => {
     <Fragment>
       <Row>
         <Colxx xxs='12'>
-          <Breadcrumb heading='menu.maps' match={match} />
+          <h1>Bản hồ</h1>
           <Separator className='mb-5' />
         </Colxx>
       </Row>

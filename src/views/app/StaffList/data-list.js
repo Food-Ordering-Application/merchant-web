@@ -292,6 +292,7 @@ class DataListPages extends Component {
             toggleModal={this.toggleModal}
             onDeleteItems={onDeleteItems}
             isStaffList={true}
+            noSort={true}
           />
           <AddNewModal
             modalOpen={modalOpen}

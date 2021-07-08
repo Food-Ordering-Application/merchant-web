@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import { ContextMenuTrigger } from 'react-contextmenu'
 import { Colxx } from '../../../components/common/CustomBootstrap'
 import clsx from 'clsx'
+import { ORDER_STATUS_MAPPER } from 'src/helpers/Utils'
 
 const DataListView = ({
   product,
@@ -25,6 +26,7 @@ const DataListView = ({
   }
 
   const linkToTopping = `/app/toppings/item/${product.id}`
+
   const getColor = (status) => {
     if (status === 'COMPLETED') return '#38d043'
     if (status === 'ORDERED') return '#b22ee9'
@@ -90,7 +92,7 @@ const DataListView = ({
                     marginBotton: '0.25rem',
                   }}
                 >
-                  {product.status}
+                  {ORDER_STATUS_MAPPER[product.status]}
                 </span>
               </div>
             </div>

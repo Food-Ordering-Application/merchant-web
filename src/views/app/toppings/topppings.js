@@ -132,7 +132,7 @@ class Dishes extends Component {
       <Fragment>
         <Row>
           <Colxx xxs='12'>
-            <Breadcrumb heading='menu.dishes' match={this.props.match} />
+            <h1>Món ăn</h1>
             <Separator className='mb-5' />
           </Colxx>
         </Row>

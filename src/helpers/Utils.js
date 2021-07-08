@@ -158,6 +158,13 @@ export const STATUS_MAPPER = {
   READY: 'Đã chuẩn bị món',
 }
 
+export const ORDER_STATUS_MAPPER = {
+  CONFIRMED: 'Đã xác nhận',
+  COMPLETED: 'Đã hoàn thành',
+  CANCELLED: 'Đã hủy',
+  ORDERED: 'Chưa xác nhận',
+}
+
 export const PAYMENT_STATUS_MAPPER = {
   SUCCESS: 'Hoàn thành',
   PROCESSING: 'Đang xử lý',
