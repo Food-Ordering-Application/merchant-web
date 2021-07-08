@@ -38,7 +38,7 @@ const Analytics = (props) => {
   const accessToken = localStorage.getItem('access_token')
 
   const [statisticType, setStatisticType] = useState('week')
-  const [statisticMonth, setStatisticMonth] = useState('week')
+  const [statisticMonth, setStatisticMonth] = useState('6')
   const [orderCountByMonth, setOrderCountByMonthData] = useState({
     labels: [],
     dataArr: [],
@@ -74,8 +74,12 @@ const Analytics = (props) => {
   }, [])
 
   useEffect(() => {
-    fetchOrderByTime()
-  }, [statisticType])
+    fetchAnalyticsData()
+  }, [statisticType, statisticMonth])
+
+  // useEffect(() => {
+  //   fetchOrderByTime()
+  // }, [statisticType])
 
   const fetchAnalyticsData = async () => {
     fetchOrderByTime()
@@ -85,10 +89,15 @@ const Analytics = (props) => {
     fetchTopDishes()
   }
 
+  const getMonth = () => {
+    return +statisticMonth < 10 ? `0${statisticMonth}` : `${statisticMonth}`
+  }
+
   const fetchTopDishes = async () => {
     try {
       // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       let time
+      const month = getMonth()
 
       const { data } = await axios({
         method: 'POST',
@@ -97,8 +106,8 @@ const Analytics = (props) => {
           Authorization: `Bearer ${accessToken}`,
         },
         data: {
-          from: '2021-06-01',
-          to: '2021-06-30',
+          from: `2021-${month}-01`,
+          to: `2021-${month}-30`,
           sortBy: 'totalOrder',
           limit: 5,
         },
@@ -159,15 +168,17 @@ const Analytics = (props) => {
     try {
       // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       let time
+      const month = getMonth()
+
       if (statisticType === 'week') {
         time = {
-          from: '2021-06-01',
-          to: '2021-06-30',
+          from: `2021-${month}-01`,
+          to: `2021-${month}-30`,
         }
       } else {
         time = {
-          from: '2021-06-21',
-          to: '2021-06-27',
+          from: `2021-${month}-21`,
+          to: `2021-${month}-27`,
         }
       }
       const { data } = await axios({
@@ -238,6 +249,8 @@ const Analytics = (props) => {
   const fetchRevenueInsight = async () => {
     try {
       // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
+      const month = getMonth()
+
       const { data } = await axios({
         method: 'POST',
         url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/revenue-insight`,
@@ -245,8 +258,8 @@ const Analytics = (props) => {
           Authorization: `Bearer ${accessToken}`,
         },
         data: {
-          from: '2021-06-01',
-          to: '2021-06-30',
+          from: `2021-${month}-01`,
+          to: `2021-${month}-30`,
         },
       })
       if (!data) return
@@ -427,6 +440,10 @@ const Analytics = (props) => {
     setStatisticType(value)
   }
 
+  const handleMonthChange = (value) => {
+    setStatisticMonth(value)
+  }
+
   const { messages } = props.intl
 
   const getDataArr = () => {
@@ -451,14 +468,18 @@ const Analytics = (props) => {
           {/* <WebsiteVisitsChartCard /> */}
           <OrderByMonthChartCard
             {...orderCountByMonth}
+            month={statisticMonth}
             handleTypeChange={handleTypeChange}
+            handleTimeChange={handleMonthChange}
           />
         </Colxx>
         <Colxx sm='12' md='6' className='mb-4'>
           {/* <ConversionRatesChartCard /> */}
           <OrderRevenueChartCard
             {...orderRevenue}
+            month={statisticMonth}
             handleTypeChange={handleTypeChange}
+            handleTimeChange={handleMonthChange}
           />
         </Colxx>
       </Row>
@@ -468,7 +489,8 @@ const Analytics = (props) => {
           {/* <WebsiteVisitsChartCard /> */}
           <RevenueInsightChartCard
             {...revenueInsight}
-            handleTypeChange={handleTypeChange}
+            month={statisticMonth}
+            handleTimeChange={handleMonthChange}
           />
         </Colxx>
       </Row>
@@ -476,15 +498,17 @@ const Analytics = (props) => {
       <Row>
         <Colxx sm='12' md='6' className='mb-4'>
           <OrderStatusChartCard
+            month={statisticMonth}
             labels={['Hoàn thành đơn (%)', 'Hủy đơn (%)']}
             dataArr={getDataArr()}
             labelsDataset={['completed', 'cancelled']}
-            handleTypeChange={handleTypeChange}
+            handleMonthChange={handleMonthChange}
           />
         </Colxx>
         <Colxx sm='12' md='6' className='mb-4'>
           <OrderAreaChartCard
             {...orderByArea}
+            month={statisticMonth}
             handleTypeChange={handleTypeChange}
           />
         </Colxx>
@@ -494,7 +518,8 @@ const Analytics = (props) => {
         <Colxx sm='12' md='6' className='mb-4'>
           <OrderCountChartCard
             {...orderCountInsight}
-            handleTypeChange={handleTypeChange}
+            month={statisticMonth}
+            handleTimeChange={handleMonthChange}
           />
         </Colxx>
       </Row>

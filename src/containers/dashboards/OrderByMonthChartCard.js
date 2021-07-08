@@ -156,9 +156,14 @@ const OrderByAreaChartCard = (props) => {
     }
   })
 
-  const onSelectChange = ({ value }) => {
+  const onTypeChange = ({ value }) => {
     const { handleTypeChange } = props
     handleTypeChange(value)
+  }
+
+  const onTimeChange = ({ value }) => {
+    const { handleTimeChange } = props
+    handleTimeChange(value)
   }
 
   return (
@@ -173,15 +178,17 @@ const OrderByAreaChartCard = (props) => {
             className='select-week-day my-react-select'
             classNamePrefix='my-select'
             value={selectOptions.filter((option) => option.value === 'week')}
-            onChange={onSelectChange}
+            onChange={onTypeChange}
             options={selectOptions}
           />
 
           <Select
             classNamePrefix='my-select'
             className='select-month my-react-select'
-            value={selectMonthOptions.filter((option) => option.value === '6')}
-            onChange={onSelectChange}
+            value={selectMonthOptions.filter(
+              (option) => +option.value === +props.month
+            )}
+            onChange={onTimeChange}
             options={selectMonthOptions}
           />
         </div>

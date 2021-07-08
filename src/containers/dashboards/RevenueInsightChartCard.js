@@ -154,9 +154,9 @@ const RevenueInsightChartCard = (props) => {
   //   }
   // })
 
-  const onSelectChange = ({ value }) => {
-    const { handleTypeChange } = props
-    handleTypeChange(value)
+  const onTimeChange = ({ value }) => {
+    const { handleTimeChange } = props
+    handleTimeChange(value)
   }
 
   return (
@@ -179,8 +179,10 @@ const RevenueInsightChartCard = (props) => {
           <Select
             classNamePrefix='my-select'
             className='select-month my-react-select'
-            value={selectMonthOptions.filter((option) => option.value === '6')}
-            onChange={onSelectChange}
+            value={selectMonthOptions.filter(
+              (option) => +option.value === +props.month
+            )}
+            onChange={onTimeChange}
             options={selectMonthOptions}
           />
         </div>
