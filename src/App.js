@@ -102,7 +102,7 @@ const App = (props) => {
     })
 
     const channel = pusher.subscribe(`orders_${restaurantId}`)
-    // console.log(channel)
+    console.log(channel)
 
     channel.bind('order-status', (data) => {
       console.log(data)

@@ -61,12 +61,12 @@ const UploadImage = (props) => {
             &nbsp;
             {limit !== 1 && (
               <button
+                type='button'
                 onClick={(a, b) => {
                   setShowDefaultImg(false)
                   onImageRemoveAll(a, b)
                 }}
               >
-                {' '}
                 <IntlMessages id='restaurant.remove-all' />
               </button>
             )}
@@ -90,6 +90,7 @@ const UploadImage = (props) => {
                     onMouseLeave={onMouseLeave}
                   >
                     <button
+                      type='button'
                       className='mr-2'
                       // onMouseOver={() => console.log('HIHI')}
                       onClick={() => {
@@ -99,6 +100,7 @@ const UploadImage = (props) => {
                       <IntlMessages id='restaurant.update' />
                     </button>
                     <button
+                      type='button'
                       onMouseOver={onMouseOver}
                       onClick={() => onImageRemove(index)}
                     >
