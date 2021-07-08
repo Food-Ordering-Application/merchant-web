@@ -236,7 +236,9 @@ const OrderRevenueChartCard = (props) => {
           <Select
             className='select-week-day my-react-select'
             classNamePrefix='my-select'
-            value={selectOptions.filter((option) => option.value === 'week')}
+            value={selectOptions.filter(
+              (option) => option.value === props.type
+            )}
             onChange={onSelectChange}
             options={selectOptions}
           />

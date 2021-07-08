@@ -93,6 +93,10 @@ const Analytics = (props) => {
     return +statisticMonth < 10 ? `0${statisticMonth}` : `${statisticMonth}`
   }
 
+  const getType = () => {
+    return statisticType === 'week' ? 'day' : 'week'
+  }
+
   const fetchTopDishes = async () => {
     try {
       // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
@@ -170,15 +174,15 @@ const Analytics = (props) => {
       let time
       const month = getMonth()
 
-      if (statisticType === 'week') {
+      if (getType() === 'week') {
         time = {
-          from: `2021-${month}-01`,
-          to: `2021-${month}-30`,
+          from: `2021-${month}-05`,
+          to: `2021-${month}-11`,
         }
       } else {
         time = {
-          from: `2021-${month}-21`,
-          to: `2021-${month}-27`,
+          from: `2021-${month}-01`,
+          to: `2021-${month}-30`,
         }
       }
       const { data } = await axios({
@@ -191,7 +195,8 @@ const Analytics = (props) => {
           // from: '2021-06-01',
           // to: '2021-06-30',
           ...time,
-          groupByInterval: statisticType,
+          // groupByInterval: statisticType,
+          groupByInterval: getType(),
         },
       })
       if (!data) return
@@ -366,9 +371,12 @@ const Analytics = (props) => {
     try {
       // let restaurantId = `6587f789-8c76-4a2e-9924-c14fc30629ef` // Fixed
       let orderArr = []
-      const totalPage = new Array(3)
+      const totalPage = new Array(4)
 
+      let page = 0
       await Bluebird.map(totalPage, async () => {
+        page++
+        console.log(page)
         const { data } = await axios({
           method: 'GET',
           url: `${BASE_URL}/order/get-all-restaurant-orders`,
@@ -378,7 +386,7 @@ const Analytics = (props) => {
           params: {
             restaurantId,
             query: 'ALL',
-            pageNumber: 7,
+            pageNumber: page,
             // orderStatus: ORDER_STATUS.COMPLETED,
           },
         })
@@ -469,6 +477,7 @@ const Analytics = (props) => {
           <OrderByMonthChartCard
             {...orderCountByMonth}
             month={statisticMonth}
+            type={statisticType}
             handleTypeChange={handleTypeChange}
             handleTimeChange={handleMonthChange}
           />
@@ -477,6 +486,7 @@ const Analytics = (props) => {
           {/* <ConversionRatesChartCard /> */}
           <OrderRevenueChartCard
             {...orderRevenue}
+            type={statisticType}
             month={statisticMonth}
             handleTypeChange={handleTypeChange}
             handleTimeChange={handleMonthChange}
@@ -489,6 +499,7 @@ const Analytics = (props) => {
           {/* <WebsiteVisitsChartCard /> */}
           <RevenueInsightChartCard
             {...revenueInsight}
+            type={statisticType}
             month={statisticMonth}
             handleTimeChange={handleMonthChange}
           />
@@ -498,6 +509,7 @@ const Analytics = (props) => {
       <Row>
         <Colxx sm='12' md='6' className='mb-4'>
           <OrderStatusChartCard
+            type={statisticType}
             month={statisticMonth}
             labels={['Hoàn thành đơn (%)', 'Hủy đơn (%)']}
             dataArr={getDataArr()}
@@ -508,6 +520,7 @@ const Analytics = (props) => {
         <Colxx sm='12' md='6' className='mb-4'>
           <OrderAreaChartCard
             {...orderByArea}
+            type={statisticType}
             month={statisticMonth}
             handleTypeChange={handleTypeChange}
           />
@@ -518,6 +531,7 @@ const Analytics = (props) => {
         <Colxx sm='12' md='6' className='mb-4'>
           <OrderCountChartCard
             {...orderCountInsight}
+            type={statisticType}
             month={statisticMonth}
             handleTimeChange={handleMonthChange}
           />
