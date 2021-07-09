@@ -61,13 +61,16 @@ const OrderDetail = (props) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    console.log('DID MOUNT')
     fetchOrderData()
   }, [])
 
   const fetchOrderData = async () => {
+    console.log('fetch')
     setLoading(true)
     const order = await getOrder(orderIdParam)
     if (!order) return
+    console.log(order)
     const newOrderDetail = {
       id: order.id,
       createdAt: moment(order.createdAt).format('hh:mm:ss DD/MM/YYYY'),
@@ -76,6 +79,7 @@ const OrderDetail = (props) => {
       grandTotal: order.grandTotal,
       status: order.status,
     }
+    console.log(newOrderDetail)
     // console.log('detail:', newOrderDetail)
     setOrderDetail(newOrderDetail)
     setLoading(false)
@@ -102,7 +106,7 @@ const OrderDetail = (props) => {
     }
   }
 
-  if (!orderDetail.id && loading) {
+  if (loading) {
     return <div className='loading'></div>
   }
 

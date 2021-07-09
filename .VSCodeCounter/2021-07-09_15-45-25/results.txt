@@ -1,0 +1,78 @@
+Date : 2021-07-09 15:45:25
+Directory : /Users/mac/Workspaces/Code/foa/frontend/src/containers
+Total : 49 files,  5632 codes, 375 comments, 569 blanks, all 6576 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         42 |      5,399 |        370 |        514 |      6,283 |
+| SCSS       |          7 |        233 |          5 |         55 |        293 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                 | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                    |         49 |      5,632 |        375 |        569 |      6,576 |
+| dashboards                                                                                           |         21 |      1,618 |        157 |        223 |      1,998 |
+| form-validations                                                                                     |         10 |      1,654 |          3 |        152 |      1,809 |
+| navs                                                                                                 |          6 |      1,091 |        178 |        101 |      1,370 |
+| pages                                                                                                |         12 |      1,269 |         37 |         93 |      1,399 |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                             | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/ConversionRatesChartCard.js        | JavaScript |         48 |          1 |          7 |         56 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderAreaChartCard.js              | JavaScript |         98 |         46 |         16 |        160 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderAreaChartCard.scss            | SCSS       |         39 |          1 |          9 |         49 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderByMonthChartCard.js           | JavaScript |        190 |          5 |         21 |        216 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderByMonthChartCard.scss         | SCSS       |         37 |          0 |          9 |         46 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderRevenueChartCard.js           | JavaScript |        263 |         38 |         25 |        326 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderRevenueChartCard.scss         | SCSS       |         37 |          0 |          9 |         46 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderRevenuePieChartCard.js        | JavaScript |        159 |         20 |         18 |        197 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderRevenuePieChartCard.scss      | SCSS       |         38 |          1 |          9 |         48 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderStatusChartCard.js            | JavaScript |        179 |         21 |         21 |        221 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderStatusChartCard.scss          | SCSS       |         39 |          1 |          9 |         49 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/OrderStockRadarChart.js            | JavaScript |         20 |          0 |          5 |         25 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/ProductCategoriesDoughnut.js       | JavaScript |         20 |          0 |          5 |         25 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/ProductCategoriesPolarArea.js      | JavaScript |         20 |          0 |          5 |         25 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/ProfileStatuses.js                 | JavaScript |         30 |          0 |          4 |         34 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/RevenueInsightChartCard.js         | JavaScript |        179 |         23 |         21 |        223 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/RevenueInsightChartCard.scss       | SCSS       |         39 |          0 |          9 |         48 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/SalesChartCard.js                  | JavaScript |         48 |          0 |          6 |         54 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/SmallLineCharts.js                 | JavaScript |         45 |          0 |          5 |         50 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/SortableStaticticsRow.js           | JavaScript |         39 |          0 |          4 |         43 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/dashboards/WebsiteVisitsChartCard.js          | JavaScript |         51 |          0 |          6 |         57 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/AvailityBasic.js             | JavaScript |         86 |          1 |         10 |         97 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/AvailityCustom.js            | JavaScript |        153 |          1 |         14 |        168 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/AvailityDefaultValues.js     | JavaScript |         84 |          1 |         13 |         98 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/FormikBasicFieldLevel.js     | JavaScript |         87 |          0 |         10 |         97 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/FormikBasicFormLevel.js      | JavaScript |         76 |          0 |         13 |         89 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/FormikCustomComponents.js    | JavaScript |        323 |          0 |         17 |        340 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/FormikCustomWithTopLabels.js | JavaScript |        300 |          0 |         19 |        319 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/FormikFields.js              | JavaScript |        282 |          0 |         21 |        303 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/FormikValidationSchema.js    | JavaScript |        111 |          0 |         13 |        124 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/form-validations/TooltipLocations.js          | JavaScript |        152 |          0 |         22 |        174 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/navs/Breadcrumb.js                            | JavaScript |         53 |          0 |          6 |         59 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/navs/Sidebar.js                               | JavaScript |        524 |        127 |         34 |        685 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/navs/Topnav.DarkSwitch.js                     | JavaScript |         66 |          0 |          9 |         75 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/navs/Topnav.EasyAccess.js                     | JavaScript |         46 |          0 |          4 |         50 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/navs/Topnav.Notifications.js                  | JavaScript |         52 |          0 |          5 |         57 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/navs/Topnav.js                                | JavaScript |        350 |         51 |         43 |        444 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/AddNewModal.js                          | JavaScript |         62 |         28 |          3 |         93 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/ContextMenuContainer.js                 | JavaScript |         21 |          0 |          3 |         24 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/DataListView.js                         | JavaScript |        123 |          5 |         10 |        138 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/FeatureComparison.js                    | JavaScript |        321 |          0 |         23 |        344 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/GalleryDetail.js                        | JavaScript |         73 |          0 |          8 |         81 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/GalleryProfile.js                       | JavaScript |        121 |          0 |         13 |        134 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/ImageListView.js                        | JavaScript |         69 |          1 |          3 |         73 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/ListPageHeading.js                      | JavaScript |        261 |          0 |         14 |        275 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/ListPageHeading.scss                    | SCSS       |          4 |          2 |          1 |          7 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/Orders.js                               | JavaScript |         40 |          0 |          5 |         45 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/Pagination.js                           | JavaScript |         99 |          0 |          6 |        105 |
+| /Users/mac/Workspaces/Code/foa/frontend/src/containers/pages/ThumbListView.js                        | JavaScript |         75 |          1 |          4 |         80 |
+| Total                                                                                                |            |      5,632 |        375 |        569 |      6,576 |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
