@@ -172,6 +172,9 @@ export const PAYMENT_STATUS_MAPPER = {
 
 export const PASSWORD_REGEX = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})'
 
+export const isLetterAndNumber = (str) => {
+  return str.length === 1 && str.match(/[a-zA-Z0-9]/i)
+}
 // export const   createFile = async (url) => {
 //   let response = await fetch(url);
 //   let data = await response.blob();

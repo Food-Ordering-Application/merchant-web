@@ -25,10 +25,13 @@ import './paypal.scss'
 
 const Paypal = (props) => {
   const { history } = props
-
+  const [refLink, setRefLink] = useState('')
+  const [isOnboard, setIsOnboard] = useState(false)
   const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     checkOnboard()
+    getReferralLink()
   }, [])
 
   const checkOnboard = async () => {
@@ -45,7 +48,14 @@ const Paypal = (props) => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      console.log(data)
+      const {
+        data: {
+          payment: {
+            paypal: { isOnboard },
+          },
+        },
+      } = data
+      setIsOnboard(isOnboard)
     } catch (error) {
       console.log('Error in checking restaurant Paypal onboard')
       console.error(error)
@@ -77,7 +87,8 @@ const Paypal = (props) => {
       const {
         data: { action_url },
       } = data
-      window.location.replace(action_url)
+      console.log(action_url)
+      setRefLink(action_url)
     } catch (error) {
       console.log('Error in gettiing Paypal referral link')
       console.error(error)
@@ -85,8 +96,56 @@ const Paypal = (props) => {
     }
   }
 
+  const onBtnClick = () => {
+    if (!refLink) return
+
+    window.location.replace(refLink)
+    // history.replace({ pathname: refLink, state: { isActive: true } })
+    // history.push(refLink)
+
+    // channelStore: {isCasualSeller: true, mepUrl: "https://www.sandbox.paypal.com/mep/dashboard",…}
+    // isCasualSeller: true
+    // isDataAPI: false
+    // mepUrl: "https://www.sandbox.paypal.com/mep/dashboard"
+    // returnToPartnerUrl: "http://web-merchant-2.herokuapp.com/?merchantId=08f3fa7b-0119-4bca-8794-4c3dec2f2e58&merchantIdInPayPal=QB5RH2NS5T8PW&permissionsGranted=true&consentStatus=true&productIntentId=addipmt&productIntentID=addipmt&isEmailConfirmed=false"
+    // returnToPartnerUrl: "http://localhost:3000/?merchantId=08f3fa7b-0119-4bca-8794-4c3dec2f2e58&merchantIdInPayPal=QB5RH2NS5T8PW&permissionsGranted=true&consentStatus=true&productIntentId=addipmt&productIntentID=addipmt&isEmailConfirmed=false"
+    // sharedAuthorizationCode: null
+    // sharedId: null
+  }
+
   if (loading) {
     return <div className='loading'></div>
+  }
+
+  if (isOnboard) {
+    return (
+      <Fragment>
+        <Row>
+          <Colxx xxs='12'>
+            <h1>Thanh toán</h1>
+            <Separator className='mb-5' />
+          </Colxx>
+        </Row>
+        <Row>
+          <Card className='mb-4'>
+            <CardBody className='d-flex align-items-center'>
+              <Colxx md='6'>
+                <img
+                  src='https://chapelboro.com/wp-content/uploads/2016/04/PayPal.png'
+                  alt='Paypal-banner'
+                  style={{ width: 250 }}
+                />
+              </Colxx>
+              <Colxx xxs='12' md='6'>
+                <CardTitle>
+                  <h4>Nhà hàng đã liên kết Paypal.</h4>
+                </CardTitle>
+              </Colxx>
+            </CardBody>
+          </Card>
+        </Row>
+      </Fragment>
+    )
   }
 
   return (
@@ -120,7 +179,7 @@ const Paypal = (props) => {
                   }`}
                   size='lg'
                   type='submit'
-                  onClick={getReferralLink}
+                  onClick={onBtnClick}
                 >
                   <span className='spinner d-inline-block'>
                     <span className='bounce1' />

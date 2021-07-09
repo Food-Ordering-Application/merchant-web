@@ -55,6 +55,7 @@ module.exports = {
   'menu.dishes-menu': 'Món ăn',
   'menu.edit': 'Edit profile',
   'menu.staffs': 'Nhân viên',
+  'menu.speciality': 'Đặc trưng',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -180,9 +181,8 @@ module.exports = {
   'menu.topping-data-list': 'Danh sách topping',
 
   'paypal.link-paypal': 'Liên kết Paypal',
-  'paypal.link-text':
-    'Tích hợp thanh toán online cho nhà hàng với Paypal ngay.',
-  'paypal.link-button': 'Xác nhận liên kết',
+  'paypal.link-text': 'Tích hợp thanh toán online cho nhà hàng với Paypal.',
+  'paypal.link-button': 'Đăng ký ngay',
 
   'analytics.order-by-month': 'Tổng đơn hàng',
   'analytics.order-revenue': 'Doanh thu',

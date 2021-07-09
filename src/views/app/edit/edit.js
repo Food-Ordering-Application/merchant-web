@@ -55,6 +55,7 @@ const EditProfile = (props) => {
     image: null,
     imageUrl: '',
     loadingImage: false,
+    categories: [],
     // position: { lng: 106.6799777, lat: 10.762913 }, // Truong KHTN
     position: { lng: 0, lat: 0 }, // Truong KHTN
   })
@@ -82,6 +83,7 @@ const EditProfile = (props) => {
       name,
       position: { longitude, latitude },
       coverImageUrl,
+      categories: categoryList,
       verifiedImageUrl,
     } = restaurant
     setInfo((prevState) => {
@@ -93,6 +95,10 @@ const EditProfile = (props) => {
         address,
         imageUrl: coverImageUrl,
         position: { lng: longitude, lat: latitude },
+        categories: categoryList.map(({ id, name }) => ({
+          label: name,
+          value: id,
+        })),
         // position: { lng: latitude, lat: longitude },
       }
     })
@@ -139,7 +145,6 @@ const EditProfile = (props) => {
     } = info
 
     setLoading(true)
-    console.log(image)
     let updatedRestaurant
     // Do update cover image
     if (image) {
@@ -187,6 +192,15 @@ const EditProfile = (props) => {
       }
     }
 
+    // updatedRestaurant = {
+    //   ...updatedRestaurant,
+    //   // categories: info.categories.map(({ label, value }) => ({
+    //   //   id: value,
+    //   //   name: label,
+    //   // })),
+    //   categoryIds: info.categories.map(({ label, value }) => value),
+    // }
+
     console.log(updatedRestaurant)
     const restaurantId = id
     const merchantId = localStorage.getItem('merchant_id')
@@ -209,8 +223,6 @@ const EditProfile = (props) => {
         3000
       )
       window.reload()
-
-      console.log(data)
     } catch (error) {
       console.log('Error in Edit Restaurant Profile')
       console.error(error)
@@ -222,6 +234,68 @@ const EditProfile = (props) => {
     // if (Object.values(this.state).includes('')) {
     //   NotificationManager.error('Please complete the form', 'Error', 3000)
     // }
+  }
+
+  const typeOptions = [
+    {
+      value: 1,
+      label: 'Đồ ăn',
+    },
+    {
+      value: 2,
+      label: 'Đồ uống',
+    },
+    {
+      value: 3,
+      label: 'Đồ chay',
+    },
+    {
+      value: 4,
+      label: 'Bánh kem',
+    },
+    {
+      value: 5,
+      label: 'Tráng miệng',
+    },
+    {
+      value: 6,
+      label: 'Homemade',
+    },
+    {
+      value: 7,
+      label: 'Vỉa hè',
+    },
+    {
+      value: 8,
+      label: 'Pizza/Burger',
+    },
+    {
+      value: 9,
+      label: 'Món gà',
+    },
+    {
+      value: 10,
+      label: 'Món lẩu',
+    },
+    {
+      value: 11,
+      label: 'Sushi',
+    },
+    {
+      value: 12,
+      label: 'Mì phở',
+    },
+    {
+      value: 13,
+      label: 'Cơm hộp',
+    },
+  ]
+
+  const onTypehange = (values) => {
+    setInfo((prev) => ({
+      ...prev,
+      categories: values,
+    }))
   }
 
   if (!restaurant.id) {
@@ -249,9 +323,6 @@ const EditProfile = (props) => {
                 {/* <NavLink to={`/`} className='white'>
                   <span className='logo-single' />
                 </NavLink> */}
-                <CardTitle className='mb-4'>
-                  <IntlMessages id='restaurant.edit' />
-                </CardTitle>
 
                 <div className='img-upload-container upload-cover-img'>
                   <div className='upload-label'>
@@ -270,6 +341,28 @@ const EditProfile = (props) => {
                   <Label className='form-group has-float-label mb-4'>
                     <Input type='text' name='name' defaultValue={info.name} />
                     <IntlMessages id='restaurant.name' />
+                  </Label>
+
+                  <Label className='form-group has-float-label mb-4'>
+                    <Select
+                      className={`react-select ${props.className}`}
+                      placeholder={props.placeholder || 'Select'}
+                      classNamePrefix='react-select-active-state'
+                      options={typeOptions}
+                      isMulti
+                      // blurInputOnSelect={false}
+                      closeMenuOnSelect={false}
+                      // value={typeOptions.find(
+                      //   (option) => option.value === toppingGroupDetail.isActive
+                      // )}
+                      value={[...info.categories]}
+                      styles={{
+                        // Fixes the overlapping problem of the component
+                        menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                      }}
+                      onChange={onTypehange}
+                    />
+                    <IntlMessages id='menu.speciality' />
                   </Label>
 
                   <Label className='form-group has-float-label mb-4'>

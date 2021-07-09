@@ -15,11 +15,18 @@ import NotificationContainer from './components/common/react-notifications/Notif
 import { isMultiColorActive } from './constants/defaultValues'
 import {
   getDirection,
+  isLetter,
+  isLetterAndNumber,
   listenNotification,
   STATUS_MAPPER,
 } from './helpers/Utils'
 import 'boxicons'
-import { BASE_URL, PUSHER_APP_CLUSTER, PUSHER_APP_KEY } from './constants'
+import {
+  BASE_URL,
+  PUSHER_APP_CLUSTER,
+  PUSHER_APP_KEY,
+  USER_URL,
+} from './constants'
 import axios from 'axios'
 import { NotificationManager } from './components/common/react-notifications'
 
@@ -65,8 +72,11 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
 
 const App = (props) => {
   const { setNewOrder, newOrder } = props
+  const merchantId = localStorage.getItem('merchant_id')
+  const restaurantId = localStorage.getItem('restaurant_id')
 
   useEffect(() => {
+    processPaypal()
     listenNotification()
     const direction = getDirection()
     if (direction.isRtl) {
@@ -81,6 +91,51 @@ const App = (props) => {
     // handleNewOrder()
     return () => {}
   }, [])
+
+  const processPaypal = async () => {
+    const path = window.location.href
+    // const path = `http://localhost:3000/?merchantId=08f3fa7b-0119-4bca-8794-4c3dec2f2e58&merchantIdInPayPal=QB5RH2NS5T8PW&permissionsGranted=true&consentStatus=true&productIntentId=addipmt&productIntentID=addipmt&isEmailConfirmed=false`
+    if (!path.includes('merchantIdInPayPal')) return
+
+    const shortenPath = path
+      .substring(path.indexOf('merchantIdInPayPal='), path.length - 1)
+      .split('merchantIdInPayPal=')[1]
+    let i = 0
+    let paypalMerchantId = ''
+    while (isLetterAndNumber(shortenPath[i])) {
+      paypalMerchantId += shortenPath[i]
+      i++
+    }
+    await savePaypalId(paypalMerchantId)
+    NotificationManager.success(
+      `Merchant Id in Paypal: ${paypalMerchantId}`,
+      'Sign up Paypal successfully!',
+      6000,
+      () => window.location.replace(`/app/payment`)
+    )
+  }
+
+  const savePaypalId = async (paypalId) => {
+    try {
+      const accessToken = localStorage.getItem('access_token')
+      const { data } = await axios({
+        method: 'POST',
+        url: `${USER_URL}/${merchantId}/restaurant/${restaurantId}/payment/paypal`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: {
+          merchantIdInPayPal: `${paypalId}`,
+        },
+      })
+
+      console.log(data)
+    } catch (error) {
+      console.log('Error in savePaypalId')
+      console.error(error)
+      return {}
+    }
+  }
 
   const handleNewOrder = async () => {
     // const order = await getOrder(`97a1496a-70ac-4018-88f3-191aded95956`)
